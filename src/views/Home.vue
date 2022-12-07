@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <!-- <HeroSection /> -->
+  <HeroSection />
   <!-- <category /> -->
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/Logo.png"> -->
@@ -11,14 +11,14 @@
 <script>
 // @ is an alias to /src
 import NavBar from '@/components/NavBar.vue';
-// import HeroSection from '@/components/HeroSection.vue';
+import HeroSection from '@/components/HeroSection.vue';
 // import Category from '@/components/Category.vue';
 
 export default {
   name: 'Home',
   components: {
     NavBar,
-    // HeroSection,
+    HeroSection,
     // Category,
   },
 };
