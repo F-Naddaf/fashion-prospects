@@ -6,16 +6,16 @@
     </div>
     <div class="category-images">
       <router-link to="/">
-        <img alt="banner-image" src="../assets/men-clothing.png" />
+        <img alt="banner-image" src="../assets/men-clothing.png" /><h3>Men's Clothing</h3>
       </router-link>
       <router-link to="/">
-        <img alt="banner-image" src="../assets/women-clothing.png" />
+        <img alt="banner-image" src="../assets/women-clothing.png" /><h3>Women's Clothing</h3>
       </router-link>
       <router-link to="/">
-        <img alt="banner-image" src="../assets/jewelery.png" />
+        <img alt="banner-image" src="../assets/jewelery.png" /><h3>Jewelery</h3>
       </router-link>
       <router-link to="/">
-        <img alt="banner-image" src="../assets/electronics.png" />
+        <img alt="banner-image" src="../assets/electronics.png" /><h3>Electronics</h3>
       </router-link>
     </div>
   </main>
@@ -31,24 +31,24 @@ export default {
 .category-container {
   display: flex;
   flex-direction: column;
-  margin: 10% 0;
+  margin: 5% 0;
   width: 100%;
 }
 .category-title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 45px;
 }
 .category-title h3 {
   font-size: 22px;
-  color: rgb(80, 80, 80);
+  color: #01689c;
 }
 .category-title span {
   width: 50px;
   height: 3px;
   border-radius: 5px;
-  margin: -15px 0 15px 0;
+  margin: -18px 0 15px 0;
   background-color: #ff0084;
 }
 .category-images {
@@ -56,13 +56,21 @@ export default {
   justify-content: space-evenly;
 }
 .category-images a {
+  text-decoration: none;
   width: 100%;
 }
+.category-images h3 {
+  font-size: 14px;
+  margin-top: 5px;
+  color: rgb(80, 80, 80);
+}
 .category-images a:hover {
-  transform: translateY(-8px);
+  transition-timing-function: ease-in-out;
+  transition: 0.5s;
+  transform: translateY(-15px);
 }
 img {
   width: 70%;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
 </style>
