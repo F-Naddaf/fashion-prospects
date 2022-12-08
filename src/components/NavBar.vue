@@ -20,24 +20,18 @@
             <li>Products</li>
             <span> |</span>
           </router-link>
-          <li class="drop-down">
-            <router-link to="/" class="drop-down-link">
-              <li>Men's clothing</li>
-            </router-link>
-            <router-link to="/" class="drop-down-link">
-              <li>Women's clothing</li>
-            </router-link>
-            <router-link to="/" class="drop-down-link">
-              <li>Electronics</li>
-            </router-link>
-            <router-link to="/About" class="drop-down-link">
-              <li>Jewelery</li> 
-            </router-link>
-          </li>
+          <ul class="drop-down">
+            <li v-for="category in categoryList" :key="category">
+              <router-link :to="`/${category}`" class="drop-down-link">
+                {{ category }}
+              </router-link>
+            </li>
+          </ul>
         </ul>
         <router-link to="/About"
           ><li>About</li>
-          <span> |</span></router-link>
+          <span> |</span></router-link
+        >
         <router-link to="/"><li>Contact</li></router-link>
       </ul>
       <div class="user-container">
@@ -54,6 +48,17 @@
 <script>
 export default {
   name: 'NavBar',
+  data() {
+    return {
+      categoryList: [],
+    };
+  },
+  async mounted() {
+    const result = await fetch(
+      'https://fakestoreapi.com/products/categories',
+    ).then((res) => res.json());
+    this.categoryList = result;
+  },
 };
 </script>
 
@@ -161,6 +166,9 @@ h3 {
   color: white;
   height: 45px;
   padding: 0 30px;
+}
+.drop-down-link {
+  text-transform: capitalize;
 }
 .drop-down-link:hover {
   background-color: #ff0084;

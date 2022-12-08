@@ -6,16 +6,20 @@
     </div>
     <div class="category-images">
       <router-link to="/">
-        <img alt="banner-image" src="../assets/men-clothing.png" /><h3>Men's Clothing</h3>
+        <img alt="banner-image" src="../assets/men-clothing.png" />
+        <h3>Men's Clothing</h3>
       </router-link>
       <router-link to="/">
-        <img alt="banner-image" src="../assets/women-clothing.png" /><h3>Women's Clothing</h3>
+        <img alt="banner-image" src="../assets/women-clothing.png" />
+        <h3>Women's Clothing</h3>
       </router-link>
       <router-link to="/">
-        <img alt="banner-image" src="../assets/jewelery.png" /><h3>Jewelery</h3>
+        <img alt="banner-image" src="../assets/jewelery.png" />
+        <h3>Jewelery</h3>
       </router-link>
       <router-link to="/">
-        <img alt="banner-image" src="../assets/electronics.png" /><h3>Electronics</h3>
+        <img alt="banner-image" src="../assets/electronics.png" />
+        <h3>Electronics</h3>
       </router-link>
     </div>
   </main>
@@ -23,6 +27,7 @@
 
 <script>
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Category',
 };
 </script>
@@ -72,5 +77,5 @@ export default {
 img {
   width: 70%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
+}
 </style>

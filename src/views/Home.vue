@@ -15,6 +15,7 @@ import HeroSection from '@/components/HeroSection.vue';
 import Category from '@/components/Category.vue';
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Home',
   components: {
     NavBar,
