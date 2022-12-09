@@ -6,6 +6,10 @@
     </div>
     <article class="featured-products-container">
       <div v-if="isLoading"><LoadingSpinner /></div>
+      <h3 class="error" v-if="error">
+        Oops something went wrong!
+        <span>Error 404</span>
+      </h3>
       <ul v-for="product in featuredList" :key="product.id">
         <li>
           <router-link :to="`/${product.category} ${product.id}`">
@@ -38,6 +42,7 @@ export default {
       featuredList: [],
       stars: [0, 1, 2, 3, 4],
       isLoading: false,
+      error: false,
     };
   },
   async mounted() {
@@ -65,7 +70,7 @@ export default {
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
-      console.log(error);
+      this.error = true;
     }
   },
   components: {
@@ -75,6 +80,18 @@ export default {
 </script>
 
 <style scoped>
+.error {
+  display: flex;
+  flex-direction: column;
+  color: #ff0084;
+  font-weight: 700;
+  font-size: 22px;
+  padding: 10px;
+  align-self: center;
+}
+.error span {
+  color: #ff0084;
+}
 .featured-products {
   display: flex;
   flex-direction: column;
