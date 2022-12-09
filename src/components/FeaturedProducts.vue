@@ -5,7 +5,7 @@
       <span></span>
     </div>
     <article class="featured-products-container">
-      <p v-if="isLoading">loading...</p>
+      <div v-if="isLoading"><LoadingSpinner /></div>
       <ul v-for="product in featuredList" :key="product.id">
         <li>
           <router-link :to="`/${product.category} ${product.id}`">
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import LoadingSpinner from '@/components/Spinner.vue';
 export default {
   name: 'FeaturedProducts',
   data() {
@@ -66,6 +67,9 @@ export default {
       this.isLoading = false;
       console.log(error);
     }
+  },
+  components: {
+    LoadingSpinner,
   },
 };
 </script>
