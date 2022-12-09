@@ -14,8 +14,6 @@
               <p class="title">
                 {{ product.title }}
               </p>
-              <!-- </div>
-            <div> -->
               <p class="price">€ {{ product.price }}</p>
             </div>
             <div class="product-rate">
