@@ -23,7 +23,7 @@ export default {
     NavBar,
     HeroSection,
     Category,
-    FeaturedProducts
-},
+    FeaturedProducts,
+  },
 };
 </script>

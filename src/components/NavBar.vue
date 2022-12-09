@@ -21,6 +21,7 @@
             <span> |</span>
           </router-link>
           <ul class="drop-down">
+            <div v-if="isLoading"><LoadingSpinner /></div>
             <li v-for="category in categoryList" :key="category">
               <router-link :to="`/${category}`" class="drop-down-link">
                 {{ category }}
@@ -46,18 +47,30 @@
 </template>
 
 <script>
+import LoadingSpinner from '@/components/Spinner.vue';
 export default {
   name: 'NavBar',
   data() {
     return {
       categoryList: [],
+      isLoading: false,
     };
   },
   async mounted() {
-    const result = await fetch(
-      'https://fakestoreapi.com/products/categories',
-    ).then((res) => res.json());
-    this.categoryList = result;
+    this.isLoading = true;
+    try {
+      const result = await fetch(
+        'https://fakestoreapi.com/products/categories',
+      ).then((res) => res.json());
+      this.categoryList = result;
+      this.isLoading = false;
+    } catch (error) {
+      this.isLoading = false;
+      console.log(error);
+    }
+  },
+  components: {
+    LoadingSpinner,
   },
 };
 </script>
