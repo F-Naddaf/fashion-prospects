@@ -62,7 +62,6 @@ export default {
           quantity: product.rating.count,
         };
       });
-      console.log(highRated);
       this.featuredList = highRated;
       this.isLoading = false;
     } catch (error) {
