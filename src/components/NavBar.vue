@@ -22,6 +22,10 @@
           </router-link>
           <ul class="drop-down">
             <div v-if="isLoading"><LoadingSpinner /></div>
+            <p class="error" v-if="error">
+              Oops something went wrong!
+              <span>Error 404</span>
+            </p>
             <li v-for="category in categoryList" :key="category">
               <router-link :to="`/${category}`" class="drop-down-link">
                 {{ category }}
@@ -54,6 +58,7 @@ export default {
     return {
       categoryList: [],
       isLoading: false,
+      error: false,
     };
   },
   async mounted() {
@@ -61,12 +66,13 @@ export default {
     try {
       const result = await fetch(
         'https://fakestoreapi.com/products/categories',
-      ).then((res) => res.json());
-      this.categoryList = result;
+      );
+      const res = await result.json();
+      this.categoryList = res;
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
-      console.log(error);
+      this.error = true;
     }
   },
   components: {
@@ -171,6 +177,18 @@ h3 {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 15px solid #0091dc;
+}
+.error {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px;
+  align-self: center;
+}
+.error span {
+  color: white;
 }
 .drop-down a {
   display: flex;
