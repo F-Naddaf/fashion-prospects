@@ -1,15 +1,33 @@
 <template>
-  <div>
-    <h3>Featured Products</h3>
-    <p v-if="isLoading">loading...</p>
-    <ul v-for="product in featuredList" :key="product.id">
-      <li>
-        <router-link :to="`/${product.category} ${product.id}`">
-          <img :src="`${product.image}`" />
-          <p>{{ product.rate }}</p>
-        </router-link>
-      </li>
-    </ul>
+  <div class="featured-products">
+    <div class="title">
+      <h3>Featured Products</h3>
+      <span></span>
+    </div>
+    <article class="featured-products-container">
+      <p v-if="isLoading">loading...</p>
+      <ul v-for="product in featuredList" :key="product.id">
+        <li>
+          <router-link :to="`/${product.category} ${product.id}`">
+            <img :src="`${product.image}`" />
+            <div class="product-details">
+              <p class="title">
+                {{ product.title }}
+              </p>
+              <!-- </div>
+            <div> -->
+              <p class="price">€ {{ product.price }}</p>
+            </div>
+            <div class="product-rate">
+              <span v-for="star in stars" :key="star[0]">
+                <i v-if="star < product.rate" class="fa-solid fa-star"></i>
+                <i v-if="star >= product.rate" class="fa-regular fa-star"></i>
+              </span>
+            </div>
+          </router-link>
+        </li>
+      </ul>
+    </article>
   </div>
 </template>
 
@@ -19,7 +37,7 @@ export default {
   data() {
     return {
       featuredList: [],
-      // highRatedProducts: [],
+      stars: [0, 1, 2, 3, 4],
       isLoading: false,
     };
   },
@@ -37,7 +55,7 @@ export default {
         return {
           id: product.id,
           category: product.category,
-          description: product.description,
+          title: product.title.slice(0, 35),
           image: product.image,
           price: product.price,
           rate: Math.ceil(product.rating.rate),
@@ -45,10 +63,6 @@ export default {
         };
       });
       this.featuredList = highRated;
-
-      console.log('highRated', highRated);
-      console.log('topFourProducts', topFourProducts);
-
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
@@ -58,4 +72,77 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.featured-products {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 5% 0;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 45px;
+}
+.title h3 {
+  font-size: 22px;
+  color: #01689c;
+}
+.title span {
+  width: 50px;
+  height: 3px;
+  border-radius: 5px;
+  margin: -18px 0 15px 0;
+  background-color: #ff0084;
+}
+.featured-products-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+img {
+  height: 200px;
+}
+ul {
+  padding: 0;
+  width: 18%;
+}
+li {
+  list-style: none;
+}
+a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  align-items: center;
+}
+a:hover {
+  transition-timing-function: ease-in-out;
+  transition: 0.5s;
+  transform: translateY(-15px);
+}
+.product-details {
+  width: 100;
+}
+.product-details .title {
+  width: 100;
+  font-size: 14px;
+  margin-bottom: -10px;
+  color: rgb(80, 80, 80);
+}
+.product-details .price {
+  width: 100;
+  color: #01689c;
+  font-weight: 500;
+}
+.product-rate {
+  margin-top: -15px;
+}
+i {
+  font-size: 12px;
+}
+.fa-star {
+  color: gold;
+}
+</style>
