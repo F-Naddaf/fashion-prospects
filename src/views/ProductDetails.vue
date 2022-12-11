@@ -16,7 +16,7 @@
     </p>
     <span> > </span>
     <p>
-      <router-link :to="`/${productDetails.category}/${productDetails.id}`">
+      <router-link :to="`/product/${productDetails.id}`">
         {{ titleRoute }}
       </router-link>
     </p>
@@ -75,7 +75,7 @@ export default {
       outOfStock: false,
       almostSoldOut: false,
       rate: '',
-      id: 0,
+      id: '',
       titleRoute: '',
       productDetails: {},
       stars: [0, 1, 2, 3, 4],
@@ -86,28 +86,22 @@ export default {
   async mounted() {
     this.isLoading = true;
     this.id = this.$route.params.id;
-    // this.id = parseInt(this.$route.params.id);
-    const idNum = this.id;
-    // console.log('id', typeof idNum);
     try {
-      const result = await fetch(`https://fakestoreapi.com/products/?${idNum}`);
+      const result = await fetch(
+        `https://fakestoreapi.com/products/${this.id}`,
+      );
       const res = await result.json();
-      const productById = res.find((rate) => rate.id == this.$route.params.id);
-      this.rate = Math.ceil(productById.rating.rate);
-      this.productDetails = productById;
-      const getQuantity = productById.rating.count;
+      this.rate = Math.ceil(res.rating.rate);
+      this.productDetails = res;
+      const getQuantity = res.rating.count;
       this.inStock = getQuantity > 10;
       this.outOfStock = getQuantity === 0;
       this.almostSoldOut = getQuantity <= 10 && getQuantity >= 1;
-      const titleLength = productById.title.length;
+      const titleLength = res.title.length;
       this.titleRoute =
         titleLength > 14
-          ? productById.title.substring(0, 14).trim() + '...'
-          : productById.title;
-
-      console.log('res', res);
-      console.log(productById);
-
+          ? res.title.substring(0, 14).trim() + '...'
+          : res.title;
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
@@ -189,10 +183,11 @@ a {
 .product-info h2 {
   color: rgb(80, 80, 80);
   margin: 0;
+  text-align: left;
 }
 .price-section {
   display: flex;
-  width: 80%;
+  width: 100%;
   margin: 20px auto;
   justify-content: space-between;
 }
