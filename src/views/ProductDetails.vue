@@ -10,7 +10,7 @@
     </p>
     <span> > </span>
     <p>
-      <router-link to="/" class="product-category-route">{{
+      <router-link :to="`/${category}`" class="product-category-route">{{
         productDetails.category
       }}</router-link>
     </p>
@@ -74,6 +74,7 @@ export default {
       inStock: false,
       outOfStock: false,
       almostSoldOut: false,
+      category: '',
       rate: '',
       id: '',
       titleRoute: '',
@@ -97,6 +98,7 @@ export default {
       this.inStock = getQuantity > 10;
       this.outOfStock = getQuantity === 0;
       this.almostSoldOut = getQuantity <= 10 && getQuantity >= 1;
+      this.category = res.category.split(' ').join('')
       const titleLength = res.title.length;
       this.titleRoute =
         titleLength > 14

@@ -15,7 +15,7 @@ const routes = [
     component: About,
   },
   {
-    path: '/jewelery',
+    path: '/:category',
     name: 'About',
     component: About,
   },
