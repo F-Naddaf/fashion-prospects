@@ -12,7 +12,7 @@
       <ul v-for="product in featuredList" :key="product.id">
         <li>
           <router-link :to="`/${product.id}`">
-          <!-- <router-link :to="`/${product.categoryURL}/${product.id}`"> -->
+            <!-- <router-link :to="`/${product.categoryURL}/${product.id}`"> -->
             <img :src="`${product.image}`" />
             <div class="product-details">
               <p class="title">
@@ -20,15 +20,7 @@
               </p>
               <p class="price">€ {{ product.price }}</p>
             </div>
-            <div class="product-rate">
-              <span v-for="star in stars" :key="star[0]">
-                <i
-                  :class="`${
-                    star < product.rate ? ' ' : 'fa-dark'
-                  } fa-star fa-solid`"
-                ></i>
-              </span>
-            </div>
+            <ProductRate :rate="product.rate" />
           </router-link>
         </li>
       </ul>
@@ -38,12 +30,12 @@
 
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
+import ProductRate from '@/components/ProductRate.vue';
 export default {
   name: 'FeaturedProducts',
   data() {
     return {
       featuredList: [],
-      stars: [0, 1, 2, 3, 4],
       isLoading: false,
       error: { status: false, msg: '' },
     };
@@ -65,7 +57,7 @@ export default {
           title: product.title.slice(0, 35),
           image: product.image,
           price: product.price,
-          rate: Math.floor(product.rating.rate),
+          rate: Math.ceil(product.rating.rate),
           quantity: product.rating.count,
         };
       });
@@ -78,6 +70,7 @@ export default {
   },
   components: {
     LoadingSpinner,
+    ProductRate,
   },
 };
 </script>
@@ -129,14 +122,14 @@ img {
 }
 ul {
   padding: 0;
-    display: flex;
-    width: 18%;
-    height: 300px;
-    background: white;
-    align-items: flex-end;
-    justify-content: center;
-    overflow: hidden;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: flex;
+  width: 18%;
+  height: 300px;
+  background: white;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 li {
   list-style: none;

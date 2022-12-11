@@ -40,6 +40,12 @@
         </p>
         <p class="out-of-stock" v-else><span></span>Out of Stock</p>
       </div>
+      <div class="rate">
+        <p>Item rate</p>
+        <div class="rate-compo">
+          <ProductRate :rate="rate" />
+        </div>
+      </div>
       <div class="description">
         <h3>Product description:</h3>
         <p>{{ productDetails.description }}</p>
@@ -60,6 +66,7 @@
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
 import NavBar from '@/components/NavBar.vue';
+import ProductRate from '@/components/ProductRate.vue';
 export default {
   name: 'productDeatils',
   data() {
@@ -67,6 +74,7 @@ export default {
       inStock: false,
       outOfStock: false,
       almostSoldOut: false,
+      rate: '',
       id: 0,
       titleRoute: '',
       productDetails: {},
@@ -80,11 +88,12 @@ export default {
     this.id = this.$route.params.id;
     // this.id = parseInt(this.$route.params.id);
     const idNum = this.id;
-    console.log('id', typeof idNum);
+    // console.log('id', typeof idNum);
     try {
       const result = await fetch(`https://fakestoreapi.com/products/?${idNum}`);
       const res = await result.json();
       const productById = res.find((rate) => rate.id == this.$route.params.id);
+      this.rate = Math.ceil(productById.rating.rate);
       this.productDetails = productById;
       const getQuantity = productById.rating.count;
       this.inStock = getQuantity > 10;
@@ -108,6 +117,7 @@ export default {
   components: {
     NavBar,
     LoadingSpinner,
+    ProductRate,
   },
 };
 </script>
@@ -140,6 +150,9 @@ a {
   width: 40%;
 }
 .main-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5vh 0;
   border: 1px solid rgb(80, 80, 80);
   border-radius: 20px;
@@ -169,7 +182,6 @@ a {
   width: 40%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: space-between;
   margin-left: 80px;
   height: 45vh;
@@ -227,6 +239,20 @@ a {
   height: 10px;
   border-radius: 10px;
   margin-right: 5px;
+}
+.rate {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+}
+.rate p {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(80, 80, 80);
+  margin: 0 10px 0 0;
+}
+.rate-compo {
+  margin: 0;
 }
 .description {
   display: flex;
