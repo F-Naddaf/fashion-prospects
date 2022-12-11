@@ -6,13 +6,13 @@
     </div>
     <article class="featured-products-container">
       <div v-if="isLoading"><LoadingSpinner /></div>
-      <h3 class="error" v-if="error">
-        Oops something went wrong!
-        <span>Error 404</span>
+      <h3 class="error" v-if="error.status">
+        {{ error.msg }}
       </h3>
       <ul v-for="product in featuredList" :key="product.id">
         <li>
-          <router-link :to="`/${product.category} ${product.id}`">
+          <router-link :to="`/${product.id}`">
+          <!-- <router-link :to="`/${product.categoryURL}/${product.id}`"> -->
             <img :src="`${product.image}`" />
             <div class="product-details">
               <p class="title">
@@ -22,8 +22,11 @@
             </div>
             <div class="product-rate">
               <span v-for="star in stars" :key="star[0]">
-                <i v-if="star < product.rate" class="fa-solid fa-star"></i>
-                <i v-if="star >= product.rate" class="fa-regular fa-star"></i>
+                <i
+                  :class="`${
+                    star < product.rate ? ' ' : 'fa-dark'
+                  } fa-star fa-solid`"
+                ></i>
               </span>
             </div>
           </router-link>
@@ -42,7 +45,7 @@ export default {
       featuredList: [],
       stars: [0, 1, 2, 3, 4],
       isLoading: false,
-      error: false,
+      error: { status: false, msg: '' },
     };
   },
   async mounted() {
@@ -58,11 +61,11 @@ export default {
       const highRated = topFourProducts.map((product) => {
         return {
           id: product.id,
-          category: product.category,
+          categoryURL: product.category.split(' ').join(''),
           title: product.title.slice(0, 35),
           image: product.image,
           price: product.price,
-          rate: Math.ceil(product.rating.rate),
+          rate: Math.floor(product.rating.rate),
           quantity: product.rating.count,
         };
       });
@@ -70,7 +73,7 @@ export default {
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
-      this.error = true;
+      this.error = { status: true, msg: 'Oops something went wrong!' };
     }
   },
   components: {
@@ -118,14 +121,22 @@ export default {
 .featured-products-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 img {
-  height: 200px;
+  max-height: 200px;
+  max-width: 90%;
 }
 ul {
   padding: 0;
-  width: 18%;
+    display: flex;
+    width: 18%;
+    height: 300px;
+    background: white;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 li {
   list-style: none;
@@ -136,7 +147,7 @@ a {
   text-decoration: none;
   align-items: center;
 }
-a:hover {
+ul:hover {
   transition-timing-function: ease-in-out;
   transition: 0.5s;
   transform: translateY(-15px);
@@ -160,8 +171,12 @@ a:hover {
 }
 i {
   font-size: 12px;
+  padding-bottom: 15px;
 }
 .fa-star {
   color: gold;
+}
+.fa-dark {
+  color: darkgray;
 }
 </style>
