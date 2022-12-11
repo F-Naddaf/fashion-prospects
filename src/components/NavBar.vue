@@ -27,7 +27,10 @@
               <span>Error 404</span>
             </p>
             <li v-for="category in categoryList" :key="category">
-              <router-link :to="`/${category}`" class="drop-down-link">
+              <router-link
+                :to="`/${category.split(' ').join('')}`"
+                class="drop-down-link"
+              >
                 {{ category }}
               </router-link>
             </li>

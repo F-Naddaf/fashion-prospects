@@ -15,12 +15,12 @@ const routes = [
     component: About,
   },
   {
-    path: '/jewelery',
+    path: '/:category',
     name: 'About',
     component: About,
   },
   {
-    path: '/:id',
+    path: '/:category/:id',
     name: 'ProductDetails',
     component: ProductDetails,
   },

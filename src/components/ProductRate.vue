@@ -19,9 +19,6 @@ export default {
 </script>
 
 <style scoped>
-/* .product-rate {
-  margin-top: -15px;
-} */
 i {
   font-size: 12px;
   padding-bottom: 15px;
