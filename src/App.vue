@@ -1,12 +1,17 @@
 <template>
-    <!-- <router-link to="/jewelery">Home</router-link> |
+  <NavBar />
+  <!-- <router-link to="/jewelery">Home</router-link> |
     <router-link :to="{ name: 'About'}">About</router-link> -->
-  <router-view />
+  <router-view :key="$route.path" />
 </template>
 <script>
+import NavBar from '@/components/NavBar.vue';
 
 export default {
   name: 'App',
+  components: {
+    NavBar,
+  },
 };
 </script>
 

@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <HeroSection />
   <category />
   <FeaturedProducts />
@@ -11,7 +10,6 @@
 
 <script>
 // @ is an alias to /src
-import NavBar from '@/components/NavBar.vue';
 import HeroSection from '@/components/HeroSection.vue';
 import Category from '@/components/Category.vue';
 import FeaturedProducts from '@/components/FeaturedProducts.vue';
@@ -20,7 +18,6 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Home',
   components: {
-    NavBar,
     HeroSection,
     Category,
     FeaturedProducts,

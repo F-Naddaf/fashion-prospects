@@ -5,19 +5,19 @@
       <span></span>
     </div>
     <div class="category-images">
-      <router-link to="/">
+      <router-link to="/category/men's%20clothing">
         <img alt="banner-image" src="../assets/men-clothing.png" />
         <h3>Men's Clothing</h3>
       </router-link>
-      <router-link to="/">
+      <router-link to="/category/women's%20clothing">
         <img alt="banner-image" src="../assets/women-clothing.png" />
         <h3>Women's Clothing</h3>
       </router-link>
-      <router-link to="/">
+      <router-link to="/category/jewelery">
         <img alt="banner-image" src="../assets/jewelery.png" />
         <h3>Jewelery</h3>
       </router-link>
-      <router-link to="/">
+      <router-link to="/category/electronics">
         <img alt="banner-image" src="../assets/electronics.png" />
         <h3>Electronics</h3>
       </router-link>

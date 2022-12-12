@@ -1,5 +1,5 @@
 <template>
-  <NavBar />
+
   <div v-if="isLoading"><LoadingSpinner /></div>
   <h3 class="error" v-if="error.status">
     {{ error.msg }}
@@ -10,13 +10,13 @@
     </p>
     <span> > </span>
     <p>
-      <router-link :to="`/${category}`" class="product-category-route">{{
+      <router-link :to="`/category/${category}`" class="product-category-route">{{
         productDetails.category
       }}</router-link>
     </p>
     <span> > </span>
     <p>
-      <router-link :to="`/product/${productDetails.id}`">
+      <router-link :to="`/${category}/${productDetails.id}`">
         {{ titleRoute }}
       </router-link>
     </p>
@@ -65,7 +65,7 @@
 
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
-import NavBar from '@/components/NavBar.vue';
+
 import ProductRate from '@/components/ProductRate.vue';
 export default {
   name: 'productDeatils',
@@ -79,7 +79,6 @@ export default {
       id: '',
       titleRoute: '',
       productDetails: {},
-      stars: [0, 1, 2, 3, 4],
       isLoading: false,
       error: { status: false, msg: '' },
     };
@@ -98,7 +97,7 @@ export default {
       this.inStock = getQuantity > 10;
       this.outOfStock = getQuantity === 0;
       this.almostSoldOut = getQuantity <= 10 && getQuantity >= 1;
-      this.category = res.category.split(' ').join('')
+      this.category = res.category
       const titleLength = res.title.length;
       this.titleRoute =
         titleLength > 14
@@ -111,7 +110,6 @@ export default {
     }
   },
   components: {
-    NavBar,
     LoadingSpinner,
     ProductRate,
   },
@@ -166,7 +164,7 @@ a {
   justify-content: center;
 }
 .main-image img {
-  width: 50%;
+  height: 100%;
 }
 .small-images img {
   width: 70%;
