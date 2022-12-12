@@ -4,13 +4,13 @@
       <h3>Featured Products</h3>
       <span></span>
     </div>
-    <article class="featured-products-container">
+    <section class="featured-products-container">
       <div v-if="isLoading"><LoadingSpinner /></div>
       <h3 class="error" v-if="error.status">
         {{ error.msg }}
       </h3>
-      <ProductCard :featuredList="featuredList" />
-    </article>
+      <ProductCard :products="featuredList" />
+    </section>
   </div>
 </template>
 

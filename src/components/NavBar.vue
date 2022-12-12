@@ -28,7 +28,7 @@
             </p>
             <li v-for="category in categoryList" :key="category">
               <router-link
-                :to="`/${category.split(' ').join('')}`"
+                :to="`/category/${category}`"
                 class="drop-down-link"
               >
                 {{ category }}
@@ -162,6 +162,7 @@ h3 {
   left: 52px;
   align-items: center;
   background-color: #0091dc;
+  border-top: 4px solid #ff0084;
   z-index: 10;
 }
 .drop-down li {
@@ -179,7 +180,7 @@ h3 {
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 15px solid #0091dc;
+  border-bottom: 15px solid #ff0084;
 }
 .error {
   display: flex;
