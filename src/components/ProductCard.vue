@@ -2,7 +2,7 @@
   <li>
     <router-link :to="`/${product.category}/${product.id}`">
       <div class="image-container">
-        <img :src="`${product.image}`" />
+        <img :src="product.image" />
       </div>
       <div class="product-details">
         <p class="title">
