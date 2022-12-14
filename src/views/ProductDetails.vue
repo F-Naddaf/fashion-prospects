@@ -1,5 +1,4 @@
 <template>
-
   <div v-if="isLoading"><LoadingSpinner /></div>
   <h3 class="error" v-if="error.status">
     {{ error.msg }}
@@ -65,8 +64,8 @@
 
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
-
 import ProductRate from '@/components/ProductRate.vue';
+
 export default {
   name: 'productDeatils',
   data() {
@@ -76,7 +75,6 @@ export default {
       almostSoldOut: false,
       category: '',
       rate: '',
-      id: '',
       titleRoute: '',
       productDetails: {},
       isLoading: false,
@@ -85,10 +83,9 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    this.id = this.$route.params.id;
     try {
       const result = await fetch(
-        `https://fakestoreapi.com/products/${this.id}`,
+        `https://fakestoreapi.com/products/${this.$route.params.id}`,
       );
       const res = await result.json();
       this.rate = Math.ceil(res.rating.rate);

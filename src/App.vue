@@ -1,7 +1,5 @@
 <template>
   <NavBar />
-  <!-- <router-link to="/jewelery">Home</router-link> |
-    <router-link :to="{ name: 'About'}">About</router-link> -->
   <router-view :key="$route.path" />
 </template>
 <script>

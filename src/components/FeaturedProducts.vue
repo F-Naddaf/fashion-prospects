@@ -9,7 +9,9 @@
       <h3 class="error" v-if="error.status">
         {{ error.msg }}
       </h3>
-      <ProductCard :products="featuredList" />
+      <ul v-for="product in featuredList" :key="product.id">
+        <ProductCard :product="product" />
+      </ul>
     </section>
   </div>
 </template>
@@ -85,7 +87,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 45px;
+  margin-bottom: 25px;
 }
 .title h3 {
   font-size: 22px;
@@ -102,5 +104,22 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+ul {
+  display: flex;
+  width: 16%;
+  height: 300px;
+  margin: 2%;
+  padding: 1%;
+  background: white;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+}
+ul:hover {
+  transition-timing-function: ease-in-out;
+  transition: 0.5s;
+  transform: translateY(-15px);
 }
 </style>
