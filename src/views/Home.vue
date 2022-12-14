@@ -2,9 +2,8 @@
   <HeroSection />
   <category />
   <FeaturedProducts />
+  <LatestProducts />
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/Logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
 
@@ -13,6 +12,7 @@
 import HeroSection from '@/components/HeroSection.vue';
 import Category from '@/components/Category.vue';
 import FeaturedProducts from '@/components/FeaturedProducts.vue';
+import LatestProducts from '@/components/LatestProducts.vue';
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -21,6 +21,7 @@ export default {
     HeroSection,
     Category,
     FeaturedProducts,
+    LatestProducts,
   },
 };
 </script>
