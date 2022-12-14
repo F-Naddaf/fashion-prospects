@@ -23,10 +23,10 @@
   <div class="product-details">
     <aside class="product-image">
       <div class="main-image">
-        <img :src="`${productDetails.image}`" />
+        <img :src="productDetails.image" />
       </div>
       <button class="small-images">
-        <img :src="`${productDetails.image}`" />
+        <img :src="productDetails.image" />
       </button>
     </aside>
     <aside class="product-info">
@@ -67,7 +67,7 @@ import LoadingSpinner from '@/components/Spinner.vue';
 import ProductRate from '@/components/ProductRate.vue';
 
 export default {
-  name: 'productDeatils',
+  name: 'ProductDetails',
   data() {
     return {
       inStock: false,
