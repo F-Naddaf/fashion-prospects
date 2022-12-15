@@ -27,10 +27,7 @@
               <span>Error 404</span>
             </p>
             <li v-for="category in categoryList" :key="category">
-              <router-link
-                :to="`/category/${category}`"
-                class="drop-down-link"
-              >
+              <router-link :to="`/category/${category}`" class="drop-down-link">
                 {{ category }}
               </router-link>
             </li>
@@ -43,9 +40,32 @@
         <router-link to="/"><li>Contact</li></router-link>
       </ul>
       <div class="user-container">
-        <router-link to="/">
-          <i class="fa-solid fa-user"></i>
+        <ul class="login-btn">
+          <router-link to="/login">
+            <i class="fa-solid fa-user"></i>
+          </router-link>
+          <ul class="login-drop-down">
+            <div v-if="isLoading"><LoadingSpinner /></div>
+            <p class="error" v-if="error">
+              Oops something went wrong!
+              <span>Error 404</span>
+            </p>
+            <li>
+              <router-link :to="`/profile`" class="login-drop-down-link">
+                Profile
+              </router-link>
+            </li>
+            <li>
+              <router-link :to="`/login`" class="login-drop-down-link">
+                Login
+              </router-link>
+            </li>
+          </ul>
+        </ul>
+        <router-link to="/favorites">
           <i class="fa-solid fa-heart"></i>
+        </router-link>
+        <router-link to="/shoppingCart">
           <i class="fa-solid fa-bag-shopping"></i>
         </router-link>
       </div>
@@ -159,7 +179,7 @@ h3 {
   position: absolute;
   height: fit-content;
   top: 70px;
-  left: 52px;
+  left: 42px;
   align-items: center;
   background-color: #0091dc;
   border-top: 4px solid #ff0084;
@@ -174,7 +194,7 @@ h3 {
 .drop-down::before {
   content: '';
   top: -15px;
-  left: 85px;
+  left: 95px;
   position: absolute;
   width: 0;
   height: 0;
@@ -194,27 +214,72 @@ h3 {
 .error span {
   color: white;
 }
-.drop-down a {
+.drop-down a,
+.login-drop-down a {
   display: flex;
   justify-content: center;
   align-content: center;
   color: white;
   height: 45px;
-  padding: 0 30px;
+  padding: 0 40px;
+  margin: 0;
 }
-.drop-down-link {
+.drop-down-link,
+.login-drop-down-link {
   text-transform: capitalize;
 }
-.drop-down-link:hover {
+.drop-down-link:hover,
+.login-drop-down-link:hover {
   background-color: #ff0084;
 }
 .user-container {
+  position: relative;
   display: flex;
   align-items: center;
   margin-right: 20px;
 }
+.user-container li {
+  list-style: none;
+}
+.login-btn:hover .login-drop-down {
+  display: block;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: absolute;
+  height: fit-content;
+  top: 86px;
+  padding: 0;
+  left: -15px;
+  align-items: center;
+  background-color: #0091dc;
+  border-top: 4px solid #ff0084;
+  z-index: 10;
+}
+.login-drop-down li {
+  color: white;
+}
+.login-btn {
+  padding: 0;
+}
+.login-drop-down {
+  display: none;
+}
+.login-drop-down::before {
+  content: '';
+  top: -15px;
+  left: 55px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid #ff0084;
+}
 .fa-solid {
   margin: 0 20px;
+  display: flex;
+  height: 70px;
+  align-items: center;
 }
 .fa-user {
   color: #0091dc;
