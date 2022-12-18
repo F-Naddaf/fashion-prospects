@@ -102,10 +102,11 @@ p {
   height: 3px;
   background-color: #ff0084;
   transform: translate(-125px, -15px);
-  position: relative;
+  transition: transform 0.5s;
 }
 .auth-form-container .underline {
   transform: translate(125px, -15px);
+  transition: transform 0.5s;
 }
 .auth-form-container .btns div {
   width: 50%;
