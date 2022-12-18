@@ -123,7 +123,7 @@ p {
   border: none;
   font-size: 16px;
   font-weight: 700;
-  color: #ff0084;
+  color: rgba(80, 80, 80);
 }
 .auth-form-container button:hover {
   cursor: pointer;

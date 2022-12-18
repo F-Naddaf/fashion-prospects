@@ -1,9 +1,25 @@
 <template>
   <form class="signup-input-form" id="signup-form">
-    <input type="text" :value="username" placeholder="username" />
-    <input type="email" :value="email" placeholder="email@example.com" />
-    <input type="password" :value="password" placeholder="Password" />
-    <input type="password" :value="password" placeholder="Conforf Password" />
+    <input
+      type="text"
+      :value="username"
+      placeholder="username"
+      required
+      pattern="^[A-Za-z0-9]{3,10}$"
+    />
+    <input
+      type="email"
+      :value="email"
+      placeholder="email@example.com"
+      required
+    />
+    <input type="password" :value="password" placeholder="Password" required />
+    <input
+      type="password"
+      :value="password"
+      placeholder="Conforf Password"
+      required
+    />
     <button>Submit</button>
   </form>
 </template>
@@ -11,6 +27,7 @@
 <script>
 export default {
   name: 'SignUpForm',
+  userName: '3-10 characters without any special character!',
 };
 </script>
 

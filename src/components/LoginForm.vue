@@ -1,7 +1,12 @@
 <template>
   <form class="login-input-form" id="login-form">
-    <input type="email" :value="email" placeholder="email@example.com" />
-    <input type="password" :value="password" placeholder="Password" />
+    <input
+      type="email"
+      :value="email"
+      placeholder="email@example.com"
+      required
+    />
+    <input type="password" :value="password" placeholder="Password" required />
     <button>Login</button>
     <router-link to="/">Forgot Password</router-link>
   </form>
