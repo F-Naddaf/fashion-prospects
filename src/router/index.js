@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import ProductDetails from '../views/ProductDetails.vue';
 import CategoryPage from '../views/CategoryPage.vue';
+import Auth from '../views/Auth.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/:category/:id',
     name: 'ProductDetails',
     component: ProductDetails,
+  },
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: Auth,
   },
 ];
 
