@@ -4,7 +4,7 @@
   <FeaturedProducts />
   <LatestProducts />
   <ExclusiveProduct />
-  <FooterCompo />
+  <!-- <FooterCompo /> -->
   <!-- <div class="home"></div> -->
 </template>
 
@@ -15,7 +15,7 @@ import Category from '@/components/Category.vue';
 import FeaturedProducts from '@/components/FeaturedProducts.vue';
 import LatestProducts from '@/components/LatestProducts.vue';
 import ExclusiveProduct from '@/components/ExclusiveProduct.vue';
-import FooterCompo from '@/components/Footer.vue';
+// import FooterCompo from '@/components/Footer.vue';
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -26,7 +26,7 @@ export default {
     FeaturedProducts,
     LatestProducts,
     ExclusiveProduct,
-    FooterCompo
+    // FooterCompo
   },
 };
 </script>

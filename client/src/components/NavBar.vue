@@ -33,7 +33,7 @@
             </li>
           </ul>
         </ul>
-        <router-link to="/About"
+        <router-link to="/about"
           ><li>About</li>
           <span> |</span></router-link
         >
@@ -56,7 +56,7 @@
               </router-link>
             </li>
             <li>
-              <router-link :to="`/login`" class="login-drop-down-link">
+              <router-link :to="`/auth`" class="login-drop-down-link">
                 Login
               </router-link>
             </li>
@@ -109,7 +109,7 @@ nav {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 70px;
+  height: 7vh;
   background-color: black;
 }
 a {
@@ -148,7 +148,7 @@ h3 {
   position: relative;
 }
 .menu-container a {
-  height: 70px;
+  height: 7vh;
   display: flex;
   margin: 0;
   justify-content: center;
@@ -178,7 +178,7 @@ h3 {
   justify-content: space-evenly;
   position: absolute;
   height: fit-content;
-  top: 70px;
+  top: 7vh;
   left: 42px;
   align-items: center;
   background-color: #0091dc;
@@ -278,7 +278,7 @@ h3 {
 .fa-solid {
   margin: 0 20px;
   display: flex;
-  height: 70px;
+  height: 7vh;
   align-items: center;
 }
 .fa-user {
