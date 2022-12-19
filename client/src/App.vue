@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <router-view :key="$route.path" />
-  <FooterCompo v-if="$route.path !== '/auth' && $route.path !== '/about'" />
+  <FooterCompo v-if="$route.path !== '/auth'" />
 </template>
 <script>
 import NavBar from '@/components/NavBar.vue';
