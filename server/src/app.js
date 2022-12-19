@@ -20,7 +20,7 @@ app.use(cors());
  * As we also host our client code on heroku we want to separate the API endpoints.
  */
 app.use("/api/categories", categoryRouter);
-app.use("/api/customer/shopping-cart", shoppingCardRouter);
+app.use("/api/users/shopping-cart", shoppingCardRouter);
 app.use("/api/orders", ordersRouter);
 app.use("/api/user/favorite", favoritesRouter);
 export default app;
