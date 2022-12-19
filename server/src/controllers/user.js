@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User, { validateUser } from "../models/User.js";
 import { logError } from "../util/logging.js";
 import validationErrorMessage from "../util/validationErrorMessage.js";
 import jwt from "jsonwebtoken";
@@ -126,7 +126,39 @@ export const updateUser = async (req, res) => {
     const updatedUser = await User.findOne({ email: email });
     res.status(200).json({
       success: true,
-      result: updatedUser[0],
+      result: updatedUser,
+    });
+  } catch (error) {
+    logError(error);
+    res
+      .status(500)
+      .json({ success: false, msg: "Unable to update user, try again later" });
+  }
+};
+
+export const addFavorite = async (req, res) => {
+  const email = req.user;
+  const productId = req.body;
+  try {
+    const user = await User.findOne({ email: email });
+    const isProductFavorite = user.favorites.some(
+      (product) => product === productId
+    );
+    if (isProductFavorite) {
+      await User.findOneAndUpdate(
+        { email: req.user },
+        { $pull: { favorites: productId } }
+      );
+    } else {
+      await User.findOneAndUpdate(
+        { email: req.user },
+        { $push: { favorites: productId } }
+      );
+    }
+    const updatedUser = await User.findOne({ email: email });
+    res.status(200).json({
+      success: true,
+      result: updatedUser,
     });
   } catch (error) {
     logError(error);
