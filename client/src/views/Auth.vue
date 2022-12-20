@@ -118,7 +118,6 @@ p {
   align-items: center;
   transition: all 1s;
 }
-
 .auth-form-container button {
   width: 50%;
   background: none;

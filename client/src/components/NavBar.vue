@@ -40,23 +40,23 @@
         <router-link to="/"><li>Contact</li></router-link>
       </ul>
       <div class="user-container">
-        <ul class="login-btn">
+        <ul class="user-btn">
           <router-link to="/auth">
             <i class="fa-solid fa-user"></i>
           </router-link>
-          <ul class="login-drop-down">
+          <ul class="user-drop-down">
             <div v-if="isLoading"><LoadingSpinner /></div>
             <p class="error" v-if="error">
               Oops something went wrong!
               <span>Error 404</span>
             </p>
             <li>
-              <router-link :to="`/profile`" class="login-drop-down-link">
+              <router-link :to="`/profile`" class="user-drop-down-link">
                 Profile
               </router-link>
             </li>
             <li>
-              <router-link :to="`/auth`" class="login-drop-down-link">
+              <router-link :to="`/auth`" class="user-drop-down-link">
                 Login
               </router-link>
             </li>
@@ -153,6 +153,9 @@ h3 {
   margin: 0;
   justify-content: center;
 }
+.menu-container li:hover {
+  color: #ff0084;
+}
 .menu-container li {
   list-style: none;
   justify-content: center;
@@ -215,7 +218,7 @@ h3 {
   color: white;
 }
 .drop-down a,
-.login-drop-down a {
+.user-drop-down a {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -225,11 +228,11 @@ h3 {
   margin: 0;
 }
 .drop-down-link,
-.login-drop-down-link {
+.user-drop-down-link {
   text-transform: capitalize;
 }
 .drop-down-link:hover,
-.login-drop-down-link:hover {
+.user-drop-down-link:hover {
   background-color: #ff0084;
 }
 .user-container {
@@ -241,13 +244,13 @@ h3 {
 .user-container li {
   list-style: none;
 }
-.login-btn:hover .login-drop-down {
+.user-btn:hover .user-drop-down {
   display: block;
   flex-direction: column;
   justify-content: space-evenly;
   position: absolute;
   height: fit-content;
-  top: 86px;
+  top: 81px;
   padding: 0;
   left: -15px;
   align-items: center;
@@ -255,16 +258,16 @@ h3 {
   border-top: 4px solid #ff0084;
   z-index: 10;
 }
-.login-drop-down li {
+.user-drop-down li {
   color: white;
 }
-.login-btn {
+.user-btn {
   padding: 0;
 }
-.login-drop-down {
+.user-drop-down {
   display: none;
 }
-.login-drop-down::before {
+.user-drop-down::before {
   content: '';
   top: -15px;
   left: 55px;

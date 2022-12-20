@@ -12,7 +12,7 @@ const userRouter = express.Router();
 
 userRouter.get("/", authenticateToken, getUser);
 userRouter.post("/create", createUser);
-userRouter.post("/auth", login);
+userRouter.post("/login", login);
 userRouter.patch("/", authenticateToken, updateUser);
 userRouter.patch("/add-favorite", authenticateToken, addFavorite);
 

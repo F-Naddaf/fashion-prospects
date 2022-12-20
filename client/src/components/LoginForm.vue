@@ -1,11 +1,16 @@
 <template>
-  <form class="login-input-form" id="login-form">
+  <form @submit.prevent="handelSubmit" class="login-input-form">
+    <ul class="error-container">
+      <li v-for="(error, index) in errors" :key="index" class="error-section">
+        {{ error }}
+      </li>
+    </ul>
     <div class="form-container">
       <label><p>Email *</p></label>
       <input
         type="email"
         placeholder="email@example.com"
-        v-model="email"
+        v-model="user.email"
         required
       />
     </div>
@@ -14,7 +19,7 @@
       <input
         type="password"
         placeholder="Password"
-        v-model="password"
+        v-model="user.password"
         required
       />
     </div>
@@ -26,6 +31,41 @@
 <script>
 export default {
   name: 'LoginForm',
+  data() {
+    return {
+      user: {
+        email: '',
+        password: '',
+      },
+      errors: [],
+    };
+  },
+  methods: {
+    async handelSubmit() {
+      this.errors = [];
+      try {
+        const response = await fetch(`http://localhost:5000/api/users/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.user),
+        });
+        const result = await response.json();
+        console.log(result);
+        if (result.success) {
+          localStorage.setItem('accessToken', result.accessToken);
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 2000)
+        } else {
+          this.errors.push('Sorry something went wrong0000');
+        }
+      } catch (error) {
+        this.errors.push('Sorry something went wrong');
+      }
+    },
+  },
 };
 </script>
 

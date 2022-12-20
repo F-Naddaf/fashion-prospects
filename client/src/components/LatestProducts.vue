@@ -84,7 +84,6 @@ export default {
       const sortProductQuantity = productsQuantity.sort((a, b) => {
         return b.rating.count - a.rating.count;
       });
-      console.log(this.visibleSlide);
       const topEightProducts = sortProductQuantity.slice(0, 8);
       const latestEightProducts = topEightProducts.map((product) => {
         return {

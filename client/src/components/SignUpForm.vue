@@ -1,9 +1,5 @@
 <template>
-  <form
-    @submit.prevent="handelSubmit"
-    class="signup-input-form"
-    id="signup-form"
-  >
+  <form @submit.prevent="handelSubmit" class="signup-input-form">
     <ul class="error-container">
       <li v-for="(error, index) in errors" :key="index" class="error-section">
         {{ error }}
@@ -65,13 +61,9 @@ export default {
       success: '',
     };
   },
-  mounted() {
-    console.log(process.env.BASE_SERVER_URL);
-  },
   methods: {
     async handelSubmit() {
       this.errors = [];
-      console.log(this.user);
       try {
         const response = await fetch(`http://localhost:5000/api/users/create`, {
           method: 'POST',
@@ -80,9 +72,11 @@ export default {
           },
           body: JSON.stringify(this.user),
         });
-        console.log(response);
         const result = await response.json();
         if (result.success) {
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 2000)
           this.success = 'You have created an account successfully';
         } else {
           this.errors.push('Sorry something went wrong');
