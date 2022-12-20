@@ -9,20 +9,37 @@
         {{ error }}
       </li>
     </ul>
-    <input type="text" placeholder="username" v-model="userName" required />
-    <input
-      type="email"
-      placeholder="email@example.com"
-      v-model="email"
-      required
-    />
-    <input type="password" placeholder="Password" v-model="password" required />
-    <input
-      type="password"
-      placeholder="Conform Password"
-      v-model="conformPassword"
-      required
-    />
+    <div class="form-container">
+      <label><p>User Name *</p></label>
+      <input type="text" placeholder="username" v-model="userName" required />
+    </div>
+    <div class="form-container">
+      <label><p>Email *</p></label>
+      <input
+        type="email"
+        placeholder="email@example.com"
+        v-model="email"
+        required
+      />
+    </div>
+    <div class="form-container">
+      <label><p>Password *</p></label>
+      <input
+        type="password"
+        placeholder="Password"
+        v-model="password"
+        required
+      />
+    </div>
+    <div class="form-container">
+      <label><p>Conform Password *</p></label>
+      <input
+        type="password"
+        placeholder="Conform Password"
+        v-model="conformPassword"
+        required
+      />
+    </div>
     <button>Submit</button>
   </form>
 </template>
@@ -101,15 +118,18 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .signup-input-form {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 400px;
+  margin-bottom: -20px;
 }
 .error-container {
+  position: absolute;
+  top: -140px;
   width: 100%;
   padding: 0;
 }
@@ -120,15 +140,26 @@ export default {
   padding-bottom: 15px;
   line-height: 1;
 }
-.signup-input-form label p {
-  margin: 0;
+.form-container {
+  position: relative;
+  width: 100%;
 }
-.signup-input-form input {
+.form-container label p {
+  position: absolute;
+  top: -20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 8px;
+  background-color: rgba(255, 255, 255);
+  padding: 0 6px;
+  color: #b3005c;
+}
+.form-container input {
   width: 97%;
   padding: 5px;
   margin-bottom: 20px;
 }
-.signup-input-form input::placeholder {
+.form-container input::placeholder {
   color: rgba(80, 80, 80, 0.7);
   font-size: 12px;
 }
