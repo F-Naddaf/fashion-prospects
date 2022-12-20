@@ -41,7 +41,7 @@
       </ul>
       <div class="user-container">
         <ul class="login-btn">
-          <router-link to="/login">
+          <router-link to="/auth">
             <i class="fa-solid fa-user"></i>
           </router-link>
           <ul class="login-drop-down">

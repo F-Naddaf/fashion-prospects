@@ -9,16 +9,22 @@
         {{ error }}
       </li>
     </ul>
+    <p v-if="success" class="success-message">{{ this.success }}</p>
     <div class="form-container">
       <label><p>User Name *</p></label>
-      <input type="text" placeholder="username" v-model="userName" required />
+      <input
+        type="text"
+        placeholder="username"
+        v-model="user.userName"
+        required
+      />
     </div>
     <div class="form-container">
       <label><p>Email *</p></label>
       <input
         type="email"
         placeholder="email@example.com"
-        v-model="email"
+        v-model="user.email"
         required
       />
     </div>
@@ -27,7 +33,7 @@
       <input
         type="password"
         placeholder="Password"
-        v-model="password"
+        v-model="user.password"
         required
       />
     </div>
@@ -40,7 +46,7 @@
         required
       />
     </div>
-    <button>Submit</button>
+    <button type="submit">Submit</button>
   </form>
 </template>
 
@@ -49,36 +55,61 @@ export default {
   name: 'SignUpForm',
   data() {
     return {
-      userName: '',
-      email: '',
-      password: '',
+      user: {
+        userName: '',
+        email: '',
+        password: '',
+      },
       conformPassword: '',
       errors: [],
+      success: '',
     };
   },
+  mounted() {
+    console.log(process.env.BASE_SERVER_URL);
+  },
   methods: {
-    handelSubmit() {
+    async handelSubmit() {
       this.errors = [];
-      if (!this.userName) {
+      console.log(this.user);
+      try {
+        const response = await fetch(`http://localhost:5000/api/users/create`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.user),
+        });
+        console.log(response);
+        const result = await response.json();
+        if (result.success) {
+          this.success = 'You have created an account successfully';
+        } else {
+          this.errors.push('Sorry something went wrong');
+        }
+      } catch (error) {
+        this.errors.push('Sorry something went wrong');
+      }
+      if (!this.user.userName) {
         this.errors.push('User name is empty');
       } else {
-        if (!this.validUserName(this.userName)) {
+        if (!this.validUserName(this.user.userName)) {
           this.errors.push(
             'User name must be at least 5 characters include 1 number, 1 capital character!',
           );
         }
       }
-      if (!this.email) {
+      if (!this.user.email) {
         this.errors.push('Email is empty');
       } else {
-        if (!this.validEmail(this.email)) {
+        if (!this.validEmail(this.user.email)) {
           this.errors.push('invalid Email');
         }
       }
-      if (!this.password) {
+      if (!this.user.password) {
         this.errors.push('Password is empty');
       } else {
-        if (!this.validPassword(this.password)) {
+        if (!this.validPassword(this.user.password)) {
           this.errors.push(
             'Password must be at least 8 characters include 1 number, 1 capital character & 1 special character!',
           );
@@ -89,7 +120,7 @@ export default {
       } else {
         if (
           this.validConformPassword(this.conformPassword) !==
-          this.validPassword(this.password)
+          this.validPassword(this.user.password)
         ) {
           this.errors.push('Password is not match!');
         }
@@ -139,6 +170,14 @@ export default {
   color: red;
   padding-bottom: 15px;
   line-height: 1;
+}
+.success-message {
+  position: absolute;
+  top: -100px;
+  width: 100%;
+  padding: 0;
+  font-size: 14px;
+  color: green;
 }
 .form-container {
   position: relative;
