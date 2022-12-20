@@ -59,18 +59,6 @@ export default {
   color: rgba(80, 80, 80, 0.7);
   font-size: 12px;
 }
-/* .login-input-form label p {
-  margin: 0;
-}
-.login-input-form input {
-  width: 97%;
-  padding: 5px;
-  margin-bottom: 20px;
-}
-.login-input-form input::placeholder {
-  color: rgba(80, 80, 80, 0.7);
-  font-size: 12px;
-} */
 .login-input-form button {
   width: 100%;
   padding: 6px;
