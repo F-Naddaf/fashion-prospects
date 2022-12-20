@@ -27,7 +27,7 @@
         <div class="team-card">
           <img alt="Ibrahin-image" src="../assets/Ibrahim.png" />
           <div class="info-container">
-            <h3>Ibrahim Khan</h3>
+            <h3>Ibrahim Akancay</h3>
             <p>Backend Developer</p>
             <div class="team-links">
               <router-link to="/">
