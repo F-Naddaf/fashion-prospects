@@ -5,6 +5,7 @@
         {{ error }}
       </li>
     </ul>
+    <p v-if="success" class="success-message">{{ this.success }}</p>
     <div class="form-container">
       <label><p>Email *</p></label>
       <input
@@ -38,6 +39,7 @@ export default {
         password: '',
       },
       errors: [],
+      success: '',
     };
   },
   methods: {
@@ -54,12 +56,13 @@ export default {
         const result = await response.json();
         console.log(result);
         if (result.success) {
+          this.success = 'You have logged in successfully';
           localStorage.setItem('accessToken', result.accessToken);
           setTimeout(() => {
             this.$router.push('/')
           }, 2000)
         } else {
-          this.errors.push('Sorry something went wrong0000');
+          this.errors.push(result.msg);
         }
       } catch (error) {
         this.errors.push('Sorry something went wrong');
@@ -71,10 +74,32 @@ export default {
 
 <style scoped>
 .login-input-form {
+  position: relative;   
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 400px;
+}
+.error-container {
+  position: absolute;
+  top: -140px;
+  width: 100%;
+  padding: 0;
+}
+.error-section {
+  font-size: 14px;
+  text-align: justify;
+  color: red;
+  padding-bottom: 15px;
+  line-height: 1;
+}
+.success-message {
+  position: absolute;
+  top: -100px;
+  width: 100%;
+  padding: 0;
+  font-size: 14px;
+  color: green;
 }
 .form-container {
   position: relative;
