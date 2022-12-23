@@ -9,9 +9,10 @@
     </p>
     <span> > </span>
     <p>
-      <router-link :to="`/category/${category}`" class="product-category-route">{{
-        productDetails.category
-      }}</router-link>
+      <router-link
+        :to="`/category/${category}`"
+        class="product-category-route"
+        >{{ productDetails.category }}</router-link>
     </p>
     <span> > </span>
     <p>
@@ -25,9 +26,23 @@
       <div class="main-image">
         <img :src="productDetails.image" />
       </div>
-      <button class="small-images">
-        <img :src="productDetails.image" />
-      </button>
+      <div class="slid-images">
+        <button class="small-images">
+          <img :src="productDetails.image" />
+        </button>
+        <button class="small-images">
+          <img src="../assets/electronics.png" />
+        </button>
+        <button class="small-images">
+          <img src="../assets/jewelery.png" />
+        </button>
+        <button class="small-images">
+          <img src="../assets/men-clothing.png" />
+        </button>
+        <button class="small-images">
+          <img src="../assets/women-clothing.png" />
+        </button>
+      </div>
     </aside>
     <aside class="product-info">
       <h2>{{ productDetails.title }}</h2>
@@ -81,7 +96,7 @@ export default {
     };
   },
   async mounted() {
-    window.scroll(0, 0)
+    window.scroll(0, 0);
     this.isLoading = true;
     try {
       const result = await fetch(
@@ -94,7 +109,7 @@ export default {
       this.inStock = getQuantity > 10;
       this.outOfStock = getQuantity === 0;
       this.almostSoldOut = getQuantity <= 10 && getQuantity >= 1;
-      this.category = res.category
+      this.category = res.category;
       const titleLength = res.title.length;
       this.titleRoute =
         titleLength > 14
@@ -109,8 +124,8 @@ export default {
   components: {
     LoadingSpinner,
     ProductRate,
-    AddToFavorite
-},
+    AddToFavorite,
+  },
 };
 </script>
 
@@ -151,6 +166,9 @@ a {
   background-color: white;
   height: 35vh;
 }
+.slid-images {
+  display: flex;
+}
 .small-images {
   display: flex;
   border: 1px solid rgb(80, 80, 80);
@@ -160,6 +178,16 @@ a {
   background-color: white;
   align-items: center;
   justify-content: center;
+  opacity: 0.5;
+}
+.small-images:hover {
+  opacity: 1;
+}
+.small-images:hover {
+  opacity: 1;
+}
+.small-images:active {
+  opacity: 1;
 }
 .main-image img {
   height: 100%;
