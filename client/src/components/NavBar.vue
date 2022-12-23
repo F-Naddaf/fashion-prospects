@@ -55,7 +55,12 @@
                 Profile
               </router-link>
             </li>
-            <li>
+            <li v-if="userInfo">
+              <button @click="logout" class="user-drop-down-link">
+                Logout
+              </button>
+            </li>
+            <li v-else>
               <router-link :to="`/auth`" class="user-drop-down-link">
                 Login
               </router-link>
@@ -75,9 +80,28 @@
 
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
+import useUser from '../modules/user';
+import { onMounted } from 'vue';
 
 export default {
   name: 'NavBar',
+  setup() {
+    const { userInfo, load } = useUser();
+
+    onMounted(() => {
+      load();
+    });
+
+    return {
+      userInfo,
+    };
+  },
+  methods: {
+    logout() {
+      localStorage.clear();
+      console.log('logout');
+    },
+  },
   data() {
     return {
       categoryList: [],
@@ -222,15 +246,30 @@ h3 {
 .user-drop-down a {
   display: flex;
   justify-content: center;
-  align-content: center;
   color: white;
   height: 45px;
   padding: 0 40px;
   margin: 0;
 }
+.user-drop-down button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 45px;
+  width: 100%;
+  font-size: 14px;
+  padding: 0 40px;
+  margin: 0;
+}
+.user-drop-down button:hover {
+  cursor: pointer;
+}
 .drop-down-link,
 .user-drop-down-link {
   text-transform: capitalize;
+  background: none;
+  border: none;
 }
 .drop-down-link:hover,
 .user-drop-down-link:hover {
