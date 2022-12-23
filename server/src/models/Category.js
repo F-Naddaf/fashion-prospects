@@ -1,22 +1,23 @@
-import mongoose from "mongoose";
-import validateAllowedFields from "../util/validateAllowedFields.js";
+import mongoose from 'mongoose';
+import validateAllowedFields from '../util/validateAllowedFields.js';
 
 const categorySchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
+    image: { type: String, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const Category = mongoose.model("categories", categorySchema);
+const Category = mongoose.model('categories', categorySchema);
 
 export const validateCategory = (categoryObject) => {
   const errorList = [];
-  const allowedKeys = ["title"];
+  const allowedKeys = ['title', 'image'];
 
   const validatedKeysMessage = validateAllowedFields(
     categoryObject,
-    allowedKeys
+    allowedKeys,
   );
 
   if (validatedKeysMessage.length > 0) {
@@ -24,7 +25,7 @@ export const validateCategory = (categoryObject) => {
   }
 
   if (categoryObject.title == null) {
-    errorList.push("title is a required field");
+    errorList.push('title is a required field');
   }
 
   return errorList;

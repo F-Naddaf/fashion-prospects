@@ -37,7 +37,7 @@
           ><li>About</li>
           <span> |</span></router-link
         >
-        <router-link to="/"><li>Contact</li></router-link>
+        <router-link to="/contact"><li>Contact</li></router-link>
       </ul>
       <div class="user-container">
         <ul class="user-btn">
@@ -51,7 +51,7 @@
               <span>Error 404</span>
             </p>
             <li>
-              <router-link :to="`/profile`" class="user-drop-down-link">
+              <router-link :to="`/`" class="user-drop-down-link">
                 Profile
               </router-link>
             </li>
@@ -62,10 +62,10 @@
             </li>
           </ul>
         </ul>
-        <router-link to="/favorites">
+        <router-link to="/favorite">
           <i class="fa-solid fa-heart"></i>
         </router-link>
-        <router-link to="/shoppingCart">
+        <router-link to="/">
           <i class="fa-solid fa-bag-shopping"></i>
         </router-link>
       </div>
@@ -75,6 +75,7 @@
 
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
+
 export default {
   name: 'NavBar',
   data() {
