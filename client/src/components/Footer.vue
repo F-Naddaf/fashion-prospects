@@ -3,16 +3,16 @@
     <div class="footer-container">
       <aside class="overview-container">
         <p class="title">Overview</p>
-        <router-link to="/Products">
+        <router-link to="/">
           <p>Peofile</p>
         </router-link>
-        <router-link to="/Favorites">
+        <router-link to="/">
           <p>Favorites</p>
         </router-link>
         <router-link to="/About">
           <p>Order History</p>
         </router-link>
-        <router-link to="/ShoppingCart">
+        <router-link to="/">
           <p>Shopping Cart</p>
         </router-link>
       </aside>

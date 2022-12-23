@@ -4,6 +4,8 @@ import About from '../views/About.vue';
 import ProductDetails from '../views/ProductDetails.vue';
 import CategoryPage from '../views/CategoryPage.vue';
 import Auth from '../views/Auth.vue';
+import Favorite from '../views/Favorite.vue';
+import UserData from '../components/UserData.vue';
 
 const routes = [
   {
@@ -30,6 +32,16 @@ const routes = [
     path: '/auth',
     name: 'Auth',
     component: Auth,
+  },
+  {
+    path: '/contact',
+    name: 'UserData',
+    component: UserData,
+  },
+  {
+    path: '/favorite',
+    name: 'Favorite',
+    component: Favorite,
   },
 ];
 

@@ -79,7 +79,7 @@ export default {
           }, 2000)
           this.success = 'You have created an account successfully';
         } else {
-          this.errors.push('Sorry something went wrong');
+          this.errors.push(result.msg);
         }
       } catch (error) {
         this.errors.push('Sorry something went wrong');
