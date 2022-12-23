@@ -54,9 +54,7 @@
           <p>Add to cart</p>
           <i class="fa-solid fa-cart-shopping"></i>
         </button>
-        <button class="add-to-fav">
-          <i class="fa-solid fa-heart"></i>
-        </button>
+        <AddToFavorite />
       </div>
     </aside>
   </div>
@@ -65,6 +63,7 @@
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
 import ProductRate from '@/components/ProductRate.vue';
+import AddToFavorite from '@/components/AddToFavorite.vue';
 
 export default {
   name: 'ProductDetails',
@@ -82,6 +81,7 @@ export default {
     };
   },
   async mounted() {
+    window.scroll(0, 0)
     this.isLoading = true;
     try {
       const result = await fetch(
@@ -109,7 +109,8 @@ export default {
   components: {
     LoadingSpinner,
     ProductRate,
-  },
+    AddToFavorite
+},
 };
 </script>
 
