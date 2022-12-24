@@ -1,5 +1,5 @@
 import User, { validateUser } from "../models/User.js";
-import { logError } from "../util/logging.js";
+import { logError, logInfo } from "../util/logging.js";
 import validationErrorMessage from "../util/validationErrorMessage.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -138,21 +138,21 @@ export const updateUser = async (req, res) => {
 
 export const addFavorite = async (req, res) => {
   const email = req.user;
-  const productId = req.body;
+  const { productId } = req.body;
   try {
     const user = await User.findOne({ email: email });
     const isProductFavorite = user.favorites.some(
-      (product) => product === productId
+      (product) => product.productId.toString() === productId
     );
-    if (isProductFavorite) {
+    if (!isProductFavorite) {
       await User.findOneAndUpdate(
         { email: req.user },
-        { $pull: { favorites: productId } }
+        { $push: { favorites: { productId } } }
       );
     } else {
       await User.findOneAndUpdate(
         { email: req.user },
-        { $push: { favorites: productId } }
+        { $pull: { favorites: { productId } } }
       );
     }
     const updatedUser = await User.findOne({ email: email });

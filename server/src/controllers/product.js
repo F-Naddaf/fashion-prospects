@@ -118,12 +118,12 @@ export const searchProducts = async (req, res) => {
 
 export const filterProducts = async (req, res) => {
   try {
-    const { categoryId } = req.query;
+    const { subCategoryId } = req.query;
 
     const products = await Product.find({
-      category: categoryId,
+      subCategory: subCategoryId,
     })
-      .populate({ path: "category", select: "title" })
+      .populate({ path: "subCategory", select: "title category" })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
