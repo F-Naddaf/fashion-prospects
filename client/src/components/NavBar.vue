@@ -99,8 +99,6 @@ export default {
       logout,
     };
   },
-    };
-  },
   data() {
     return {
       categoryList: [],
