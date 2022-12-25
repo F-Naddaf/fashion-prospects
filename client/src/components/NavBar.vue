@@ -66,6 +66,8 @@
               </router-link>
             </li>
           </ul>
+          <p class="user-name" v-if="userInfo">{{ userInfo.userName }}</p>
+          <p class="user-name" v-else>Login</p>
         </ul>
         <router-link to="/favorite">
           <i class="fa-solid fa-heart"></i>
@@ -86,7 +88,7 @@ import { onMounted } from 'vue';
 export default {
   name: 'NavBar',
   setup() {
-    const { userInfo, load } = useUser();
+    const { userInfo, load, logout } = useUser();
 
     onMounted(() => {
       load();
@@ -94,13 +96,8 @@ export default {
 
     return {
       userInfo,
+      logout,
     };
-  },
-  methods: {
-    logout() {
-      localStorage.clear();
-      console.log('logout');
-    },
   },
   data() {
     return {
@@ -130,6 +127,12 @@ export default {
 </script>
 
 <style scoped>
+.user-btn {
+  display: flex;
+}
+.user-name {
+  color: white;
+}
 nav {
   display: flex;
   justify-content: space-between;

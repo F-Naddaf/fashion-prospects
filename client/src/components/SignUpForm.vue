@@ -65,6 +65,9 @@ export default {
     async handelSubmit() {
       this.errors = [];
       try {
+        if (!this.validateForm()) {
+          return;
+        }
         const response = await fetch(`http://localhost:5000/api/users/create`, {
           method: 'POST',
           headers: {
@@ -75,8 +78,8 @@ export default {
         const result = await response.json();
         if (result.success) {
           setTimeout(() => {
-            this.$router.push('/')
-          }, 2000)
+            this.$router.push('/');
+          }, 2000);
           this.success = 'You have created an account successfully';
         } else {
           this.errors.push(result.msg);
@@ -84,6 +87,8 @@ export default {
       } catch (error) {
         this.errors.push('Sorry something went wrong');
       }
+    },
+    validateForm() {
       if (!this.user.userName) {
         this.errors.push('User name is empty');
       } else {
@@ -118,6 +123,11 @@ export default {
         ) {
           this.errors.push('Password is not match!');
         }
+      }
+      if (this.errors.length > 0) {
+        return false;
+      } else {
+        return true;
       }
     },
     validEmail(email) {
