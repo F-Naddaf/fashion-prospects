@@ -3,6 +3,7 @@ import validateAllowedFields from "../util/validateAllowedFields.js";
 
 const subCategorySchema = new mongoose.Schema({
   title: String,
+  image: String,
   category: { type: mongoose.Schema.Types.ObjectId, ref: "categories" },
 });
 

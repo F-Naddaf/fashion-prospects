@@ -3,8 +3,9 @@ import { logError } from "../util/logging.js";
 import validationErrorMessage from "../util/validationErrorMessage.js";
 
 export const getSubCategories = async (req, res) => {
+  const { categoryId } = req.body;
   try {
-    const subCategories = await SubCategory.find();
+    const subCategories = await SubCategory.find({ category: categoryId });
     res.status(200).json({ success: true, result: subCategories });
   } catch (error) {
     logError(error);
