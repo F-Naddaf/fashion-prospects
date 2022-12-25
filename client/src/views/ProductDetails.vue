@@ -12,7 +12,8 @@
       <router-link
         :to="`/category/${category}`"
         class="product-category-route"
-        >{{ productDetails.category }}</router-link>
+        >{{ productDetails.category }}</router-link
+      >
     </p>
     <span> > </span>
     <p>
@@ -24,23 +25,23 @@
   <div class="product-details">
     <aside class="product-image">
       <div class="main-image">
-        <img :src="productDetails.image" />
+        <img :src="displayImage" />
       </div>
       <div class="slid-images">
-        <button class="small-images">
-          <img :src="productDetails.image" />
+        <button class="small-images active">
+          <img @click="changeImageURL" :src="productDetails.image" />
         </button>
         <button class="small-images">
-          <img src="../assets/electronics.png" />
+          <img @click="changeImageURL" src="../assets/electronics.png" />
         </button>
         <button class="small-images">
-          <img src="../assets/jewelery.png" />
+          <img @click="changeImageURL" src="../assets/jewelery.png" />
         </button>
         <button class="small-images">
-          <img src="../assets/men-clothing.png" />
+          <img @click="changeImageURL" src="../assets/men-clothing.png" />
         </button>
         <button class="small-images">
-          <img src="../assets/women-clothing.png" />
+          <img @click="changeImageURL" src="../assets/women-clothing.png" />
         </button>
       </div>
     </aside>
@@ -84,6 +85,7 @@ export default {
   name: 'ProductDetails',
   data() {
     return {
+      displayImage: '',
       inStock: false,
       outOfStock: false,
       almostSoldOut: false,
@@ -111,6 +113,7 @@ export default {
       this.almostSoldOut = getQuantity <= 10 && getQuantity >= 1;
       this.category = res.category;
       const titleLength = res.title.length;
+      this.displayImage = res.image;
       this.titleRoute =
         titleLength > 14
           ? res.title.substring(0, 14).trim() + '...'
@@ -120,6 +123,11 @@ export default {
       this.isLoading = false;
       this.error = { status: true, msg: 'Oops something went wrong!' };
     }
+  },
+  methods: {
+    changeImageURL(e) {
+      this.displayImage = e.target.src;
+    },
   },
   components: {
     LoadingSpinner,
@@ -186,7 +194,7 @@ a {
 .small-images:hover {
   opacity: 1;
 }
-.small-images:active {
+.active {
   opacity: 1;
 }
 .main-image img {

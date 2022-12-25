@@ -30,6 +30,9 @@
 </template>
 
 <script>
+import useUser from '../modules/user';
+import { onMounted } from 'vue';
+
 export default {
   name: 'LoginForm',
   data() {
@@ -40,6 +43,18 @@ export default {
       },
       errors: [],
       success: '',
+    };
+  },
+  setup() {
+    const { userInfo, load, login } = useUser();
+
+    onMounted(() => {
+      load();
+    });
+
+    return {
+      userInfo,
+      login,
     };
   },
   methods: {
@@ -54,13 +69,14 @@ export default {
           body: JSON.stringify(this.user),
         });
         const result = await response.json();
-        console.log(result);
+        console.log(result, 'res');
         if (result.success) {
           this.success = 'You have logged in successfully';
           localStorage.setItem('accessToken', result.accessToken);
+          this.login(result.user);
           setTimeout(() => {
-            this.$router.push('/')
-          }, 2000)
+            this.$router.push('/');
+          }, 2000);
         } else {
           this.errors.push(result.msg);
         }
@@ -74,7 +90,7 @@ export default {
 
 <style scoped>
 .login-input-form {
-  position: relative;   
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

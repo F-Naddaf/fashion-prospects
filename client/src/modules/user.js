@@ -19,11 +19,17 @@ export default function useUser() {
         });
         const result = await userResponse.json();
         state.userInfo = result.user;
-        console.log('fetch', result.user);
       } catch (error) {
         state.error = error.msg;
       }
     }
   };
-  return { ...toRefs(state), load };
+  const logout = () => {
+    state.userInfo = null;
+    localStorage.clear();
+  };
+  const login = (data) => {
+    state.userInfo = data;
+  };
+  return { ...toRefs(state), load, logout, login };
 }
