@@ -7,12 +7,12 @@
       <div class="btns">
         <div>
           <button @click="handelLogin">Login</button>
+          <span :class="`${!showLogin && 'underline'}`"></span>
         </div>
         <div>
           <button @click="handelSignup">SignUp</button>
         </div>
       </div>
-      <span :class="`${!showLogin && 'underline'}`"></span>
       <section :class="`${!showLogin && 'show-signup'}`">
         <div>
           <SignUpForm />
@@ -85,7 +85,7 @@ p {
   align-items: center;
   justify-content: space-around;
   max-width: 500px;
-  height: 45vh;
+  height: 50vh;
   margin: 0 200px 0 200px;
   background-color: rgba(255, 255, 255, 0.7);
   transition: all 1s;
@@ -93,19 +93,21 @@ p {
 }
 .auth-form-container .btns {
   display: flex;
-  position: absolute;
-  top: 10px;
+  position: relative;
+  margin-top: -48px;
   width: 100%;
 }
 .auth-form-container span {
   width: 80px;
   height: 3px;
+  position: absolute;
+  bottom: 0;
   background-color: #ff0084;
-  transform: translate(-125px, -15px);
+  transform: translate(0, 5px);
   transition: transform 0.5s;
 }
 .auth-form-container .underline {
-  transform: translate(125px, -15px);
+  transform: translate(250px, 5px);
   transition: transform 0.5s;
 }
 .auth-form-container .btns div {
@@ -116,7 +118,6 @@ p {
   align-items: center;
   transition: all 1s;
 }
-
 .auth-form-container button {
   width: 50%;
   background: none;

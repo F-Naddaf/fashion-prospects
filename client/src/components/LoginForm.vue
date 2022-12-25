@@ -1,39 +1,142 @@
 <template>
-  <form class="login-input-form" id="login-form">
-    <input
-      type="email"
-      :value="email"
-      placeholder="email@example.com"
-      required
-    />
-    <input type="password" :value="password" placeholder="Password" required />
+  <form @submit.prevent="handelSubmit" class="login-input-form">
+    <ul class="error-container">
+      <li v-for="(error, index) in errors" :key="index" class="error-section">
+        {{ error }}
+      </li>
+    </ul>
+    <p v-if="success" class="success-message">{{ this.success }}</p>
+    <div class="form-container">
+      <label><p>Email *</p></label>
+      <input
+        type="email"
+        placeholder="email@example.com"
+        v-model="user.email"
+        required
+      />
+    </div>
+    <div class="form-container">
+      <label><p>Password *</p></label>
+      <input
+        type="password"
+        placeholder="Password"
+        v-model="user.password"
+        required
+      />
+    </div>
     <button>Login</button>
     <router-link to="/">Forgot Password</router-link>
   </form>
 </template>
 
 <script>
+import useUser from '../modules/user';
+import { onMounted } from 'vue';
+
 export default {
   name: 'LoginForm',
+  data() {
+    return {
+      user: {
+        email: '',
+        password: '',
+      },
+      errors: [],
+      success: '',
+    };
+  },
+  setup() {
+    const { userInfo, load, login } = useUser();
+
+    onMounted(() => {
+      load();
+    });
+
+    return {
+      userInfo,
+      login,
+    };
+  },
+  methods: {
+    async handelSubmit() {
+      this.errors = [];
+      try {
+        const response = await fetch(`http://localhost:5000/api/users/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.user),
+        });
+        const result = await response.json();
+        console.log(result, 'res');
+        if (result.success) {
+          this.success = 'You have logged in successfully';
+          localStorage.setItem('accessToken', result.accessToken);
+          this.login(result.user);
+          setTimeout(() => {
+            this.$router.push('/');
+          }, 2000);
+        } else {
+          this.errors.push(result.msg);
+        }
+      } catch (error) {
+        this.errors.push('Sorry something went wrong');
+      }
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .login-input-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 400px;
 }
-.login-input-form label p {
-  margin: 0;
+.error-container {
+  position: absolute;
+  top: -140px;
+  width: 100%;
+  padding: 0;
 }
-.login-input-form input {
+.error-section {
+  font-size: 14px;
+  text-align: justify;
+  color: red;
+  padding-bottom: 15px;
+  line-height: 1;
+}
+.success-message {
+  position: absolute;
+  top: -100px;
+  width: 100%;
+  padding: 0;
+  font-size: 14px;
+  color: green;
+}
+.form-container {
+  position: relative;
+  width: 100%;
+}
+.form-container label p {
+  position: absolute;
+  top: -20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 8px;
+  background-color: rgba(255, 255, 255);
+  padding: 0 6px;
+  color: #b3005c;
+}
+.form-container input {
   width: 97%;
   padding: 5px;
   margin-bottom: 20px;
 }
-.login-input-form input::placeholder {
+.form-container input::placeholder {
   color: rgba(80, 80, 80, 0.7);
   font-size: 12px;
 }

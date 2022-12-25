@@ -37,35 +37,42 @@
           ><li>About</li>
           <span> |</span></router-link
         >
-        <router-link to="/"><li>Contact</li></router-link>
+        <router-link to="/contact"><li>Contact</li></router-link>
       </ul>
       <div class="user-container">
-        <ul class="login-btn">
-          <router-link to="/login">
+        <ul class="user-btn">
+          <router-link to="/auth">
             <i class="fa-solid fa-user"></i>
           </router-link>
-          <ul class="login-drop-down">
+          <ul class="user-drop-down">
             <div v-if="isLoading"><LoadingSpinner /></div>
             <p class="error" v-if="error">
               Oops something went wrong!
               <span>Error 404</span>
             </p>
             <li>
-              <router-link :to="`/profile`" class="login-drop-down-link">
+              <router-link :to="`/`" class="user-drop-down-link">
                 Profile
               </router-link>
             </li>
-            <li>
-              <router-link :to="`/auth`" class="login-drop-down-link">
+            <li v-if="userInfo">
+              <button @click="logout" class="user-drop-down-link">
+                Logout
+              </button>
+            </li>
+            <li v-else>
+              <router-link :to="`/auth`" class="user-drop-down-link">
                 Login
               </router-link>
             </li>
           </ul>
+          <p class="user-name" v-if="userInfo">{{ userInfo.userName }}</p>
+          <p class="user-name" v-else>Login</p>
         </ul>
-        <router-link to="/favorites">
+        <router-link to="/favorite">
           <i class="fa-solid fa-heart"></i>
         </router-link>
-        <router-link to="/shoppingCart">
+        <router-link to="/">
           <i class="fa-solid fa-bag-shopping"></i>
         </router-link>
       </div>
@@ -75,8 +82,23 @@
 
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
+import useUser from '../modules/user';
+import { onMounted } from 'vue';
+
 export default {
   name: 'NavBar',
+  setup() {
+    const { userInfo, load, logout } = useUser();
+
+    onMounted(() => {
+      load();
+    });
+
+    return {
+      userInfo,
+      logout,
+    };
+  },
   data() {
     return {
       categoryList: [],
@@ -105,6 +127,12 @@ export default {
 </script>
 
 <style scoped>
+.user-btn {
+  display: flex;
+}
+.user-name {
+  color: white;
+}
 nav {
   display: flex;
   justify-content: space-between;
@@ -152,6 +180,9 @@ h3 {
   display: flex;
   margin: 0;
   justify-content: center;
+}
+.menu-container li:hover {
+  color: #ff0084;
 }
 .menu-container li {
   list-style: none;
@@ -215,21 +246,36 @@ h3 {
   color: white;
 }
 .drop-down a,
-.login-drop-down a {
+.user-drop-down a {
   display: flex;
   justify-content: center;
-  align-content: center;
   color: white;
   height: 45px;
   padding: 0 40px;
   margin: 0;
 }
+.user-drop-down button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 45px;
+  width: 100%;
+  font-size: 14px;
+  padding: 0 40px;
+  margin: 0;
+}
+.user-drop-down button:hover {
+  cursor: pointer;
+}
 .drop-down-link,
-.login-drop-down-link {
+.user-drop-down-link {
   text-transform: capitalize;
+  background: none;
+  border: none;
 }
 .drop-down-link:hover,
-.login-drop-down-link:hover {
+.user-drop-down-link:hover {
   background-color: #ff0084;
 }
 .user-container {
@@ -241,13 +287,13 @@ h3 {
 .user-container li {
   list-style: none;
 }
-.login-btn:hover .login-drop-down {
+.user-btn:hover .user-drop-down {
   display: block;
   flex-direction: column;
   justify-content: space-evenly;
   position: absolute;
   height: fit-content;
-  top: 86px;
+  top: 81px;
   padding: 0;
   left: -15px;
   align-items: center;
@@ -255,16 +301,16 @@ h3 {
   border-top: 4px solid #ff0084;
   z-index: 10;
 }
-.login-drop-down li {
+.user-drop-down li {
   color: white;
 }
-.login-btn {
+.user-btn {
   padding: 0;
 }
-.login-drop-down {
+.user-drop-down {
   display: none;
 }
-.login-drop-down::before {
+.user-drop-down::before {
   content: '';
   top: -15px;
   left: 55px;
