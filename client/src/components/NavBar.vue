@@ -55,12 +55,19 @@
                 Profile
               </router-link>
             </li>
-            <li>
+            <li v-if="userInfo">
+              <button @click="logout" class="user-drop-down-link">
+                Logout
+              </button>
+            </li>
+            <li v-else>
               <router-link :to="`/auth`" class="user-drop-down-link">
                 Login
               </router-link>
             </li>
           </ul>
+          <p class="user-name" v-if="userInfo">{{ userInfo.userName }}</p>
+          <p class="user-name" v-else>Login</p>
         </ul>
         <router-link to="/favorite">
           <i class="fa-solid fa-heart"></i>
@@ -75,9 +82,25 @@
 
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
+import useUser from '../modules/user';
+import { onMounted } from 'vue';
 
 export default {
   name: 'NavBar',
+  setup() {
+    const { userInfo, load, logout } = useUser();
+
+    onMounted(() => {
+      load();
+    });
+
+    return {
+      userInfo,
+      logout,
+    };
+  },
+    };
+  },
   data() {
     return {
       categoryList: [],
@@ -106,6 +129,12 @@ export default {
 </script>
 
 <style scoped>
+.user-btn {
+  display: flex;
+}
+.user-name {
+  color: white;
+}
 nav {
   display: flex;
   justify-content: space-between;
@@ -222,15 +251,30 @@ h3 {
 .user-drop-down a {
   display: flex;
   justify-content: center;
-  align-content: center;
   color: white;
   height: 45px;
   padding: 0 40px;
   margin: 0;
 }
+.user-drop-down button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 45px;
+  width: 100%;
+  font-size: 14px;
+  padding: 0 40px;
+  margin: 0;
+}
+.user-drop-down button:hover {
+  cursor: pointer;
+}
 .drop-down-link,
 .user-drop-down-link {
   text-transform: capitalize;
+  background: none;
+  border: none;
 }
 .drop-down-link:hover,
 .user-drop-down-link:hover {

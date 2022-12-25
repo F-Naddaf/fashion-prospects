@@ -9,9 +9,11 @@
     </p>
     <span> > </span>
     <p>
-      <router-link :to="`/category/${category}`" class="product-category-route">{{
-        productDetails.category
-      }}</router-link>
+      <router-link
+        :to="`/category/${category}`"
+        class="product-category-route"
+        >{{ productDetails.category }}</router-link
+      >
     </p>
     <span> > </span>
     <p>
@@ -23,11 +25,25 @@
   <div class="product-details">
     <aside class="product-image">
       <div class="main-image">
-        <img :src="productDetails.image" />
+        <img :src="displayImage" />
       </div>
-      <button class="small-images">
-        <img :src="productDetails.image" />
-      </button>
+      <div class="slid-images">
+        <button class="small-images active">
+          <img @click="changeImageURL" :src="productDetails.image" />
+        </button>
+        <button class="small-images">
+          <img @click="changeImageURL" src="../assets/electronics.png" />
+        </button>
+        <button class="small-images">
+          <img @click="changeImageURL" src="../assets/jewelery.png" />
+        </button>
+        <button class="small-images">
+          <img @click="changeImageURL" src="../assets/men-clothing.png" />
+        </button>
+        <button class="small-images">
+          <img @click="changeImageURL" src="../assets/women-clothing.png" />
+        </button>
+      </div>
     </aside>
     <aside class="product-info">
       <h2>{{ productDetails.title }}</h2>
@@ -69,6 +85,7 @@ export default {
   name: 'ProductDetails',
   data() {
     return {
+      displayImage: '',
       inStock: false,
       outOfStock: false,
       almostSoldOut: false,
@@ -81,7 +98,7 @@ export default {
     };
   },
   async mounted() {
-    window.scroll(0, 0)
+    window.scroll(0, 0);
     this.isLoading = true;
     try {
       const result = await fetch(
@@ -94,8 +111,9 @@ export default {
       this.inStock = getQuantity > 10;
       this.outOfStock = getQuantity === 0;
       this.almostSoldOut = getQuantity <= 10 && getQuantity >= 1;
-      this.category = res.category
+      this.category = res.category;
       const titleLength = res.title.length;
+      this.displayImage = res.image;
       this.titleRoute =
         titleLength > 14
           ? res.title.substring(0, 14).trim() + '...'
@@ -106,11 +124,16 @@ export default {
       this.error = { status: true, msg: 'Oops something went wrong!' };
     }
   },
+  methods: {
+    changeImageURL(e) {
+      this.displayImage = e.target.src;
+    },
+  },
   components: {
     LoadingSpinner,
     ProductRate,
-    AddToFavorite
-},
+    AddToFavorite,
+  },
 };
 </script>
 
@@ -151,6 +174,9 @@ a {
   background-color: white;
   height: 35vh;
 }
+.slid-images {
+  display: flex;
+}
 .small-images {
   display: flex;
   border: 1px solid rgb(80, 80, 80);
@@ -160,6 +186,16 @@ a {
   background-color: white;
   align-items: center;
   justify-content: center;
+  opacity: 0.5;
+}
+.small-images:hover {
+  opacity: 1;
+}
+.small-images:hover {
+  opacity: 1;
+}
+.active {
+  opacity: 1;
 }
 .main-image img {
   height: 100%;

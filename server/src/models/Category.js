@@ -4,7 +4,6 @@ import validateAllowedFields from '../util/validateAllowedFields.js';
 const categorySchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    image: { type: String, required: true },
   },
   { timestamps: true },
 );
@@ -13,7 +12,7 @@ const Category = mongoose.model('categories', categorySchema);
 
 export const validateCategory = (categoryObject) => {
   const errorList = [];
-  const allowedKeys = ['title', 'image'];
+  const allowedKeys = ['title', 'image', 'subCategories'];
 
   const validatedKeysMessage = validateAllowedFields(
     categoryObject,
