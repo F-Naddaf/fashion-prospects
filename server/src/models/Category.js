@@ -4,6 +4,7 @@ import validateAllowedFields from '../util/validateAllowedFields.js';
 const categorySchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
+    image: String,
   },
   { timestamps: true },
 );

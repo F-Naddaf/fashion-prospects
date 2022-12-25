@@ -4,6 +4,7 @@ import validationErrorMessage from '../util/validationErrorMessage.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+
 export const authenticateToken = async (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -142,18 +143,18 @@ export const addFavorite = async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
     const isProductFavorite = user.favorites.some(
-      (product) => product.productId.toString() === productId,
+      (product) => product.productId.toString() === productId
     );
-    logInfo(isProductFavorite);
-    if (isProductFavorite) {
+    if (!isProductFavorite) {
       await User.findOneAndUpdate(
         { email: req.user },
-        { $pull: { favorites: {productId} } },
+        { $push: { favorites: { productId } } }
       );
     } else {
       await User.findOneAndUpdate(
         { email: req.user },
-        { $push: { favorites: {productId} } },
+        { $pull: { favorites: { productId } } }
+
       );
     }
     const updatedUser = await User.findOne({ email: email });
