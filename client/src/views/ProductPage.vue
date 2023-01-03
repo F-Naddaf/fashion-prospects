@@ -1,5 +1,5 @@
 <template>
-  <section class="categories-section">
+  <main class="categories-section">
     <div class="category-title">
       <h3>{{ categoryTitle }}</h3>
       <span></span>
@@ -15,21 +15,22 @@
         class="category-images"
       >
         <li>
-          <router-link :to="`/category/${categoryTitle}/${category.title}/${category._id}`">
+          <router-link
+            :to="`/category/${categoryTitle}/${category.title}/${category._id}`"
+          >
             <CategoryCard :category="category" />
           </router-link>
         </li>
       </ul>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
-import CategoryCard from '@/components/CategoryCard.vue';
 
 export default {
-  name: 'CategoryPage',
+  name: 'ProductPage',
   data() {
     return {
       categories: [],
@@ -43,10 +44,10 @@ export default {
   async mounted() {
     this.isLoading = true;
     this.categoryId = this.$route.params.id;
-    this.categoryTitle = this.$route.params.category;
+    this.categoryTitle = this.$route.params.item;
     try {
       const result = await fetch(
-        `http://localhost:5000/api/subcategories/${this.categoryId}`,
+        `http://localhost:5000/api/products/filter-by-subcategory/${this.categoryId}`,
       );
       const res = await result.json();
       this.categories = res.result;
@@ -59,53 +60,12 @@ export default {
   },
   components: {
     LoadingSpinner,
-    CategoryCard,
   },
 };
 </script>
 
 <style scoped>
-.categories-section {
-  display: flex;
-  flex-direction: column;
-  margin-top: 45px;
-}
-.category-title h3 {
-  font-size: 22px;
-  color: #01689c;
-}
-.category-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.category-title span {
-  width: 50px;
-  height: 3px;
-  border-radius: 5px;
-  margin: -18px 0 0 0;
-  background-color: #ff0084;
-}
-.category-container {
-  display: flex;
-  justify-content: space-around;
-  margin: 5% 0;
-  width: 100%;
-}
-ul:hover {
-  transition-timing-function: ease-in-out;
-  transition: 0.5s;
-  transform: translateY(-15px);
-}
-li {
-  display: flex;
-  list-style: none;
-  max-height: 100%;
-}
-a {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  align-items: center;
+h3 {
+  color: red;
 }
 </style>

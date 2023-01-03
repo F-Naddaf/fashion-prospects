@@ -1,7 +1,10 @@
 <template>
   <div class="product-rate">
     <span v-for="star in stars" :key="star[0]">
-      <i :class="`${star < rate ? ' ' : 'fa-dark'} fa-star fa-solid`"></i>
+      <i
+        v-if="rate"
+        :class="`${star < rate ? ' ' : 'fa-dark'} fa-star fa-solid`"
+      ></i>
     </span>
   </div>
 </template>

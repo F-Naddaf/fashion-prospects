@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import ProductDetails from '../views/ProductDetails.vue';
 import CategoryPage from '../views/CategoryPage.vue';
+import ProductPage from '../views/ProductPage.vue';
 import Auth from '../views/Auth.vue';
 import Favorite from '../views/Favorite.vue';
 import UserData from '../components/UserData.vue';
@@ -19,7 +20,7 @@ const routes = [
     component: About,
   },
   {
-    path: '/category/:category',
+    path: '/category/:category/:id',
     name: 'CategoryPage',
     component: CategoryPage,
   },
@@ -27,6 +28,11 @@ const routes = [
     path: '/:category/:id',
     name: 'ProductDetails',
     component: ProductDetails,
+  },
+  {
+    path: '/category/:category/:item/:id',
+    name: 'ProductDetails',
+    component: ProductPage,
   },
   {
     path: '/auth',

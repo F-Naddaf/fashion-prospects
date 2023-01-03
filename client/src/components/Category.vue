@@ -1,81 +1,104 @@
 <template>
-  <main class="category-container">
-    <div class="category-title">
+  <section class="categories-section">
+    <div className="category-title">
       <h3>Categories</h3>
       <span></span>
     </div>
-    <div class="category-images">
-      <router-link to="/category/men's%20clothing">
-        <img alt="banner-image" src="../assets/men-clothing.png" />
-        <h3>Men's Clothing</h3>
-      </router-link>
-      <router-link to="/category/women's%20clothing">
-        <img alt="banner-image" src="../assets/women-clothing.png" />
-        <h3>Women's Clothing</h3>
-      </router-link>
-      <router-link to="/category/jewelery">
-        <img alt="banner-image" src="../assets/jewelery.png" />
-        <h3>Jewelery</h3>
-      </router-link>
-      <router-link to="/category/electronics">
-        <img alt="banner-image" src="../assets/electronics.png" />
-        <h3>Electronics</h3>
-      </router-link>
+    <div v-if="isLoading"><LoadingSpinner /></div>
+    <h3 class="error" v-if="error.status">
+      {{ error.msg }}
+    </h3>
+    <div class="category-container">
+      <ul
+        v-for="category in categories"
+        :key="category._id"
+        class="category-images"
+      >
+        <li>
+          <router-link :to="`/category/${category.title}/${category._id}`">
+            <CategoryCard :category="category" />
+          </router-link>
+        </li>
+      </ul>
     </div>
-  </main>
+  </section>
 </template>
 
 <script>
+import CategoryCard from '@/components/CategoryCard.vue';
+import LoadingSpinner from '@/components/Spinner.vue';
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Category',
+  data() {
+    return {
+      categories: [],
+      isLoading: false,
+      error: { status: false, msg: '' },
+    };
+  },
+  async mounted() {
+    this.isLoading = true;
+    try {
+      const result = await fetch(`http://localhost:5000/api/categories`);
+      const res = await result.json();
+      this.categories = res.result;
+      this.isLoading = false;
+    } catch (error) {
+      this.isLoading = false;
+      this.error = { status: true, msg: 'Oops something went wrong!' };
+    }
+  },
+  components: {
+    LoadingSpinner,
+    CategoryCard,
+  },
 };
 </script>
 
 <style scoped>
-.category-container {
+.categories-section {
   display: flex;
   flex-direction: column;
-  margin: 5% 0;
-  width: 100%;
-}
-.category-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 45px;
+  margin-top: 45px;
 }
 .category-title h3 {
   font-size: 22px;
   color: #01689c;
 }
+.category-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .category-title span {
   width: 50px;
   height: 3px;
   border-radius: 5px;
-  margin: -18px 0 15px 0;
+  margin: -18px 0 0 0;
   background-color: #ff0084;
 }
-.category-images {
+.category-container {
   display: flex;
-  justify-content: space-evenly;
-}
-.category-images a {
-  text-decoration: none;
+  justify-content: space-around;
+  margin: 5% 0;
   width: 100%;
 }
-.category-images h3 {
-  font-size: 14px;
-  margin-top: 5px;
-  color: rgb(80, 80, 80);
-}
-.category-images a:hover {
+ul:hover {
   transition-timing-function: ease-in-out;
   transition: 0.5s;
   transform: translateY(-15px);
 }
-img {
-  width: 70%;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+li {
+  display: flex;
+  list-style: none;
+  max-height: 100%;
+}
+a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  align-items: center;
 }
 </style>

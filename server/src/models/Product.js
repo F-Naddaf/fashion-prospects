@@ -1,40 +1,38 @@
-import mongoose from "mongoose";
-import validateAllowedFields from "../util/validateAllowedFields.js";
+import mongoose from 'mongoose';
+import validateAllowedFields from '../util/validateAllowedFields.js';
 
 const productSchema = new mongoose.Schema({
   title: { type: String, required: true },
   price: { type: Number, required: true },
-  mainImage: { type: String, required: true },
   images: [{ type: String }],
   inStock: { type: Number, required: true },
-  description: String,
+  description: { type: Object },
   size: String,
   color: String,
-  subCategory: { type: mongoose.Schema.Types.ObjectId, ref: "subCategories" },
+  subCategory: { type: mongoose.Schema.Types.ObjectId, ref: 'subCategories' },
   brand: String,
 });
 
-const Product = mongoose.model("products", productSchema);
+const Product = mongoose.model('products', productSchema);
 
 export const validateProduct = (productObject) => {
   const errorList = [];
   const allowedKeys = [
-    "title",
-    "price",
-    "mainImage",
-    "images",
-    "description",
-    "inStock",
-    "size",
-    "color",
-    "category",
-    "subCategory",
-    "brand",
+    'title',
+    'price',
+    'images',
+    'description',
+    'inStock',
+    'size',
+    'color',
+    'category',
+    'subCategory',
+    'brand',
   ];
 
   const validatedKeysMessage = validateAllowedFields(
     productObject,
-    allowedKeys
+    allowedKeys,
   );
 
   if (validatedKeysMessage.length > 0) {
@@ -42,18 +40,15 @@ export const validateProduct = (productObject) => {
   }
 
   if (productObject.title == null) {
-    errorList.push("title is a required field");
+    errorList.push('title is a required field');
   }
 
   if (productObject.price == null) {
-    errorList.push("price is a required field");
+    errorList.push('price is a required field');
   }
 
   if (productObject.inStock == null) {
-    errorList.push("inStock is a required field");
-  }
-  if (productObject.mainImage == null) {
-    errorList.push("mainImage is a required field");
+    errorList.push('inStock is a required field');
   }
 
   return errorList;
