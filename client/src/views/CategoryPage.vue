@@ -10,13 +10,13 @@
     </h3>
     <div class="category-container">
       <ul
-        v-for="category in categories"
-        :key="category._id"
+        v-for="subCategory in SubCategories"
+        :key="subCategory._id"
         class="category-images"
       >
         <li>
-          <router-link :to="`/category/${categoryTitle}/${category.title}/${category._id}`">
-            <CategoryCard :category="category" />
+          <router-link :to="`/category/${categoryTitle}/${subCategory.title}/${subCategory._id}`">
+            <CategoryCard :category="subCategory" />
           </router-link>
         </li>
       </ul>
@@ -32,7 +32,7 @@ export default {
   name: 'CategoryPage',
   data() {
     return {
-      categories: [],
+      SubCategories: [],
       isLoading: false,
       error: { status: false, msg: '' },
       renderComponent: true,
@@ -49,7 +49,7 @@ export default {
         `http://localhost:5000/api/subcategories/${this.categoryId}`,
       );
       const res = await result.json();
-      this.categories = res.result;
+      this.SubCategories = res.result;
       console.log('res', res);
       this.isLoading = false;
     } catch (error) {

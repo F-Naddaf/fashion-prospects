@@ -31,6 +31,10 @@
                 {{ category.title }}
               </router-link>
               <ul className="subcategory-drop-down">
+                <span
+                  v-if="subcategoryList"
+                  :class="`${subcategoryList.length > 0 ? 'arrow' : 'empty'}`"
+                ></span>
                 <li
                   v-for="subcategory in subcategoryList"
                   :key="subcategory._id"
@@ -122,8 +126,8 @@ export default {
     try {
       const result = await fetch('http://localhost:5000/api/categories');
       const res = await result.json();
-      console.log(res);
       this.categoryList = res.result;
+      console.log('this.categoryList', this.categoryList);
     } catch (error) {
       this.error = true;
     }
@@ -137,7 +141,6 @@ export default {
         );
         const res = await result.json();
         this.subcategoryList = res.result;
-        console.log('subcategoryList', res.result);
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
@@ -264,7 +267,6 @@ h3 {
   border-right: 10px solid transparent;
   border-bottom: 15px solid #ff0084;
 }
-
 .catagory-list:hover .subcategory-drop-down {
   display: block;
   flex-direction: column;
@@ -278,11 +280,9 @@ h3 {
   border-right: 4px solid #ff0084;
   z-index: 10;
 }
-
-.subcategory-drop-down::before {
-  content: '';
+.subcategory-drop-down .arrow {
   top: 15px;
-  right: -10px;
+  right: -25px;
   position: absolute;
   width: 0;
   height: 0;
@@ -290,11 +290,12 @@ h3 {
   border-bottom: 7px solid transparent;
   border-left: 10px solid #ff0084;
 }
-
+.empty {
+  display: none;
+}
 .subcategory-drop-down {
   display: none;
 }
-
 .subcategory-drop-down li {
   color: white;
 }
