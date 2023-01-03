@@ -1,6 +1,4 @@
 <template>
-  <li>
-    <router-link :to="`/${product.category}/${product._id}`">
       <div class="image-container">
         <img :src="product.image" />
       </div>
@@ -11,8 +9,6 @@
         <p v-if="product.price" class="price">€ {{ product?.price }}</p>
       </div>
       <ProductRate :rate="product?.rate" />
-    </router-link>
-  </li>
 </template>
 
 <script>

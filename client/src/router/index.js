@@ -25,14 +25,14 @@ const routes = [
     component: CategoryPage,
   },
   {
+    path: '/category/:category/:item/:id',
+    name: 'ProductPage',
+    component: ProductPage,
+  },
+  {
     path: '/:category/:id',
     name: 'ProductDetails',
     component: ProductDetails,
-  },
-  {
-    path: '/category/:category/:item/:id',
-    name: 'ProductDetails',
-    component: ProductPage,
   },
   {
     path: '/auth',
