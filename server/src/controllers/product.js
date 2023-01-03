@@ -116,7 +116,7 @@ export const searchProducts = async (req, res) => {
 
 export const filterProductsBySubCategory = async (req, res) => {
   try {
-    const { subCategoryId } = req.body;
+    const { subCategoryId } = req.params;
 
     const products = await Product.find({
       subCategory: subCategoryId,
@@ -134,7 +134,7 @@ export const filterProductsBySubCategory = async (req, res) => {
 
 export const filterProductsByCategory = async (req, res) => {
   try {
-    const { categoryId } = req.body;
+    const { categoryId } = req.params;
 
     const subCategories = await SubCategory.find({
       category: categoryId,
