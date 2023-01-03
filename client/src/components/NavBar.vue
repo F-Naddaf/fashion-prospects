@@ -15,24 +15,35 @@
           ><li>Home</li>
           <span> |</span></router-link
         >
-        <ul class="products-btn">
-          <router-link to="/">
-            <li>Products</li>
-            <span> |</span>
-          </router-link>
+        <li className="products-list">
+          <router-link to="/" className="title"> Products </router-link>
           <ul class="drop-down">
-            <div v-if="isLoading"><LoadingSpinner /></div>
-            <p class="error" v-if="error">
-              Oops something went wrong!
-              <span>Error 404</span>
-            </p>
-            <li v-for="category in categoryList" :key="category">
-              <router-link :to="`/category/${category}`" class="drop-down-link">
-                {{ category }}
+            <li
+              className="catagory-list"
+              v-for="category in categoryList"
+              :key="category._id"
+            >
+              <router-link
+                @mouseover="getSubcategories(category._id)"
+                :to="`/category/${category.title}/${category._id}`"
+                class="drop-down-link"
+              >
+                {{ category.title }}
               </router-link>
+              <ul className="subcategory-drop-down">
+                <li
+                  v-for="subcategory in subcategoryList"
+                  :key="subcategory._id"
+                >
+                  <router-link to="/" className="drop-down-link">
+                    {{ subcategory.title }}
+                  </router-link>
+                </li>
+              </ul>
             </li>
           </ul>
-        </ul>
+        </li>
+        <span> |</span>
         <router-link to="/about"
           ><li>About</li>
           <span> |</span></router-link
@@ -102,23 +113,37 @@ export default {
   data() {
     return {
       categoryList: [],
+      subcategoryList: [],
       isLoading: false,
       error: false,
     };
   },
   async mounted() {
-    this.isLoading = true;
     try {
-      const result = await fetch(
-        'https://fakestoreapi.com/products/categories',
-      );
+      const result = await fetch('http://localhost:5000/api/categories');
       const res = await result.json();
-      this.categoryList = res;
-      this.isLoading = false;
+      console.log(res);
+      this.categoryList = res.result;
     } catch (error) {
-      this.isLoading = false;
       this.error = true;
     }
+  },
+  methods: {
+    async getSubcategories(id) {
+      this.isLoading = true;
+      try {
+        const result = await fetch(
+          `http://localhost:5000/api/subcategories/${id}`,
+        );
+        const res = await result.json();
+        this.subcategoryList = res.result;
+        console.log('subcategoryList', res.result);
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+        // this.error = true;
+      }
+    },
   },
   components: {
     LoadingSpinner,
@@ -180,11 +205,13 @@ h3 {
   display: flex;
   margin: 0;
   justify-content: center;
+  color: #0091dc;
 }
 .menu-container li:hover {
   color: #ff0084;
 }
 .menu-container li {
+  position: relative;
   list-style: none;
   justify-content: center;
   color: #0091dc;
@@ -203,20 +230,24 @@ h3 {
   display: flex;
   align-items: center;
 }
-.products-btn:hover .drop-down {
+.products-list .title:hover {
+  color: #ff0084;
+}
+.products-list:hover .drop-down {
   display: block;
   flex-direction: column;
   justify-content: space-evenly;
   position: absolute;
   height: fit-content;
   top: 7vh;
-  left: 42px;
+  left: -40px;
   align-items: center;
   background-color: #0091dc;
   border-top: 4px solid #ff0084;
   z-index: 10;
 }
-.drop-down li {
+.drop-down li,
+.subcategory-drop-down li {
   color: white;
 }
 .drop-down {
@@ -225,13 +256,47 @@ h3 {
 .drop-down::before {
   content: '';
   top: -15px;
-  left: 95px;
+  left: 60px;
   position: absolute;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 15px solid #ff0084;
+}
+
+.catagory-list:hover .subcategory-drop-down {
+  display: block;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: absolute;
+  height: fit-content;
+  top: 0;
+  right: 144px;
+  align-items: center;
+  background-color: #0091dc;
+  border-right: 4px solid #ff0084;
+  z-index: 10;
+}
+
+.subcategory-drop-down::before {
+  content: '';
+  top: 15px;
+  right: -10px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 10px solid #ff0084;
+}
+
+.subcategory-drop-down {
+  display: none;
+}
+
+.subcategory-drop-down li {
+  color: white;
 }
 .error {
   display: flex;

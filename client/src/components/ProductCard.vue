@@ -1,16 +1,16 @@
 <template>
   <li>
-    <router-link :to="`/${product.category}/${product.id}`">
+    <router-link :to="`/${product.category}/${product._id}`">
       <div class="image-container">
         <img :src="product.image" />
       </div>
       <div class="product-details">
         <p class="title">
-          {{ product.title.slice(0, 35) }}
+          {{ product.title }}
         </p>
-        <p class="price">€ {{ product.price }}</p>
+        <p v-if="product.price" class="price">€ {{ product?.price }}</p>
       </div>
-      <ProductRate :rate="product.rate" />
+      <ProductRate :rate="product?.rate" />
     </router-link>
   </li>
 </template>
