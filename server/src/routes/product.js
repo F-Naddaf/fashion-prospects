@@ -18,6 +18,9 @@ productRouter.patch("/update/:id", updateProduct);
 productRouter.get("/product_detail/:id", getProduct);
 productRouter.delete("/delete/:id", deleteProduct);
 productRouter.get("/search", searchProducts);
-productRouter.get("/filter-by-subcategory", filterProductsBySubCategory);
-productRouter.get("/filter-by-category", filterProductsByCategory);
+productRouter.get(
+  "/filter-by-subcategory/:subCategoryId",
+  filterProductsBySubCategory
+);
+productRouter.get("/filter-by-category/:categoryId", filterProductsByCategory);
 export default productRouter;
