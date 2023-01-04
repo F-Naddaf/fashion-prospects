@@ -10,14 +10,14 @@
     <span> > </span>
     <p>
       <router-link
-        :to="`/category/${category}`"
-        class="product-category-route"
-        >{{ productDetails.category }}</router-link
+        :to="`/category/${category}/${subCategoryTitle}/${subCategoryId}`"
       >
+        {{ subCategoryTitle }}
+      </router-link>
     </p>
     <span> > </span>
     <p>
-      <router-link :to="`/${category}/${productDetails.id}`">
+      <router-link :to="`/${category}/${subCategoryTitle}/${productInfo._id}`">
         {{ titleRoute }}
       </router-link>
     </p>
@@ -27,28 +27,18 @@
       <div class="main-image">
         <img :src="displayImage" />
       </div>
-      <div class="slid-images">
-        <button class="small-images active">
-          <img @click="changeImageURL" :src="productDetails.image" />
-        </button>
-        <button class="small-images">
-          <img @click="changeImageURL" src="../assets/electronics.png" />
-        </button>
-        <button class="small-images">
-          <img @click="changeImageURL" src="../assets/jewelery.png" />
-        </button>
-        <button class="small-images">
-          <img @click="changeImageURL" src="../assets/men-clothing.png" />
-        </button>
-        <button class="small-images">
-          <img @click="changeImageURL" src="../assets/women-clothing.png" />
-        </button>
+      <div class="slid-image-container">
+        <div class="slid-images" v-for="image in images" :key="image.index">
+          <button class="small-images active">
+            <img @click="changeImageURL" :src="image" />
+          </button>
+        </div>
       </div>
     </aside>
     <aside class="product-info">
-      <h2>{{ productDetails.title }}</h2>
+      <h2>{{ productInfo.title }}</h2>
       <div class="price-section">
-        <p class="price">€{{ productDetails.price }}</p>
+        <p class="price">€{{ productInfo.price }}</p>
         <p class="in-stock" v-if="inStock"><span></span>In Stock</p>
         <p class="almost-out" v-else-if="almostSoldOut">
           <span></span>Almost sold out
@@ -63,7 +53,11 @@
       </div>
       <div class="description">
         <h3>Product description:</h3>
-        <p>{{ productDetails.description }}</p>
+        <p>{{ productDetails }}</p>
+        <h4>Composition:</h4>
+        <p>{{ productComposition }}</p>
+        <h4>maintenance instructions:</h4>
+        <!-- <p>{{ maintenanceInstructions }}</p> -->
       </div>
       <div class="btn">
         <button class="add-to-cart">
@@ -85,14 +79,20 @@ export default {
   name: 'ProductDetails',
   data() {
     return {
-      displayImage: '',
+      productInfo: {},
+      productDetails: '',
+      productComposition: '',
+      // maintenanceInstructions: '',
+      displayImage: [],
+      images: [],
+      titleRoute: '',
       inStock: false,
       outOfStock: false,
       almostSoldOut: false,
+      subCategoryTitle: '',
+      subCategoryId: '',
       category: '',
-      rate: '',
-      titleRoute: '',
-      productDetails: {},
+      productId: '',
       isLoading: false,
       error: { status: false, msg: '' },
     };
@@ -100,24 +100,32 @@ export default {
   async mounted() {
     window.scroll(0, 0);
     this.isLoading = true;
+    this.subCategoryTitle = this.$route.params.item;
+    this.category = this.$route.params.category;
+    this.productId = this.$route.params.id;
     try {
       const result = await fetch(
-        `https://fakestoreapi.com/products/${this.$route.params.id}`,
+        `http://localhost:5000/api/products/product_detail/${this.productId}`,
       );
       const res = await result.json();
-      this.rate = Math.ceil(res.rating.rate);
-      this.productDetails = res;
-      const getQuantity = res.rating.count;
+      console.log('this.productInfo', res.result);
+      const getQuantity = res.result.inStock;
+      this.productInfo = res.result;
+      this.productDetails = res.result.description.detsils;
+      this.productComposition = res.result.description.composition;
+      // this.maintenanceInstructions = res.result.description.maintenance;
+      // this.rate = Math.ceil(res.rating.rate);
+      this.subCategoryId = res.result.subCategory._id;
+      this.images = res.result.images;
       this.inStock = getQuantity > 10;
       this.outOfStock = getQuantity === 0;
       this.almostSoldOut = getQuantity <= 10 && getQuantity >= 1;
-      this.category = res.category;
-      const titleLength = res.title.length;
-      this.displayImage = res.image;
+      this.displayImage = res.result.images[0];
+      const titleLength = res.result.title.length;
       this.titleRoute =
         titleLength > 14
-          ? res.title.substring(0, 14).trim() + '...'
-          : res.title;
+          ? res.result.title.substring(0, 14).trim() + '....'
+          : res.result.title;
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
@@ -168,11 +176,16 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5vh 0;
   border: 1px solid rgb(80, 80, 80);
   border-radius: 20px;
-  background-color: white;
-  height: 35vh;
+  background-color: #f4f4f4;
+  height: 45vh;
+}
+.slid-image-container {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: auto;
 }
 .slid-images {
   display: flex;
@@ -183,7 +196,7 @@ a {
   height: 60px;
   width: 60px;
   margin: 10px auto;
-  background-color: white;
+  background-color: #f4f4f4;
   align-items: center;
   justify-content: center;
   opacity: 0.5;
@@ -201,7 +214,7 @@ a {
   height: 100%;
 }
 .small-images img {
-  width: 70%;
+  height: 100%;
 }
 .small-images:hover {
   cursor: pointer;
@@ -212,12 +225,13 @@ a {
   flex-direction: column;
   justify-content: space-between;
   margin-left: 80px;
-  height: 45vh;
+  height: 50vh;
 }
 .product-info h2 {
   color: rgb(80, 80, 80);
   margin: 0;
   text-align: left;
+  text-transform: capitalize;
 }
 .price-section {
   display: flex;
@@ -272,7 +286,7 @@ a {
 .rate {
   display: flex;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
 }
 .rate p {
   font-size: 16px;
@@ -300,7 +314,7 @@ a {
 }
 .btn {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
 }
 .add-to-cart {
@@ -319,6 +333,9 @@ a {
   font-size: 14px;
   margin-right: 10px;
 }
+.add-to-cart:hover {
+  background-color: #016da3;
+}
 .add-to-fav {
   width: 8%;
   height: 30px;
@@ -327,5 +344,8 @@ a {
   background-color: #ff0084;
   color: white;
   cursor: pointer;
+}
+.add-to-fav:hover {
+  background-color: #911053;
 }
 </style>
