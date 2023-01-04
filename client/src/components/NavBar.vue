@@ -39,7 +39,10 @@
                   v-for="subcategory in subcategoryList"
                   :key="subcategory._id"
                 >
-                  <router-link to="/" className="drop-down-link">
+                  <router-link
+                    :to="`/category/${category.title}/${subcategory.title}/${subcategory._id}`"
+                    className="drop-down-link"
+                  >
                     {{ subcategory.title }}
                   </router-link>
                 </li>
