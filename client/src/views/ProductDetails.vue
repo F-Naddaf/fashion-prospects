@@ -108,7 +108,7 @@ export default {
         `http://localhost:5000/api/products/product_detail/${this.productId}`,
       );
       const res = await result.json();
-      console.log('this.productInfo', res.result);
+      // console.log('this.productInfo', res.result);
       const getQuantity = res.result.inStock;
       this.productInfo = res.result;
       this.productDetails = res.result.description.detsils;

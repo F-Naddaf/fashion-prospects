@@ -15,11 +15,11 @@
           ><li>Home</li>
           <span> |</span></router-link
         >
-        <li className="products-list">
-          <router-link to="/" className="title"> Products </router-link>
+        <li calss="products-list">
+          <router-link to="/" calss="title"> Products </router-link>
           <ul class="drop-down">
             <li
-              className="catagory-list"
+              calss="catagory-list"
               v-for="category in categoryList"
               :key="category._id"
             >
@@ -30,7 +30,7 @@
               >
                 {{ category.title }}
               </router-link>
-              <ul className="subcategory-drop-down">
+              <ul calss="subcategory-drop-down">
                 <span
                   v-if="subcategoryList"
                   :class="`${subcategoryList.length > 0 ? 'arrow' : 'empty'}`"
@@ -41,7 +41,7 @@
                 >
                   <router-link
                     :to="`/category/${category.title}/${subcategory.title}/${subcategory._id}`"
-                    className="drop-down-link"
+                    calss="drop-down-link"
                   >
                     {{ subcategory.title }}
                   </router-link>
@@ -69,7 +69,7 @@
               <span>Error 404</span>
             </p>
             <li>
-              <router-link :to="`/`" class="user-drop-down-link">
+              <router-link :to="`/profile`" class="user-drop-down-link">
                 Profile
               </router-link>
             </li>
