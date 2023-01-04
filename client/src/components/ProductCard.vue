@@ -24,20 +24,13 @@ export default {
 </script>
 
 <style scoped>
+.image-container {
+  width: 240px;
+}
 img {
-  max-height: 200px;
-  max-width: 90%;
-}
-li {
-  display: flex;
-  list-style: none;
-  max-height: 100%;
-}
-a {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  align-items: center;
+  width: 100%;
+  height: 300px;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
 .product-details {
   width: 100;

@@ -130,7 +130,6 @@ export default {
       const result = await fetch('http://localhost:5000/api/categories');
       const res = await result.json();
       this.categoryList = res.result;
-      console.log('this.categoryList', this.categoryList);
     } catch (error) {
       this.error = true;
     }
