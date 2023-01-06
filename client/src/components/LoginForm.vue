@@ -5,7 +5,7 @@
         {{ error }}
       </li>
     </ul>
-    <p v-if="success" class="success-message">{{ this.success }}</p>
+    <p v-if="userInfo" class="success-message">{{ this.success }}</p>
     <div class="form-container">
       <label><p>Email *</p></label>
       <input

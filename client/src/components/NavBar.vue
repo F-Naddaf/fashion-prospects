@@ -15,11 +15,11 @@
           ><li>Home</li>
           <span> |</span></router-link
         >
-        <li calss="products-list">
-          <router-link to="/" calss="title"> Products </router-link>
+        <li class="products-list">
+          <router-link to="/" class="title"> Products </router-link>
           <ul class="drop-down">
             <li
-              calss="catagory-list"
+              class="catagory-list"
               v-for="category in categoryList"
               :key="category._id"
             >
@@ -30,7 +30,7 @@
               >
                 {{ category.title }}
               </router-link>
-              <ul calss="subcategory-drop-down">
+              <ul class="subcategory-drop-down">
                 <span
                   v-if="subcategoryList"
                   :class="`${subcategoryList.length > 0 ? 'arrow' : 'empty'}`"
@@ -41,7 +41,7 @@
                 >
                   <router-link
                     :to="`/category/${category.title}/${subcategory.title}/${subcategory._id}`"
-                    calss="drop-down-link"
+                    class="drop-down-link"
                   >
                     {{ subcategory.title }}
                   </router-link>
@@ -68,7 +68,7 @@
               Oops something went wrong!
               <span>Error 404</span>
             </p>
-            <li>
+            <li v-if="userInfo">
               <router-link :to="`/profile`" class="user-drop-down-link">
                 Profile
               </router-link>
@@ -84,8 +84,7 @@
               </router-link>
             </li>
           </ul>
-          <p class="user-name" v-if="userInfo">{{ userInfo.userName }}</p>
-          <p class="user-name" v-else>Login</p>
+          <p class="user-name" v-if="userInfo">{{ userInfo?.userName }}</p>
         </ul>
         <router-link to="/favorite">
           <i class="fa-solid fa-heart"></i>
@@ -159,6 +158,7 @@ export default {
 <style scoped>
 .user-btn {
   display: flex;
+  align-items: center;
 }
 .user-name {
   color: white;
@@ -212,7 +212,7 @@ h3 {
   justify-content: center;
   color: #0091dc;
 }
-.menu-container li:hover {
+.menu-container li:hover, a:hover {
   color: #ff0084;
 }
 .menu-container li {
@@ -234,9 +234,6 @@ h3 {
 .nav-right-container {
   display: flex;
   align-items: center;
-}
-.products-list .title:hover {
-  color: #ff0084;
 }
 .products-list:hover .drop-down {
   display: block;

@@ -5,9 +5,9 @@ import ProductDetails from '../views/ProductDetails.vue';
 import CategoryPage from '../views/CategoryPage.vue';
 import ProductPage from '../views/ProductPage.vue';
 import Auth from '../views/Auth.vue';
+import Profile from '../views/Profile.vue';
 import Favorite from '../views/Favorite.vue';
 import UserData from '../components/UserData.vue';
-import Profile from '../views/Profile.vue';
 
 const routes = [
   {
