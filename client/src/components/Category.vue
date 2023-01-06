@@ -1,6 +1,6 @@
 <template>
   <section class="categories-section">
-    <div className="category-title">
+    <div class="category-title">
       <h3>Categories</h3>
       <span></span>
     </div>
