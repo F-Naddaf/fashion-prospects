@@ -14,32 +14,26 @@
       <div class="form-container">
         <div class="personal-info">
           <h3>User Name:</h3>
-          <span> | </span>
           <p>{{ userInfo?.userName }}</p>
         </div>
         <div class="personal-info">
           <h3>Full Name:</h3>
-          <span> | </span>
           <p>{{ userInfo?.fullName?.first }} {{ userInfo?.fullName?.last }}</p>
         </div>
         <div class="personal-info">
           <h3>Email:</h3>
-          <span> | </span>
           <p>{{ userInfo?.email }}</p>
         </div>
         <div class="personal-info">
           <h3>Address:</h3>
-          <span> | </span>
           <p>{{ userInfo?.address }}</p>
         </div>
         <div class="personal-info">
           <h3>PostCode:</h3>
-          <span> | </span>
           <p>{{ userInfo?.postCode }}</p>
         </div>
         <div class="personal-info">
           <h3>Phone:</h3>
-          <span> | </span>
           <p>{{ userInfo?.phone }}</p>
         </div>
         <button class="edit-info">Edit Profile</button>
@@ -49,7 +43,6 @@
 </template>
 
 <script>
-// import LoadingSpinner from '@/components/Spinner.vue';
 import useUser from '../modules/user';
 import { onMounted } from 'vue';
 
