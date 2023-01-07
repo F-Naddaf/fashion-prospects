@@ -181,7 +181,7 @@ export const addToRecentViews = async (req, res) => {
         { email: req.user },
         {
           $push: {
-            recentViews: { $each: [productId], $position: 0, $slice: 10 },
+            recentViews: { $each: [{ productId }], $position: 0, $slice: 5 },
           },
         }
       );
@@ -194,7 +194,7 @@ export const addToRecentViews = async (req, res) => {
         { email: req.user },
         {
           $push: {
-            recentViews: { $each: [productId], $position: 0, slice: 10 },
+            recentViews: { $each: [{ productId }], $position: 0, $slice: 5 },
           },
         }
       );
