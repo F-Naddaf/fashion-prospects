@@ -6,6 +6,12 @@
         <h3>Edit Profile</h3>
         <span></span>
       </div>
+      <ul class="error-container">
+        <li v-for="(error, index) in errors" :key="index" class="error-section">
+          {{ error }}
+        </li>
+      </ul>
+      <p v-if="success" class="success-message">{{ this.success }}</p>
       <div class="input-container">
         <div class="input-field">
           <label><h3>Email:</h3></label>
@@ -94,6 +100,12 @@ import { onMounted } from 'vue';
 
 export default {
   name: 'EditProfile',
+  data() {
+    return {
+      errors: [],
+      success: '',
+    };
+  },
   setup() {
     const { userInfo, load } = useUser();
     console.log(userInfo);
@@ -112,7 +124,6 @@ export default {
         postCode: userInfo?.postCode,
       },
       userInfo,
-      errors: [],
     };
   },
   methods: {
@@ -122,33 +133,62 @@ export default {
     async handelSubmit() {
       const token = localStorage.getItem('accessToken');
       this.errors = [];
-      if (token) {
-        try {
-          // if (!this.validateForm()) {
-          //   return;
-          // }
-          const userResponse = await fetch('http://localhost:5000/api/users', {
-            method: 'PATCH',
-            headers: {
-              'content-type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(this.user),
-          });
-          const result = await userResponse.json();
-          console.log('edit-user', result.userInfo);
-          if (result.success) {
-            setTimeout(() => {
-              this.$router.push('/');
-            }, 2000);
-            this.success = 'You have created an account successfully';
-          } else {
-            this.errors.push(result.msg);
-          }
-        } catch (error) {
-          this.errors.push('Sorry something went wrong');
+
+      try {
+        if (!this.validateEditForm()) {
+          console.log('not Validated');
+          console.log(this.errors);
+          return;
+        }
+        console.log('validated');
+        const userResponse = await fetch('http://localhost:5000/api/users', {
+          method: 'PATCH',
+          headers: {
+            'content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(this.user),
+        });
+        const result = await userResponse.json();
+        console.log('edit-user', result);
+        if (result.success) {
+          setTimeout(() => {
+            this.$router.push('/');
+          }, 2000);
+          this.success = 'You have edit your profile successfully';
+        } else {
+          this.errors.push(result.msg);
+        }
+      } catch (error) {
+        this.errors.push('Sorry something went wrong');
+      }
+    },
+    validateEditForm() {
+      if (this.user.userName) {
+        if (!this.validUserName(this.user.userName)) {
+          this.errors.push(
+            'User name must be at least 5 characters include 1 number, 1 capital character!',
+          );
         }
       }
+      if (this.user.phone) {
+        if (!this.validPhone(this.user.phone)) {
+          this.errors.push('Phone number should be contain only Numbers!');
+        }
+      }
+      if (this.errors.length > 0) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    validUserName(userName) {
+      const validation = /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*]{5,10}/;
+      return validation.test(userName);
+    },
+    validPhone(phone) {
+      const validation = /^\d{10}$/;
+      return validation.test(phone);
     },
   },
 };
@@ -205,10 +245,34 @@ main {
   margin: -18px 0 0 0;
   background-color: #ff0084;
 }
+.error-container {
+  position: absolute;
+  left: 60px;
+  top: 80px;
+  width: 100%;
+  padding: 0;
+}
+.error-section {
+  font-size: 14px;
+  text-align: justify;
+  color: red;
+  padding-bottom: 10px;
+  line-height: 1;
+}
+
+.success-message {
+  position: absolute;
+  top: 80px;
+  width: 100%;
+  padding: 0;
+  font-size: 14px;
+  color: green;
+}
 .input-container {
   display: flex;
   flex-direction: column;
   width: 50%;
+  margin-top: 40px;
 }
 .input-field {
   display: flex;

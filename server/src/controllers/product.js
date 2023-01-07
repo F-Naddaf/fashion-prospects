@@ -1,4 +1,5 @@
 import Product, { validateProduct } from "../models/Product.js";
+import User from "../models/User.js";
 import SubCategory from "../models/SubCategory.js";
 import { logError } from "../util/logging.js";
 import validationErrorMessage from "../util/validationErrorMessage.js";
@@ -142,6 +143,47 @@ export const filterProductsByCategory = async (req, res) => {
     const subCategoryIds = subCategories.map((item) => item._id);
     const products = await Product.find({
       subCategory: { $in: subCategoryIds },
+    })
+      .populate({ path: "subCategory", select: "title category" })
+      .exec();
+    res.status(200).json({ success: true, result: products });
+  } catch (error) {
+    logError(error);
+    res
+      .status(500)
+      .json({ success: false, msg: "Unable to get products, try again later" });
+  }
+};
+
+export const getRecentViewsProducts = async (req, res) => {
+  const email = req.user;
+  try {
+    const user = await User.findOne({ email: email });
+    const recentViewsProductsIds = user.recentViews.map(
+      (product) => product.productId
+    );
+    const products = await Product.find({
+      _id: { $in: recentViewsProductsIds },
+    })
+      .populate({ path: "subCategory", select: "title category" })
+      .exec();
+    res.status(200).json({ success: true, result: products });
+  } catch (error) {
+    logError(error);
+    res
+      .status(500)
+      .json({ success: false, msg: "Unable to get products, try again later" });
+  }
+};
+export const getFavoriteProducts = async (req, res) => {
+  const email = req.user;
+  try {
+    const user = await User.findOne({ email: email });
+    const favoriteProductsIds = user.favorites.map(
+      (product) => product.productId
+    );
+    const products = await Product.find({
+      _id: { $in: favoriteProductsIds },
     })
       .populate({ path: "subCategory", select: "title category" })
       .exec();
