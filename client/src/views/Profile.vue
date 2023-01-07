@@ -33,10 +33,11 @@
           <p>{{ userInfo?.postCode }}</p>
         </div>
         <div class="personal-info">
-          <h3>Phone:</h3>
+          <h3>Phone Number:</h3>
           <p>{{ userInfo?.phone }}</p>
         </div>
-        <button class="edit-info">Edit Profile</button>
+        <button @click="openEdit" class="edit-info">Edit Profile</button>
+        <EditProfile v-if="open" @close="close" />
       </div>
     </div>
   </main>
@@ -44,6 +45,7 @@
 
 <script>
 import useUser from '../modules/user';
+import EditProfile from '../components/EditProfile.vue';
 import { onMounted } from 'vue';
 
 export default {
@@ -51,7 +53,6 @@ export default {
   name: 'Profile',
   setup() {
     const { userInfo, load } = useUser();
-    console.log(userInfo);
     onMounted(() => {
       load();
     });
@@ -61,10 +62,21 @@ export default {
   },
   data() {
     return {
-      userName: '',
       isLoading: false,
       error: false,
+      open: false,
     };
+  },
+  methods: {
+    close() {
+      this.open = false;
+    },
+    openEdit() {
+      this.open = true;
+    },
+  },
+  components: {
+    EditProfile,
   },
 };
 </script>
@@ -114,7 +126,7 @@ export default {
   color: #f3f5f6;
 }
 .form-container {
-  position: relative;
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -142,7 +154,7 @@ export default {
   padding-right: 10px;
 }
 .edit-info {
-  position: absolute;
+  /* position: absolute; */
   width: 95px;
   text-decoration: underline;
   color: #ff0084;
