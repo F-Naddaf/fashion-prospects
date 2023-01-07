@@ -103,7 +103,18 @@ export default {
     this.subCategoryTitle = this.$route.params.item;
     this.category = this.$route.params.category;
     this.productId = this.$route.params.id;
+    const token = localStorage.getItem('accessToken');
     try {
+      await fetch(
+        `http://localhost:5000/api/users/add-to-recent/${this.productId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
       const result = await fetch(
         `http://localhost:5000/api/products/product_detail/${this.productId}`,
       );
