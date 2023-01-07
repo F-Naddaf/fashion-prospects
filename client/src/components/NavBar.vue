@@ -74,9 +74,13 @@
               </router-link>
             </li>
             <li v-if="userInfo">
-              <button @click="logout" class="user-drop-down-link">
+              <router-link
+                :to="`/`"
+                @click="logout"
+                class="user-drop-down-link"
+              >
                 Logout
-              </button>
+              </router-link>
             </li>
             <li v-else>
               <router-link :to="`/auth`" class="user-drop-down-link">
@@ -110,7 +114,6 @@ export default {
     onMounted(() => {
       load();
     });
-
     return {
       userInfo,
       logout,
@@ -212,7 +215,8 @@ h3 {
   justify-content: center;
   color: #0091dc;
 }
-.menu-container li:hover, a:hover {
+.menu-container li:hover,
+a:hover {
   color: #ff0084;
 }
 .menu-container li {

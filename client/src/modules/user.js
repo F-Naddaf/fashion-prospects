@@ -19,6 +19,7 @@ export default function useUser() {
         });
         const result = await userResponse.json();
         state.userInfo = result.user;
+        console.log(result.user);
       } catch (error) {
         state.error = error.msg;
       }
