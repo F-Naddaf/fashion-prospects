@@ -40,6 +40,9 @@
         <EditProfile v-if="open" @close="close" />
       </div>
     </div>
+    <div class="visited">
+      <VisitedProducts />
+    </div>
   </main>
 </template>
 
@@ -47,6 +50,7 @@
 import useUser from '../modules/user';
 import EditProfile from '../components/EditProfile.vue';
 import { onMounted } from 'vue';
+import VisitedProducts from '@/components/VisitedProducts.vue';
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -56,6 +60,7 @@ export default {
     onMounted(() => {
       load();
     });
+    console.log(userInfo);
     return {
       userInfo,
     };
@@ -77,6 +82,7 @@ export default {
   },
   components: {
     EditProfile,
+    VisitedProducts,
   },
 };
 </script>

@@ -36,7 +36,7 @@
                 ? userInfo?.fullName?.first
                 : 'First Name'
             "
-            v-model="user.fullName.first"
+            v-model="first"
           />
         </div>
         <div class="input-field">
@@ -48,7 +48,7 @@
                 ? userInfo?.fullName?.last
                 : 'Last Name'
             "
-            v-model="user.fullName.last"
+            v-model="last"
           />
         </div>
         <div class="input-field">
@@ -115,14 +115,12 @@ export default {
     return {
       user: {
         userName: userInfo?.userName,
-        fullName: {
-          first: userInfo?.fullName?.first,
-          last: userInfo?.fullName?.last,
-        },
         phone: userInfo?.phone,
         address: userInfo?.address,
         postCode: userInfo?.postCode,
       },
+      first: userInfo?.fullName?.first,
+      last: userInfo?.fullName?.last,
       userInfo,
     };
   },
@@ -133,27 +131,35 @@ export default {
     async handelSubmit() {
       const token = localStorage.getItem('accessToken');
       this.errors = [];
-
+      const firstName = this.first ? this.first : this.userInfo.fullName.first
+      const lastName = this.last ? this.last : this.userInfo.fullName.last
+      const requestData = {
+        userName: this.user.userName,
+        fullName: { first: firstName, last: lastName },
+        phone: this.user.phone,
+        address: this.user.address,
+        postCode: this.user.postCode,
+      };
       try {
         if (!this.validateEditForm()) {
-          console.log('not Validated');
-          console.log(this.errors);
           return;
         }
-        console.log('validated');
+        console.log('first', this.user.first);
+        console.log('last', this.user.last);
         const userResponse = await fetch('http://localhost:5000/api/users', {
           method: 'PATCH',
           headers: {
             'content-type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(this.user),
+          body: JSON.stringify(requestData),
         });
         const result = await userResponse.json();
         console.log('edit-user', result);
         if (result.success) {
           setTimeout(() => {
-            this.$router.push('/');
+            close()
+            // this.$router.push('/profile');
           }, 2000);
           this.success = 'You have edit your profile successfully';
         } else {
