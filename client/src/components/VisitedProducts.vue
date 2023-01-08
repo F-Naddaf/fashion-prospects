@@ -13,7 +13,7 @@
         <!-- :to="`/${category}/${subCategoryTitle}/${visitedProduct._id}`" -->
         <li>
           <router-link :to="`/`">
-            <ProductCard :product="visitedProduct" />
+            <ProductCard :product="visitedProduct.productId" />
           </router-link>
         </li>
       </ul>
@@ -40,7 +40,7 @@ export default {
     this.isLoading = true;
     try {
       const result = await fetch(
-        'http://localhost:5000/api/products/recent-views',
+        'http://localhost:5000/api/users',
         {
           method: 'GET',
           headers: {
@@ -50,7 +50,8 @@ export default {
         },
       );
       const res = await result.json();
-      this.visitedProducts = res.result;
+      console.log(res)
+      this.visitedProducts = res.user.recentViews;
       this.isLoading = false;
     } catch (error) {
       this.error = true;
