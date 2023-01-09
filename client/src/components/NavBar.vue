@@ -88,7 +88,7 @@
               </router-link>
             </li>
           </ul>
-          <p class="user-name" v-if="userInfo">{{ userInfo?.userName }}</p>
+          <p class="user-name">{{ userInfo?.userName }}</p>
         </ul>
         <router-link to="/favorite">
           <i class="fa-solid fa-heart"></i>
@@ -104,14 +104,14 @@
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
 import useUser from '../modules/user';
-import { onMounted } from 'vue';
+import { onUpdated } from 'vue';
 
 export default {
   name: 'NavBar',
   setup() {
     const { userInfo, load, logout } = useUser();
 
-    onMounted(() => {
+    onUpdated(() => {
       load();
     });
     return {

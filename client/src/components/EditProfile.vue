@@ -131,8 +131,8 @@ export default {
     async handelSubmit() {
       const token = localStorage.getItem('accessToken');
       this.errors = [];
-      const firstName = this.first ? this.first : this.userInfo.fullName.first
-      const lastName = this.last ? this.last : this.userInfo.fullName.last
+      const firstName = this.first ? this.first : this.userInfo.fullName.first;
+      const lastName = this.last ? this.last : this.userInfo.fullName.last;
       const requestData = {
         userName: this.user.userName,
         fullName: { first: firstName, last: lastName },
@@ -158,7 +158,7 @@ export default {
         console.log('edit-user', result);
         if (result.success) {
           setTimeout(() => {
-            close()
+            close();
             // this.$router.push('/profile');
           }, 2000);
           this.success = 'You have edit your profile successfully';

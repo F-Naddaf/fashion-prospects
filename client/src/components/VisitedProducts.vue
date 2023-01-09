@@ -1,8 +1,8 @@
 <template>
   <div class="visited-products">
     <div class="title">
-      <h3>Visited Products</h3>
-      <span></span>
+      <h3>Recently visited articles</h3>
+      <!-- <span></span> -->
     </div>
     <section class="visited-container">
       <div v-if="isLoading"><LoadingSpinner /></div>
