@@ -41,15 +41,15 @@
       </div>
     </div>
     <div class="visited">
-      <VisitedProducts />
+      <VisitedProducts userInfo="userInfo" />
     </div>
   </main>
 </template>
 
 <script>
 import useUser from '../modules/user';
-import EditProfile from '../components/EditProfile.vue';
 import { onMounted } from 'vue';
+import EditProfile from '../components/EditProfile.vue';
 import VisitedProducts from '@/components/VisitedProducts.vue';
 
 export default {
@@ -60,7 +60,6 @@ export default {
     onMounted(() => {
       load();
     });
-    console.log(userInfo);
     return {
       userInfo,
     };

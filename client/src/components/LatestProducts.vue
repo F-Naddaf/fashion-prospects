@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       latestProducts: [],
-      visibleSlide: [0, 1, 2, 3],
+      visibleSlide: [0, 1, 2, 3, 4],
       isLoading: false,
       error: { status: false, msg: '' },
     };
@@ -66,8 +66,8 @@ export default {
     },
     prev() {
       if (this.visibleSlide[0] > 0) {
-        const newValue = this.visibleSlide[this.visibleSlide.length - 1] - 4;
-        const newArray = this.visibleSlide.slice(0, 3);
+        const newValue = this.visibleSlide[this.visibleSlide.length - 1] - 5;
+        const newArray = this.visibleSlide.slice(0, 4);
         newArray.unshift(newValue);
         this.visibleSlide = newArray;
       } else {
@@ -78,25 +78,28 @@ export default {
   async mounted() {
     this.isLoading = true;
     try {
-      const result = await fetch('https://fakestoreapi.com/products');
+      const result = await fetch('http://localhost:5000/api/products');
       const res = await result.json();
-      const productsQuantity = res.filter((rate) => rate.rating);
-      const sortProductQuantity = productsQuantity.sort((a, b) => {
-        return b.rating.count - a.rating.count;
-      });
-      const topEightProducts = sortProductQuantity.slice(0, 8);
-      const latestEightProducts = topEightProducts.map((product) => {
-        return {
-          id: product.id,
-          category: product.category.split(' ').join(''),
-          title: product.title.slice(0, 35),
-          image: product.image,
-          price: product.price,
-          rate: Math.ceil(product.rating.rate),
-          quantity: product.rating.count,
-        };
-      });
-      this.latestProducts = latestEightProducts;
+      console.log('latest', res.result);
+      // const productsQuantity = res.filter((rate) => rate.rating);
+      // const sortProductQuantity = productsQuantity.sort((a, b) => {
+      //   return b.rating.count - a.rating.count;
+      // });
+      // const topEightProducts = sortProductQuantity.slice(0, 8);
+      // const latestEightProducts = topEightProducts.map((product) => {
+      //   return {
+      //     id: product.id,
+      //     category: product.category.split(' ').join(''),
+      //     title: product.title.slice(0, 35),
+      //     image: product.image,
+      //     price: product.price,
+      //     rate: Math.ceil(product.rating.rate),
+      //     quantity: product.rating.count,
+      //   };
+      // });
+      // this.latestProducts = latestEightProducts;
+      const topEightProducts = res.result.slice(0, 10);
+      this.latestProducts = topEightProducts;
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
@@ -131,8 +134,10 @@ export default {
 .latest-products-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.04);
+  height: 420px;
 }
 .featured-products {
   display: flex;
@@ -160,14 +165,12 @@ export default {
 .carousel-slider {
   display: flex;
   width: 16%;
-  height: 300px;
-  margin: 2%;
-  padding: 1%;
-  background: white;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: hidden;
+  height: 375px;
+  margin: 20px 0;
+  border: 2px solid white;
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  flex-direction: column;
+  align-items: center;
 }
 .left-enter-active {
   animation: leftInAnimation 0.5s ease-in;
@@ -176,5 +179,7 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  height: 400px;
+  align-items: center;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="visited-products">
+  <div v-if="userInfo" class="visited-products">
     <div class="title">
       <h3>Recently visited articles</h3>
-      <!-- <span></span> -->
+      <span></span>
     </div>
     <section class="visited-container">
       <div v-if="isLoading"><LoadingSpinner /></div>
@@ -27,6 +27,7 @@ import LoadingSpinner from './Spinner.vue';
 
 export default {
   name: 'VisitedProducts',
+  props: ['userInfo'],
   data() {
     return {
       visitedProducts: [],
@@ -51,6 +52,7 @@ export default {
       );
       const res = await result.json();
       this.visitedProducts = res.result;
+      console.log('visited', res.result);
       this.isLoading = false;
     } catch (error) {
       this.error = true;
@@ -73,19 +75,18 @@ export default {
 .title {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  margin-left: 50px;
+  align-items: center;
+  margin-bottom: 25px;
 }
 .title h3 {
-  font-size: 18px;
+  font-size: 22px;
   color: #01689c;
-  align-self: flex-start;
 }
 .title span {
   width: 70px;
-  height: 2px;
+  height: 3px;
   border-radius: 5px;
-  margin: -18px 0 15px 30px;
+  margin: -18px 0 15px 8px;
   background-color: #ff0084;
 }
 .error {
@@ -100,29 +101,29 @@ export default {
 .error span {
   color: #ff0084;
 }
-h3 {
-  color: rebeccapurple;
-}
 .visited-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.04);
 }
 ul {
   margin: 20px 0;
+  padding: 0;
 }
 ul:hover {
   transition-timing-function: ease-in-out;
   transition: 0.5s;
-  transform: translateY(-15px);
+  transform: translateY(-5px);
 }
 li {
   display: flex;
   list-style: none;
   max-height: 100%;
+  border: 2px solid white;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
 a {
   display: flex;

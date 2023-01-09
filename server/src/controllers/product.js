@@ -1,20 +1,20 @@
-import Product, { validateProduct } from "../models/Product.js";
-import User from "../models/User.js";
-import SubCategory from "../models/SubCategory.js";
-import { logError } from "../util/logging.js";
-import validationErrorMessage from "../util/validationErrorMessage.js";
+import Product, { validateProduct } from '../models/Product.js';
+import User from '../models/User.js';
+import SubCategory from '../models/SubCategory.js';
+import { logError } from '../util/logging.js';
+import validationErrorMessage from '../util/validationErrorMessage.js';
 
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find()
-      .populate({ path: "subCategory", select: "title category" })
+      .populate({ path: 'subCategory', select: 'title category' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get products, try again later" });
+      .json({ success: false, msg: 'Unable to get products, try again later' });
   }
 };
 
@@ -22,11 +22,11 @@ export const createProduct = async (req, res) => {
   try {
     const product = req.body;
 
-    if (typeof product !== "object") {
+    if (typeof product !== 'object') {
       res.status(400).json({
         success: false,
         msg: `You need to provide a 'product' object. Received: ${JSON.stringify(
-          product
+          product,
         )}`,
       });
 
@@ -47,7 +47,7 @@ export const createProduct = async (req, res) => {
     logError(error);
     res.status(500).json({
       success: false,
-      msg: "Unable to create product, try again later",
+      msg: 'Unable to create product, try again later',
     });
   }
 };
@@ -56,14 +56,15 @@ export const getProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id)
-      .populate({ path: "subCategory", select: "title category" })
+      .populate({ path: 'subCategory', select: 'title category categoryTitle' })
+      // .populate({ path: 'subCategory', path: 'category', select: 'title category' })
       .exec();
     res.status(200).json({ success: true, result: product });
   } catch (error) {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get product, try again later" });
+      .json({ success: false, msg: 'Unable to get product, try again later' });
   }
 };
 
@@ -77,7 +78,7 @@ export const updateProduct = async (req, res) => {
     logError(error);
     res.status(500).json({
       success: false,
-      msg: "Unable to update product, try again later",
+      msg: 'Unable to update product, try again later',
     });
   }
 };
@@ -93,7 +94,7 @@ export const deleteProduct = async (req, res) => {
     logError(error);
     res.status(500).json({
       success: false,
-      msg: "Unable to delete product, try again later",
+      msg: 'Unable to delete product, try again later',
     });
   }
 };
@@ -101,17 +102,17 @@ export const searchProducts = async (req, res) => {
   try {
     const { query } = req.query;
     const products = await Product.find({
-      $or: [{ title: { $regex: query, $options: "i" } }],
+      $or: [{ title: { $regex: query, $options: 'i' } }],
       isAvailable: true,
     })
-      .populate({ path: "subCategory", select: "title category" })
+      .populate({ path: 'subCategory', select: 'title category' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get products, try again later" });
+      .json({ success: false, msg: 'Unable to get products, try again later' });
   }
 };
 
@@ -122,14 +123,14 @@ export const filterProductsBySubCategory = async (req, res) => {
     const products = await Product.find({
       subCategory: subCategoryId,
     })
-      .populate({ path: "subCategory", select: "title category" })
+      .populate({ path: 'subCategory', select: 'title category' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get products, try again later" });
+      .json({ success: false, msg: 'Unable to get products, try again later' });
   }
 };
 
@@ -144,14 +145,14 @@ export const filterProductsByCategory = async (req, res) => {
     const products = await Product.find({
       subCategory: { $in: subCategoryIds },
     })
-      .populate({ path: "subCategory", select: "title category" })
+      .populate({ path: 'subCategory', select: 'title category' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get products, try again later" });
+      .json({ success: false, msg: 'Unable to get products, try again later' });
   }
 };
 
@@ -160,19 +161,19 @@ export const getRecentViewsProducts = async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
     const recentViewsProductsIds = user.recentViews.map(
-      (product) => product.productId
+      (product) => product.productId,
     );
     const products = await Product.find({
       _id: { $in: recentViewsProductsIds },
     })
-      .populate({ path: "subCategory", select: "title category" })
+      .populate({ path: 'subCategory', select: 'title category' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get products, try again later" });
+      .json({ success: false, msg: 'Unable to get products, try again later' });
   }
 };
 export const getFavoriteProducts = async (req, res) => {
@@ -180,18 +181,18 @@ export const getFavoriteProducts = async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
     const favoriteProductsIds = user.favorites.map(
-      (product) => product.productId
+      (product) => product.productId,
     );
     const products = await Product.find({
       _id: { $in: favoriteProductsIds },
     })
-      .populate({ path: "subCategory", select: "title category" })
+      .populate({ path: 'subCategory', select: 'title category' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get products, try again later" });
+      .json({ success: false, msg: 'Unable to get products, try again later' });
   }
 };
