@@ -60,6 +60,7 @@ export default {
     onMounted(() => {
       load();
     });
+    console.log(userInfo);
     return {
       userInfo,
     };
