@@ -60,7 +60,6 @@ export default {
     onMounted(() => {
       load();
     });
-    console.log(userInfo);
     return {
       userInfo,
     };
@@ -79,6 +78,11 @@ export default {
     openEdit() {
       this.open = true;
     },
+    // updateProfile() {
+    //   const { load, userInfo } = useUser();
+    //   load();
+    //   return { userInfo };
+    // },
   },
   components: {
     EditProfile,

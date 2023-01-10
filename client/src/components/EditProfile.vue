@@ -158,10 +158,10 @@ export default {
         console.log('edit-user', result);
         if (result.success) {
           setTimeout(() => {
-            close();
-            // this.$router.push('/profile');
+            this.close();
           }, 2000);
           this.success = 'You have edit your profile successfully';
+          // this.$emit("profile-updated");
         } else {
           this.errors.push(result.msg);
         }

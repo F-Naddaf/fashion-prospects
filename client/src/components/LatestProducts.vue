@@ -22,7 +22,11 @@
           :visibleSlide="visibleSlide"
           class="carousel-slider"
         >
-          <ProductCard :product="product" />
+          <router-link
+            :to="`/${product.subCategory.categoryTitle}/${product.subCategory.title}/${product._id}`"
+          >
+            <ProductCard :product="product" />
+          </router-link>
         </carousel-slide>
       </carousel>
     </div>
@@ -171,6 +175,12 @@ export default {
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
   flex-direction: column;
   align-items: center;
+}
+.carousel-slider a {
+  text-decoration: none;
+}
+.carousel-slider:hover {
+  transform: scale(1.05);
 }
 .left-enter-active {
   animation: leftInAnimation 0.5s ease-in;

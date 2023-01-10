@@ -11,7 +11,7 @@ const subCategorySchema = new mongoose.Schema({
 const SubCategory = mongoose.model('subCategories', subCategorySchema);
 export const validateSubCategory = (subCategoryObject) => {
   const errorList = [];
-  const allowedKeys = ['title', 'image', 'category, categoryTitle'];
+  const allowedKeys = ['title', 'image', 'category', 'categoryTitle'];
 
   const validatedKeysMessage = validateAllowedFields(
     subCategoryObject,
