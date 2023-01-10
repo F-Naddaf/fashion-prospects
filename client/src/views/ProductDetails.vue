@@ -113,6 +113,10 @@ export default {
             'content-type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
+          body: JSON.stringify({
+            category: this.category,
+            subCategory: this.subCategoryTitle,
+          }),
         },
       );
       const result = await fetch(

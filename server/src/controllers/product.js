@@ -7,7 +7,7 @@ import validationErrorMessage from '../util/validationErrorMessage.js';
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find()
-      .populate({ path: 'subCategory', select: 'title category' })
+      .populate({ path: 'subCategory', select: 'title category categoryTitle' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
@@ -57,7 +57,6 @@ export const getProduct = async (req, res) => {
     const { id } = req.params;
     const product = await Product.findById(id)
       .populate({ path: 'subCategory', select: 'title category categoryTitle' })
-      // .populate({ path: 'subCategory', path: 'category', select: 'title category' })
       .exec();
     res.status(200).json({ success: true, result: product });
   } catch (error) {
@@ -105,7 +104,7 @@ export const searchProducts = async (req, res) => {
       $or: [{ title: { $regex: query, $options: 'i' } }],
       isAvailable: true,
     })
-      .populate({ path: 'subCategory', select: 'title category' })
+      .populate({ path: 'subCategory', select: 'title category categoryTitle' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
@@ -123,7 +122,7 @@ export const filterProductsBySubCategory = async (req, res) => {
     const products = await Product.find({
       subCategory: subCategoryId,
     })
-      .populate({ path: 'subCategory', select: 'title category' })
+      .populate({ path: 'subCategory', select: 'title category categoryTitle' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
@@ -145,7 +144,7 @@ export const filterProductsByCategory = async (req, res) => {
     const products = await Product.find({
       subCategory: { $in: subCategoryIds },
     })
-      .populate({ path: 'subCategory', select: 'title category' })
+      .populate({ path: 'subCategory', select: 'title category categoryTitle' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
@@ -166,7 +165,7 @@ export const getRecentViewsProducts = async (req, res) => {
     const products = await Product.find({
       _id: { $in: recentViewsProductsIds },
     })
-      .populate({ path: 'subCategory', select: 'title category' })
+      .populate({ path: 'subCategory', select: 'title category categoryTitle' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {
@@ -186,7 +185,7 @@ export const getFavoriteProducts = async (req, res) => {
     const products = await Product.find({
       _id: { $in: favoriteProductsIds },
     })
-      .populate({ path: 'subCategory', select: 'title category' })
+      .populate({ path: 'subCategory', select: 'title category categoryTitle' })
       .exec();
     res.status(200).json({ success: true, result: products });
   } catch (error) {

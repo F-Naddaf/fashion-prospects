@@ -10,10 +10,11 @@
         {{ error.msg }}
       </h3>
       <ul v-for="visitedProduct in visitedProducts" :key="visitedProduct._id">
-        <!-- :to="`/${category}/${subCategoryTitle}/${visitedProduct._id}`" -->
         <li>
-          <router-link :to="`/`">
-            <ProductCard :product="visitedProduct" />
+          <router-link
+            :to="`/${visitedProduct.category}/${visitedProduct.subCategory}/${visitedProduct.productId._id}`"
+          >
+            <ProductCard :product="visitedProduct.productId" />
           </router-link>
         </li>
       </ul>
@@ -31,6 +32,8 @@ export default {
   data() {
     return {
       visitedProducts: [],
+      category: '',
+      subCategory: '',
       subcategoryList: [],
       isLoading: false,
       error: false,
@@ -40,19 +43,16 @@ export default {
     const token = localStorage.getItem('accessToken');
     this.isLoading = true;
     try {
-      const result = await fetch(
-        'http://localhost:5000/api/products/recent-views',
-        {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
+      const result = await fetch('http://localhost:5000/api/users', {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       const res = await result.json();
-      this.visitedProducts = res.result;
-      console.log('visited', res.result);
+      this.visitedProducts = res.user.recentViews;
+      this.category = res.user.recentViews.category;
       this.isLoading = false;
     } catch (error) {
       this.error = true;
