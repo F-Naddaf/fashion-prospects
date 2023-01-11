@@ -31,5 +31,8 @@ export default function useUser() {
   const login = (data) => {
     state.userInfo = data;
   };
-  return { ...toRefs(state), load, logout, login };
+  const updateUser = (data) => {
+    return state.userInfo = data;
+  };
+  return { ...toRefs(state), load, logout, login, updateUser };
 }

@@ -104,14 +104,14 @@
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
 import useUser from '../modules/user';
-import { onUpdated } from 'vue';
+import { onMounted } from 'vue';
 
 export default {
   name: 'NavBar',
   setup() {
     const { userInfo, load, logout } = useUser();
 
-    onUpdated(() => {
+    onMounted(() => {
       load();
     });
     return {

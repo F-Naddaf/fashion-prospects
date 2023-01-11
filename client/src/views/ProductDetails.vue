@@ -17,7 +17,7 @@
     </p>
     <span> > </span>
     <p>
-      <router-link :to="`/${category}/${subCategoryTitle}/${productInfo._id}`">
+      <router-link :to="`/${category}/${subCategoryTitle}/${productId}`">
         {{ titleRoute }}
       </router-link>
     </p>
@@ -56,15 +56,15 @@
         <p>{{ productDetails }}</p>
         <h4>Composition:</h4>
         <p>{{ productComposition }}</p>
-        <h4>maintenance instructions:</h4>
-        <!-- <p>{{ maintenanceInstructions }}</p> -->
+        <h4 v-if="maintenanceInstructions">maintenance instructions:</h4>
+        <p>{{ maintenanceInstructions }}</p>
       </div>
       <div class="btn">
         <button class="add-to-cart">
           <p>Add to cart</p>
           <i class="fa-solid fa-cart-shopping"></i>
         </button>
-        <AddToFavorite />
+        <AddToFavorite :productId="productInfo?._id" />
       </div>
     </aside>
   </div>
@@ -82,7 +82,7 @@ export default {
       productInfo: {},
       productDetails: '',
       productComposition: '',
-      // maintenanceInstructions: '',
+      maintenanceInstructions: '',
       displayImage: [],
       images: [],
       titleRoute: '',
@@ -126,9 +126,9 @@ export default {
       // console.log('this.productInfo', res.result);
       const getQuantity = res.result.inStock;
       this.productInfo = res.result;
-      this.productDetails = res.result.description.detsils;
+      this.productDetails = res.result.description.details;
       this.productComposition = res.result.description.composition;
-      // this.maintenanceInstructions = res.result.description.maintenance;
+      this.maintenanceInstructions = res.result.description.maintenance;
       // this.rate = Math.ceil(res.rating.rate);
       this.subCategoryId = res.result.subCategory._id;
       this.images = res.result.images;

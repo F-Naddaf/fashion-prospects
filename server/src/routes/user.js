@@ -15,7 +15,7 @@ userRouter.get("/", authenticateToken, getUser);
 userRouter.post("/create", createUser);
 userRouter.post("/login", login);
 userRouter.patch("/", authenticateToken, updateUser);
-userRouter.patch("/add-favorite", authenticateToken, addFavorite);
+userRouter.patch("/add-favorite/:productId", authenticateToken, addFavorite);
 userRouter.patch(
   "/add-to-recent/:productId",
   authenticateToken,

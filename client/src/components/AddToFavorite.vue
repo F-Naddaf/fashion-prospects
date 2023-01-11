@@ -7,23 +7,22 @@
 <script>
 export default {
   name: 'AddToFavorite',
+  props: ['productId'],
   methods: {
     async handleClick() {
       const token = localStorage.getItem('accessToken');
       try {
         const response = await fetch(
-          'http://localhost:5000/api/users/add-favorite',
+          `http://localhost:5000/api/users/add-favorite/${this.productId}`,
           {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
               Authorization: `accessToken ${token}`,
             },
-            body: JSON.stringify({ productId: '63a0d3c84705d518384ed84e' }),
           },
         );
-        const result = await response.json();
-        console.log(result);
+        await response.json();
       } catch (error) {
         console.log(error);
       }
@@ -32,5 +31,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

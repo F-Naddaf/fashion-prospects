@@ -143,7 +143,7 @@ export const updateUser = async (req, res) => {
 
 export const addFavorite = async (req, res) => {
   const email = req.user;
-  const { productId } = req.body;
+  const { productId } = req.params;
   try {
     const user = await User.findOne({ email: email });
     const isProductFavorite = user.favorites.some(
@@ -177,7 +177,6 @@ export const addToRecentViews = async (req, res) => {
   const email = req.user;
   const { productId } = req.params;
   const { category, subCategory } = req.body;
-  console.log(category, subCategory);
   try {
     const user = await User.findOne({ email: email });
     const isProductInRecent = user.recentViews.some(

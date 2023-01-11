@@ -107,7 +107,7 @@ export default {
     };
   },
   setup() {
-    const { userInfo, load } = useUser();
+    const { userInfo, load, updateUser } = useUser();
     console.log(userInfo);
     onMounted(() => {
       load();
@@ -122,6 +122,7 @@ export default {
       first: userInfo?.fullName?.first,
       last: userInfo?.fullName?.last,
       userInfo,
+      updateUser,
     };
   },
   methods: {
@@ -144,8 +145,6 @@ export default {
         if (!this.validateEditForm()) {
           return;
         }
-        console.log('first', this.user.first);
-        console.log('last', this.user.last);
         const userResponse = await fetch('http://localhost:5000/api/users', {
           method: 'PATCH',
           headers: {
@@ -154,16 +153,18 @@ export default {
           },
           body: JSON.stringify(requestData),
         });
-        const result = await userResponse.json();
-        console.log('edit-user', result);
-        if (result.success) {
-          setTimeout(() => {
+        const res = await userResponse.json();
+        console.log('edit-user', res);
+        if (res.success) {
+          // setTimeout(() => {
             this.close();
-          }, 2000);
+            this.updateUser(res.result);
+            // console.log("new user", newUser);
+          // }, 2000);
           this.success = 'You have edit your profile successfully';
           // this.$emit("profile-updated");
         } else {
-          this.errors.push(result.msg);
+          this.errors.push(res.msg);
         }
       } catch (error) {
         this.errors.push('Sorry something went wrong');

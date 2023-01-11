@@ -15,7 +15,9 @@
         class="category-images"
       >
         <li>
-          <router-link :to="`/category/${categoryTitle}/${subCategory.title}/${subCategory._id}`">
+          <router-link
+            :to="`/category/${categoryTitle}/${subCategory.title}/${subCategory._id}`"
+          >
             <CategoryCard :category="subCategory" />
           </router-link>
         </li>
@@ -50,7 +52,6 @@ export default {
       );
       const res = await result.json();
       this.SubCategories = res.result;
-      console.log('res', res);
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;

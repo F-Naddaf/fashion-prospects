@@ -13,7 +13,13 @@ const userSchema = new mongoose.Schema({
   phone: Number,
   address: String,
   postCode: String,
-  favorites: [{ productId: { type: mongoose.ObjectId, ref: 'products' } }],
+  favorites: [
+    {
+      productId: { type: mongoose.ObjectId, ref: 'products' },
+      category: String,
+      subCategory: String,
+    },
+  ],
   shoppingCart: [
     { productId: { type: mongoose.ObjectId, ref: 'products' }, amount: Number },
   ],
