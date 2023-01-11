@@ -11,6 +11,7 @@ const productSchema = new mongoose.Schema({
   color: String,
   subCategory: { type: mongoose.Schema.Types.ObjectId, ref: 'subCategories' },
   brand: String,
+  rate: Number,
 });
 
 const Product = mongoose.model('products', productSchema);
@@ -28,6 +29,7 @@ export const validateProduct = (productObject) => {
     'category',
     'subCategory',
     'brand',
+    'rate',
   ];
 
   const validatedKeysMessage = validateAllowedFields(
