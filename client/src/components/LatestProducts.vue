@@ -84,7 +84,6 @@ export default {
     try {
       const result = await fetch('http://localhost:5000/api/products');
       const res = await result.json();
-      console.log('latest', res.result);
       // const productsQuantity = res.filter((rate) => rate.rating);
       // const sortProductQuantity = productsQuantity.sort((a, b) => {
       //   return b.rating.count - a.rating.count;

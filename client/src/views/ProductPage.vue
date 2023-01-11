@@ -48,7 +48,6 @@ export default {
       );
       const res = await result.json();
       this.subCategories = res.result;
-      console.log('product-page', res.result);
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
