@@ -32,18 +32,15 @@ img {
   height: 300px;
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
-.product-details {
-  width: 100;
-}
 .product-details .title {
-  width: 100;
   font-size: 14px;
   margin-bottom: -10px;
   color: rgb(80, 80, 80);
+  margin-bottom: 0;
 }
 .product-details .price {
-  width: 100;
   color: #01689c;
   font-weight: 500;
+  margin: 0;
 }
 </style>
