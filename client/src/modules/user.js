@@ -28,9 +28,6 @@ export default function useUser() {
     state.userInfo = null;
     localStorage.clear();
   };
-  const login = (data) => {
-    state.userInfo = data;
-  };
   const updateUser = (data) => {
     return state.userInfo = data;
   };

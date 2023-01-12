@@ -136,7 +136,6 @@ export default {
   color: #f3f5f6;
 }
 .form-container {
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -164,7 +163,6 @@ export default {
   padding-right: 10px;
 }
 .edit-info {
-  /* position: absolute; */
   width: 95px;
   text-decoration: underline;
   color: #ff0084;
