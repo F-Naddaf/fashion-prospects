@@ -45,7 +45,6 @@ export default {
         return b.rate - a.rate;
       });
       const topFourProducts = sortProductRate.slice(0, 4);
-      console.log('topFourProducts', topFourProducts);
       const highRatedProducts = topFourProducts.map((product) => {
         return {
           images: [product.images],
@@ -56,7 +55,6 @@ export default {
           _id: product._id
         };
       });
-      console.log('productRate', highRatedProducts);
       this.featuredList = highRatedProducts;
       this.isLoading = false;
     } catch (error) {

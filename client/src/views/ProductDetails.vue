@@ -124,7 +124,6 @@ export default {
       const res = await result.json();
       const getQuantity = res.result.inStock;
       this.productInfo = res.result;
-      console.log('product', res.result);
       this.productDetails = res.result.description.details;
       this.productComposition = res.result.description.composition;
       this.maintenanceInstructions = res.result.description.maintenance;

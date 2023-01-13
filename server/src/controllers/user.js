@@ -1,12 +1,12 @@
-import User, { validateUser } from "../models/User.js";
-import { logError, logInfo } from "../util/logging.js";
-import validationErrorMessage from "../util/validationErrorMessage.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import User, { validateUser } from '../models/User.js';
+import { logError, logInfo } from '../util/logging.js';
+import validationErrorMessage from '../util/validationErrorMessage.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 export const authenticateToken = async (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
   if (token === null) return res.sendStatus(401);
   try {
     const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
@@ -22,8 +22,12 @@ export const getUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: email }, { password: false })
       .populate({
-        path: "recentViews.productId",
-        select: "images price title rate",
+        path: 'recentViews.productId',
+        select: 'images price title rate',
+      })
+      .populate({
+        path: 'shoppingCart.productId',
+        select: 'images price title inStock rate brand',
       })
       .exec();
     res.status(200).json({ success: true, user: user });
@@ -31,7 +35,7 @@ export const getUser = async (req, res) => {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get user, try again later" });
+      .json({ success: false, msg: 'Unable to get user, try again later' });
   }
 };
 
@@ -39,11 +43,11 @@ export const createUser = async (req, res) => {
   try {
     const user = req.body;
 
-    if (typeof user !== "object") {
+    if (typeof user !== 'object') {
       res.status(400).json({
         success: false,
         msg: `You need to provide a 'user' object. Received: ${JSON.stringify(
-          user
+          user,
         )}`,
       });
 
@@ -73,7 +77,7 @@ export const createUser = async (req, res) => {
     res.status(500).json({
       success: false,
       error: error,
-      msg: "Unable to create the user",
+      msg: 'Unable to create the user',
     });
   }
 };
@@ -81,14 +85,14 @@ export const createUser = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
   if (email.trim().length === 0) {
-    res.status(400).json({ success: false, msg: "please fill in the email" });
+    res.status(400).json({ success: false, msg: 'please fill in the email' });
     return;
   }
 
   if (password.trim().length === 0) {
     res
       .status(400)
-      .json({ success: false, msg: "please fill in the password" });
+      .json({ success: false, msg: 'please fill in the password' });
     return;
   }
 
@@ -98,18 +102,18 @@ export const login = async (req, res) => {
     if (user === null) {
       res
         .status(401)
-        .json({ success: false, msg: "email or password is incorrect" });
+        .json({ success: false, msg: 'email or password is incorrect' });
     } else {
       const result = await bcrypt.compare(password, user.password);
       if (result !== true) {
         res
           .status(401)
-          .json({ success: false, msg: "email or password is incorrect" });
+          .json({ success: false, msg: 'email or password is incorrect' });
       } else {
         const accessToken = jwt.sign(email, process.env.ACCESS_TOKEN_SECRET);
         const userData = await User.findOne(
           { email: email },
-          { password: false }
+          { password: false },
         );
         res
           .status(201)
@@ -120,7 +124,7 @@ export const login = async (req, res) => {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to login, try again later" });
+      .json({ success: false, msg: 'Unable to login, try again later' });
   }
 };
 
@@ -130,7 +134,7 @@ export const updateUser = async (req, res) => {
     await User.findOneAndUpdate({ email: email }, req.body);
     const updatedUser = await User.findOne(
       { email: email },
-      { password: false }
+      { password: false },
     );
     res.status(200).json({
       success: true,
@@ -140,7 +144,7 @@ export const updateUser = async (req, res) => {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to update user, try again later" });
+      .json({ success: false, msg: 'Unable to update user, try again later' });
   }
 };
 
@@ -150,22 +154,22 @@ export const addFavorite = async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
     const isProductFavorite = user.favorites.some(
-      (product) => product.productId.toString() === productId
+      (product) => product.productId.toString() === productId,
     );
     if (!isProductFavorite) {
       await User.findOneAndUpdate(
         { email: req.user },
-        { $push: { favorites: { productId } } }
+        { $push: { favorites: { productId } } },
       );
     } else {
       await User.findOneAndUpdate(
         { email: req.user },
-        { $pull: { favorites: { productId } } }
+        { $pull: { favorites: { productId } } },
       );
     }
     const updatedUser = await User.findOne(
       { email: email },
-      { password: false }
+      { password: false },
     );
     res.status(200).json({
       success: true,
@@ -175,7 +179,7 @@ export const addFavorite = async (req, res) => {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to update user, try again later" });
+      .json({ success: false, msg: 'Unable to update user, try again later' });
   }
 };
 
@@ -186,7 +190,7 @@ export const addToRecentViews = async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
     const isProductInRecent = user.recentViews.some(
-      (product) => product.productId?.toString() === productId
+      (product) => product.productId?.toString() === productId,
     );
     if (!isProductInRecent) {
       await User.findOneAndUpdate(
@@ -199,12 +203,12 @@ export const addToRecentViews = async (req, res) => {
               $slice: 5,
             },
           },
-        }
+        },
       );
     } else {
       await User.findOneAndUpdate(
         { email: req.user },
-        { $pull: { recentViews: { productId } } }
+        { $pull: { recentViews: { productId } } },
       );
       await User.findOneAndUpdate(
         { email: req.user },
@@ -216,12 +220,12 @@ export const addToRecentViews = async (req, res) => {
               $slice: 5,
             },
           },
-        }
+        },
       );
     }
     const updatedUser = await User.findOne(
       { email: email },
-      { password: false }
+      { password: false },
     );
     res.status(200).json({
       success: true,
@@ -231,6 +235,6 @@ export const addToRecentViews = async (req, res) => {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to update user, try again later" });
+      .json({ success: false, msg: 'Unable to update user, try again later' });
   }
 };
