@@ -108,7 +108,6 @@ export default {
   },
   setup() {
     const { userInfo, load, updateUser } = useUser();
-    console.log(userInfo);
     onMounted(() => {
       load();
     });
@@ -154,13 +153,11 @@ export default {
           body: JSON.stringify(requestData),
         });
         const res = await userResponse.json();
-        console.log('edit-user', res);
         if (res.success) {
-          // setTimeout(() => {
+          setTimeout(() => {
             this.close();
-            this.updateUser(res.result);
-            // console.log("new user", newUser);
-          // }, 2000);
+            // this.updateUser(res.result);
+          }, 2000);
           this.success = 'You have edit your profile successfully';
           // this.$emit("profile-updated");
         } else {

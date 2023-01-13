@@ -60,10 +60,7 @@
         <p>{{ maintenanceInstructions }}</p>
       </div>
       <div class="btn">
-        <button class="add-to-cart">
-          <p>Add to cart</p>
-          <i class="fa-solid fa-cart-shopping"></i>
-        </button>
+        <AddToShoppingCart :productId="productInfo?._id" />
         <AddToFavorite :productId="productInfo?._id" />
       </div>
     </aside>
@@ -74,6 +71,7 @@
 import LoadingSpinner from '@/components/Spinner.vue';
 import ProductRate from '@/components/ProductRate.vue';
 import AddToFavorite from '@/components/AddToFavorite.vue';
+import AddToShoppingCart from '@/components/AddToShoppingCart.vue';
 
 export default {
   name: 'ProductDetails',
@@ -86,6 +84,7 @@ export default {
       displayImage: [],
       images: [],
       titleRoute: '',
+      rate: '',
       inStock: false,
       outOfStock: false,
       almostSoldOut: false,
@@ -123,13 +122,12 @@ export default {
         `http://localhost:5000/api/products/product_detail/${this.productId}`,
       );
       const res = await result.json();
-      // console.log('this.productInfo', res.result);
       const getQuantity = res.result.inStock;
       this.productInfo = res.result;
       this.productDetails = res.result.description.details;
       this.productComposition = res.result.description.composition;
       this.maintenanceInstructions = res.result.description.maintenance;
-      // this.rate = Math.ceil(res.rating.rate);
+      this.rate = Math.ceil(res.result.rate);
       this.subCategoryId = res.result.subCategory._id;
       this.images = res.result.images;
       this.inStock = getQuantity > 10;
@@ -156,6 +154,7 @@ export default {
     LoadingSpinner,
     ProductRate,
     AddToFavorite,
+    AddToShoppingCart,
   },
 };
 </script>

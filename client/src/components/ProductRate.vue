@@ -1,11 +1,11 @@
 <template>
   <div class="product-rate">
-    <span v-for="star in stars" :key="star[0]">
+    <div v-for="star in stars" :key="star[0]" class="star">
       <i
         v-if="rate"
         :class="`${star < rate ? ' ' : 'fa-dark'} fa-star fa-solid`"
       ></i>
-    </span>
+    </div>
   </div>
 </template>
 
@@ -22,9 +22,17 @@ export default {
 </script>
 
 <style scoped>
+.product-rate {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+.star {
+  display: flex;
+}
 i {
   font-size: 12px;
-  padding-bottom: 15px;
+  padding: 0;
 }
 .fa-star {
   color: gold;
