@@ -26,8 +26,8 @@ export const getUser = async (req, res) => {
         select: "images price title rate",
       })
       .populate({
-        path: 'shoppingCart.productId',
-        select: 'images price title inStock rate brand',
+        path: "shoppingCart.productId",
+        select: "images price title inStock rate brand",
       })
       .exec();
     res.status(200).json({ success: true, user: user });
@@ -119,6 +119,10 @@ export const login = async (req, res) => {
             path: "recentViews.productId",
             select: "images price title rate",
           })
+          .populate({
+            path: "shoppingCart.productId",
+            select: "images price title inStock rate brand",
+          })
           .exec();
         res
           .status(201)
@@ -139,8 +143,17 @@ export const updateUser = async (req, res) => {
     await User.findOneAndUpdate({ email: email }, req.body);
     const updatedUser = await User.findOne(
       { email: email },
-      { password: false },
-    );
+      { password: false }
+    )
+      .populate({
+        path: "recentViews.productId",
+        select: "images price title rate",
+      })
+      .populate({
+        path: "shoppingCart.productId",
+        select: "images price title inStock rate brand",
+      })
+      .exec();
     res.status(200).json({
       success: true,
       result: updatedUser,
@@ -174,8 +187,17 @@ export const addFavorite = async (req, res) => {
     }
     const updatedUser = await User.findOne(
       { email: email },
-      { password: false },
-    );
+      { password: false }
+    )
+      .populate({
+        path: "recentViews.productId",
+        select: "images price title rate",
+      })
+      .populate({
+        path: "shoppingCart.productId",
+        select: "images price title inStock rate brand",
+      })
+      .exec();
     res.status(200).json({
       success: true,
       result: updatedUser,
@@ -230,8 +252,17 @@ export const addToRecentViews = async (req, res) => {
     }
     const updatedUser = await User.findOne(
       { email: email },
-      { password: false },
-    );
+      { password: false }
+    )
+      .populate({
+        path: "recentViews.productId",
+        select: "images price title rate",
+      })
+      .populate({
+        path: "shoppingCart.productId",
+        select: "images price title inStock rate brand",
+      })
+      .exec();
     res.status(200).json({
       success: true,
       result: updatedUser,

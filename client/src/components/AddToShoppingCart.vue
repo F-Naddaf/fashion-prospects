@@ -6,9 +6,18 @@
 </template>
 
 <script>
+import { inject } from 'vue';
+
 export default {
   name: 'AddToShoppingCart',
   props: ['productId'],
+  setup() {
+    const store = inject('store');
+
+    return {
+      store,
+    };
+  },
   methods: {
     async handleClick() {
       const token = localStorage.getItem('accessToken');
@@ -23,7 +32,8 @@ export default {
             },
           },
         );
-        await response.json();
+        const newUser = await response.json();
+        this.store.methods.updateUser(newUser.result[0]);
       } catch (error) {
         console.log(error);
       }
@@ -32,4 +42,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

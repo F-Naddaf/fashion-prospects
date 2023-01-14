@@ -31,7 +31,7 @@ const methods = {
     state.userInfo = data;
   },
   updateUser(data) {
-    return (state.userInfo = data);
+    state.userInfo = data;
   },
 };
 export default {

@@ -24,10 +24,16 @@ export const addToShoppingCart = async (req, res) => {
         { $inc: { "shoppingCart.$[item].amount": 1 } },
         { arrayFilters: [{ "item.productId": productId }] }
       );
-      const updatedUser = await User.find(
-        { email: email },
-        { password: false }
-      );
+      const updatedUser = await User.find({ email: email }, { password: false })
+        .populate({
+          path: "recentViews.productId",
+          select: "images price title rate",
+        })
+        .populate({
+          path: "shoppingCart.productId",
+          select: "images price title inStock rate brand",
+        })
+        .exec();
       res.status(200).json({ success: true, result: updatedUser });
     } catch (error) {
       logError(error);
@@ -51,10 +57,16 @@ export const addToShoppingCart = async (req, res) => {
           },
         }
       );
-      const updatedUser = await User.find(
-        { email: email },
-        { password: false }
-      );
+      const updatedUser = await User.find({ email: email }, { password: false })
+        .populate({
+          path: "recentViews.productId",
+          select: "images price title rate",
+        })
+        .populate({
+          path: "shoppingCart.productId",
+          select: "images price title inStock rate brand",
+        })
+        .exec();
       res.status(200).json({ success: true, result: updatedUser });
     } catch (error) {
       logError(error);
@@ -80,10 +92,16 @@ export const decreaseAmountOfProduct = async (req, res) => {
         { email: email },
         { $pull: { shoppingCart: { productId: productId } } }
       );
-      const updatedUser = await User.find(
-        { email: email },
-        { password: false }
-      );
+      const updatedUser = await User.find({ email: email }, { password: false })
+        .populate({
+          path: "recentViews.productId",
+          select: "images price title rate",
+        })
+        .populate({
+          path: "shoppingCart.productId",
+          select: "images price title inStock rate brand",
+        })
+        .exec();
       res.status(200).json({ success: true, result: updatedUser });
     } catch (error) {
       logError(error);
@@ -99,10 +117,16 @@ export const decreaseAmountOfProduct = async (req, res) => {
         { $inc: { "shoppingCart.$[item].amount": -1 } },
         { arrayFilters: [{ "item.productId": productId }] }
       );
-      const updatedUser = await User.find(
-        { email: email },
-        { password: false }
-      );
+      const updatedUser = await User.find({ email: email }, { password: false })
+        .populate({
+          path: "recentViews.productId",
+          select: "images price title rate",
+        })
+        .populate({
+          path: "shoppingCart.productId",
+          select: "images price title inStock rate brand",
+        })
+        .exec();
       res.status(200).json({ success: true, result: updatedUser });
     } catch (error) {
       logError(error);
@@ -122,7 +146,16 @@ export const deleteItemFromShoppingCart = async (req, res) => {
       { email: email },
       { $pull: { shoppingCart: { productId: productId } } }
     );
-    const updatedUser = await User.find({ email: email }, { password: false });
+    const updatedUser = await User.find({ email: email }, { password: false })
+      .populate({
+        path: "recentViews.productId",
+        select: "images price title rate",
+      })
+      .populate({
+        path: "shoppingCart.productId",
+        select: "images price title inStock rate brand",
+      })
+      .exec();
     res.status(200).json({ success: true, result: updatedUser });
   } catch (error) {
     logError(error);
@@ -136,7 +169,16 @@ export const deleteShoppingCart = async (req, res) => {
   const email = req.user;
   try {
     await User.findOneAndUpdate({ email: email }, { shoppingCart: [] });
-    const updatedUser = await User.find({ email: email }, { password: false });
+    const updatedUser = await User.find({ email: email }, { password: false })
+      .populate({
+        path: "recentViews.productId",
+        select: "images price title rate",
+      })
+      .populate({
+        path: "shoppingCart.productId",
+        select: "images price title inStock rate brand",
+      })
+      .exec();
     res.status(200).json({ success: true, result: updatedUser });
   } catch (error) {
     logError(error);
