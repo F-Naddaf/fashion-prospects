@@ -5,24 +5,18 @@
         {{ error }}
       </li>
     </ul>
-    <p v-if="userInfo" class="success-message">{{ this.success }}</p>
+    <p v-if="store.state.userInfo" class="success-message">{{ this.success }}</p>
     <div class="form-container">
-      <label><p>Email *</p></label>
-      <input
-        type="email"
-        placeholder="email@example.com"
-        v-model="user.email"
-        required
-      />
+      <label>
+        <p>Email *</p>
+      </label>
+      <input type="email" placeholder="email@example.com" v-model="user.email" required />
     </div>
     <div class="form-container">
-      <label><p>Password *</p></label>
-      <input
-        type="password"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
+      <label>
+        <p>Password *</p>
+      </label>
+      <input type="password" placeholder="Password" v-model="user.password" required />
     </div>
     <button>Login</button>
     <router-link to="/">Forgot Password</router-link>
@@ -30,8 +24,7 @@
 </template>
 
 <script>
-import useUser from '../modules/user';
-import { onMounted } from 'vue';
+import { onMounted, inject } from 'vue';
 
 export default {
   name: 'LoginForm',
@@ -46,15 +39,13 @@ export default {
     };
   },
   setup() {
-    const { userInfo, load, login } = useUser();
 
+    const store = inject('store');
     onMounted(() => {
-      load();
+      store.methods.load();
     });
-
     return {
-      userInfo,
-      login,
+      store,
     };
   },
   methods: {
@@ -73,7 +64,7 @@ export default {
         if (result.success) {
           this.success = 'You have logged in successfully';
           localStorage.setItem('accessToken', result.accessToken);
-          this.login(result.user);
+          this.store.methods.login(result.user);
           setTimeout(() => {
             this.$router.push('/');
           }, 2000);
@@ -96,12 +87,14 @@ export default {
   align-items: center;
   width: 400px;
 }
+
 .error-container {
   position: absolute;
   top: -140px;
   width: 100%;
   padding: 0;
 }
+
 .error-section {
   font-size: 14px;
   text-align: justify;
@@ -109,6 +102,7 @@ export default {
   padding-bottom: 15px;
   line-height: 1;
 }
+
 .success-message {
   position: absolute;
   top: -100px;
@@ -117,10 +111,12 @@ export default {
   font-size: 14px;
   color: green;
 }
+
 .form-container {
   position: relative;
   width: 100%;
 }
+
 .form-container label p {
   position: absolute;
   top: -20px;
@@ -131,15 +127,18 @@ export default {
   padding: 0 6px;
   color: #b3005c;
 }
+
 .form-container input {
   width: 97%;
   padding: 5px;
   margin-bottom: 20px;
 }
+
 .form-container input::placeholder {
   color: rgba(80, 80, 80, 0.7);
   font-size: 12px;
 }
+
 .login-input-form button {
   width: 100%;
   padding: 6px;
@@ -149,16 +148,19 @@ export default {
   font-size: 14px;
   font-weight: 700;
 }
+
 .login-input-form button:hover {
   cursor: pointer;
   background-color: #b3005c;
 }
+
 .login-input-form a {
   margin: 8px auto auto auto;
   text-decoration: none;
   font-size: 12px;
   color: rgb(80, 80, 80);
 }
+
 .login-input-form a:hover {
   text-decoration: underline;
 }

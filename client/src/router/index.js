@@ -1,58 +1,52 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
-import About from '../views/About.vue';
-import ProductDetails from '../views/ProductDetails.vue';
-import CategoryPage from '../views/CategoryPage.vue';
-import ProductPage from '../views/ProductPage.vue';
-import Auth from '../views/Auth.vue';
-import Profile from '../views/Profile.vue';
-import Favorite from '../views/Favorite.vue';
-import UserData from '../components/UserData.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import Home from "../views/Home.vue";
+import About from "../views/About.vue";
+import ProductDetails from "../views/ProductDetails.vue";
+import CategoryPage from "../views/CategoryPage.vue";
+import ProductPage from "../views/ProductPage.vue";
+import Auth from "../views/Auth.vue";
+import Profile from "../views/Profile.vue";
+import Favorite from "../views/Favorite.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: Home,
   },
   {
-    path: '/about',
-    name: 'About',
+    path: "/about",
+    name: "About",
     component: About,
   },
   {
-    path: '/profile',
-    name: 'Profile',
+    path: "/profile",
+    name: "Profile",
     component: Profile,
   },
   {
-    path: '/category/:category/:id',
-    name: 'CategoryPage',
+    path: "/category/:category/:id",
+    name: "CategoryPage",
     component: CategoryPage,
   },
   {
-    path: '/category/:category/:item/:id',
-    name: 'ProductPage',
+    path: "/category/:category/:item/:id",
+    name: "ProductPage",
     component: ProductPage,
   },
   {
-    path: '/:category/:item/:id',
-    name: 'ProductDetails',
+    path: "/:category/:item/:id",
+    name: "ProductDetails",
     component: ProductDetails,
   },
   {
-    path: '/auth',
-    name: 'Auth',
+    path: "/auth",
+    name: "Auth",
     component: Auth,
   },
   {
-    path: '/contact',
-    name: 'UserData',
-    component: UserData,
-  },
-  {
-    path: '/favorite',
-    name: 'Favorite',
+    path: "/favorite",
+    name: "Favorite",
     component: Favorite,
   },
 ];

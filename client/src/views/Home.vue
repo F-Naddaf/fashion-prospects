@@ -3,7 +3,7 @@
   <category />
   <FeaturedProducts />
   <LatestProducts />
-  <VisitedProducts userInfo="userInfo" />
+  <VisitedProducts userInfo="store.state.userInfo" />
   <ExclusiveProduct />
 </template>
 
@@ -15,19 +15,20 @@ import FeaturedProducts from '@/components/FeaturedProducts.vue';
 import LatestProducts from '@/components/LatestProducts.vue';
 import ExclusiveProduct from '@/components/ExclusiveProduct.vue';
 import VisitedProducts from '@/components/VisitedProducts.vue';
-import useUser from '../modules/user';
-import { onMounted } from 'vue';
+
+import { onMounted, inject } from 'vue';
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Home',
   setup() {
-    const { userInfo, load } = useUser();
+
+    const store = inject('store');
     onMounted(() => {
-      load();
+      store.methods.load();
     });
     return {
-      userInfo,
+      store,
     };
   },
   components: {

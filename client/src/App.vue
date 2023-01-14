@@ -6,9 +6,14 @@
 <script>
 import NavBar from '@/components/NavBar.vue';
 import FooterCompo from '@/components/Footer.vue';
+import store from '@/modules/user.js';
+import { provide } from 'vue';
 
 export default {
   name: 'App',
+  setup() {
+    provide('store', store)
+  },
   components: {
     NavBar,
     FooterCompo,
