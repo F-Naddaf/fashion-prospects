@@ -1,19 +1,14 @@
 <template>
-  <div v-if="userInfo" class="visited-products">
+  <div v-if="store.state.userInfo" class="visited-products">
     <div class="title">
       <h3>Recently visited articles</h3>
       <span></span>
     </div>
     <section class="visited-container">
-      <div v-if="isLoading"><LoadingSpinner /></div>
-      <h3 class="error" v-if="error.status">
-        {{ error.msg }}
-      </h3>
-      <ul v-for="visitedProduct in visitedProducts" :key="visitedProduct._id">
+      <ul v-for="visitedProduct in store.state.userInfo.recentViews" :key="visitedProduct._id">
         <li>
           <router-link
-            :to="`/${visitedProduct.category}/${visitedProduct.subCategory}/${visitedProduct.productId._id}`"
-          >
+            :to="`/${visitedProduct.category}/${visitedProduct.subCategory}/${visitedProduct.productId._id}`">
             <ProductCard :product="visitedProduct.productId" />
           </router-link>
         </li>
@@ -23,43 +18,27 @@
 </template>
 
 <script>
+import { inject, onMounted } from 'vue';
 import ProductCard from './ProductCard.vue';
-import LoadingSpinner from './Spinner.vue';
+
 
 export default {
   name: 'VisitedProducts',
   props: ['userInfo'],
-  data() {
+  setup() {
+
+    const store = inject('store');
+    onMounted(() => {
+      store.methods.load();
+
+    });
     return {
-      visitedProducts: [],
-      category: '',
-      subCategory: '',
-      subcategoryList: [],
-      isLoading: false,
-      error: false,
+      store,
     };
   },
-  async mounted() {
-    const token = localStorage.getItem('accessToken');
-    this.isLoading = true;
-    try {
-      const result = await fetch('http://localhost:5000/api/users', {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const res = await result.json();
-      this.visitedProducts = res.user.recentViews;
-      this.category = res.user.recentViews.category;
-      this.isLoading = false;
-    } catch (error) {
-      this.error = true;
-    }
-  },
+
   components: {
-    LoadingSpinner,
+
     ProductCard,
   },
 };
@@ -72,16 +51,19 @@ export default {
   width: 100%;
   margin: 10% 0 0 0;
 }
+
 .title {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 25px;
 }
+
 .title h3 {
   font-size: 22px;
   color: #01689c;
 }
+
 .title span {
   width: 70px;
   height: 3px;
@@ -89,6 +71,7 @@ export default {
   margin: -18px 0 15px 8px;
   background-color: #ff0084;
 }
+
 .error {
   display: flex;
   flex-direction: column;
@@ -98,9 +81,11 @@ export default {
   padding: 10px;
   align-self: center;
 }
+
 .error span {
   color: #ff0084;
 }
+
 .visited-container {
   display: flex;
   flex-direction: row;
@@ -109,15 +94,18 @@ export default {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.04);
 }
+
 ul {
   margin: 20px 0;
   padding: 0;
 }
+
 ul:hover {
   transition-timing-function: ease-in-out;
   transition: 0.5s;
   transform: translateY(-5px);
 }
+
 li {
   display: flex;
   list-style: none;
@@ -125,6 +113,7 @@ li {
   border: 2px solid white;
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
+
 a {
   display: flex;
   flex-direction: column;

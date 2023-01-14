@@ -4,20 +4,16 @@
       <h3>Favorite</h3>
       <span></span>
     </div>
-    <div v-if="isLoading"><LoadingSpinner /></div>
+    <div v-if="isLoading">
+      <LoadingSpinner />
+    </div>
     <h3 class="error" v-if="error.status">
       {{ error.msg }}
     </h3>
-    <div v-if="userInfo" class="favorite-card-section">
-      <ul
-        v-for="favorite in favorites"
-        :key="favorite._id"
-        class="favorite-images"
-      >
+    <div v-if="store.state.userInfo" class="favorite-card-section">
+      <ul v-for="favorite in favorites" :key="favorite._id" class="favorite-images">
         <li>
-          <router-link
-            :to="`/${favorite?.subCategory?.categoryTitle}/${favorite?.subCategory?.title}/${favorite._id}`"
-          >
+          <router-link :to="`/${favorite?.subCategory?.categoryTitle}/${favorite?.subCategory?.title}/${favorite._id}`">
             <ProductCard :product="favorite" />
           </router-link>
         </li>
@@ -27,8 +23,8 @@
 </template>
 
 <script>
-import useUser from '../modules/user';
-import { onMounted } from 'vue';
+
+import { onMounted, inject } from 'vue';
 import LoadingSpinner from '@/components/Spinner.vue';
 import ProductCard from '@/components/ProductCard.vue';
 
@@ -43,12 +39,13 @@ export default {
     };
   },
   setup() {
-    const { userInfo, load } = useUser();
+
+    const store = inject('store');
     onMounted(() => {
-      load();
+      store.methods.load();
     });
     return {
-      userInfo,
+      store,
     };
   },
   async mounted() {
@@ -83,15 +80,18 @@ export default {
   flex-direction: column;
   margin-top: 45px;
 }
+
 .favorite-title h3 {
   font-size: 22px;
   color: #01689c;
 }
+
 .favorite-title {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .favorite-title span {
   width: 50px;
   height: 3px;
@@ -99,6 +99,7 @@ export default {
   margin: -18px 0 0 0;
   background-color: #ff0084;
 }
+
 .favorite-card-section {
   display: flex;
   flex-direction: row;
@@ -107,19 +108,23 @@ export default {
   width: 90%;
   margin: 5% auto;
 }
+
 ul {
   margin: 20px 40px;
 }
+
 ul:hover {
   transition-timing-function: ease-in-out;
   transition: 0.5s;
   transform: translateY(-15px);
 }
+
 li {
   display: flex;
   list-style: none;
   max-height: 100%;
 }
+
 a {
   display: flex;
   flex-direction: column;

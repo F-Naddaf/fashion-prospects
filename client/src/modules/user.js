@@ -1,19 +1,18 @@
-import { reactive, toRefs } from 'vue';
+import { reactive } from "vue";
 
-export default function useUser() {
-  const state = reactive({
-    error: null,
-    userInfo: null,
-  });
-
-  const load = async () => {
-    const token = localStorage.getItem('accessToken');
+const state = reactive({
+  error: null,
+  userInfo: null,
+});
+const methods = {
+  async load() {
+    const token = localStorage.getItem("accessToken");
     if (token) {
       try {
-        const userResponse = await fetch('http://localhost:5000/api/users', {
-          method: 'GET',
+        const userResponse = await fetch("http://localhost:5000/api/users", {
+          method: "GET",
           headers: {
-            'content-type': 'application/json',
+            "content-type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
@@ -23,13 +22,19 @@ export default function useUser() {
         state.error = error.msg;
       }
     }
-  };
-  const logout = () => {
+  },
+  logout() {
     state.userInfo = null;
     localStorage.clear();
-  };
-  const updateUser = (data) => {
-    return state.userInfo = data;
-  };
-  return { ...toRefs(state), load, logout, updateUser };
-}
+  },
+  login(data) {
+    state.userInfo = data;
+  },
+  updateUser(data) {
+    state.userInfo = data;
+  },
+};
+export default {
+  state,
+  methods,
+};

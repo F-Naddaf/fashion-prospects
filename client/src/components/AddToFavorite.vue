@@ -1,30 +1,27 @@
 <template>
   <button @click="handleClick" class="add-to-fav">
-    <i
-      :class="`${
-        isFavorite(userInfo?.favorites)
-          ? 'fa-solid fa-heart'
-          : 'fa-regular fa-heart'
-      }`"
-    ></i>
+    <i :class="`${isFavorite(store.state.userInfo.favorites)
+    ? 'fa-solid fa-heart'
+    : 'fa-regular fa-heart'
+    }`"></i>
   </button>
 </template>
 
 <script>
-import useUser from '../modules/user';
-import { onMounted } from 'vue';
+
+import { onMounted, inject } from 'vue';
 
 export default {
   name: 'AddToFavorite',
   props: ['productId'],
   setup() {
-    const { userInfo, load, logout } = useUser();
+
+    const store = inject('store');
     onMounted(() => {
-      load();
+      store.methods.load();
     });
     return {
-      userInfo,
-      logout,
+      store,
     };
   },
   methods: {
@@ -50,7 +47,8 @@ export default {
             },
           },
         );
-        await response.json();
+        const newUser = await response.json();
+        this.store.methods.updateUser(newUser.result);
       } catch (error) {
         console.log(error);
       }
@@ -63,14 +61,17 @@ export default {
 .add-to-fav {
   display: flex;
 }
+
 .fa-heart {
   font-size: 20px;
   color: #ff0084;
 }
+
 .fa-regular {
   font-size: 20px;
   color: #ff0084;
 }
+
 .add-to-fav {
   height: 30px;
   font-size: 18px;
@@ -79,6 +80,7 @@ export default {
   background: none;
   cursor: pointer;
 }
+
 .add-to-fav:hover {
   transform: scale(0.9);
   color: #911053;
