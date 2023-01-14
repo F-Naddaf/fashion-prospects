@@ -7,6 +7,7 @@ import ProductPage from "../views/ProductPage.vue";
 import Auth from "../views/Auth.vue";
 import Profile from "../views/Profile.vue";
 import Favorite from "../views/Favorite.vue";
+import ShoppingCart from "../views/ShoppingCart.vue";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/favorite",
     name: "Favorite",
     component: Favorite,
+  },
+  {
+    path: "/shopping",
+    name: "ShoppingCart",
+    component: ShoppingCart,
   },
 ];
 

@@ -84,23 +84,6 @@ export default {
     try {
       const result = await fetch('http://localhost:5000/api/products');
       const res = await result.json();
-      // const productsQuantity = res.filter((rate) => rate.rating);
-      // const sortProductQuantity = productsQuantity.sort((a, b) => {
-      //   return b.rating.count - a.rating.count;
-      // });
-      // const topEightProducts = sortProductQuantity.slice(0, 8);
-      // const latestEightProducts = topEightProducts.map((product) => {
-      //   return {
-      //     id: product.id,
-      //     category: product.category.split(' ').join(''),
-      //     title: product.title.slice(0, 35),
-      //     image: product.image,
-      //     price: product.price,
-      //     rate: Math.ceil(product.rating.rate),
-      //     quantity: product.rating.count,
-      //   };
-      // });
-      // this.latestProducts = latestEightProducts;
       const topEightProducts = res.result.slice(0, 10);
       this.latestProducts = topEightProducts;
       this.isLoading = false;
@@ -167,8 +150,6 @@ export default {
 }
 .carousel-slider {
   display: flex;
-  width: 16%;
-  height: 375px;
   margin: 20px 0;
   border: 2px solid white;
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
@@ -179,7 +160,7 @@ export default {
   text-decoration: none;
 }
 .carousel-slider:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 .left-enter-active {
   animation: leftInAnimation 0.5s ease-in;

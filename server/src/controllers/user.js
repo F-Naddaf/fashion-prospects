@@ -25,6 +25,10 @@ export const getUser = async (req, res) => {
         path: "recentViews.productId",
         select: "images price title rate",
       })
+      .populate({
+        path: 'shoppingCart.productId',
+        select: 'images price title inStock rate brand',
+      })
       .exec();
     res.status(200).json({ success: true, user: user });
   } catch (error) {
@@ -133,7 +137,10 @@ export const updateUser = async (req, res) => {
   const email = req.user;
   try {
     await User.findOneAndUpdate({ email: email }, req.body);
-    const updatedUser = await User.findOne({ email: email });
+    const updatedUser = await User.findOne(
+      { email: email },
+      { password: false },
+    );
     res.status(200).json({
       success: true,
       result: updatedUser,
@@ -165,7 +172,10 @@ export const addFavorite = async (req, res) => {
         { $pull: { favorites: { productId } } }
       );
     }
-    const updatedUser = await User.findOne({ email: email });
+    const updatedUser = await User.findOne(
+      { email: email },
+      { password: false },
+    );
     res.status(200).json({
       success: true,
       result: updatedUser,
@@ -218,7 +228,10 @@ export const addToRecentViews = async (req, res) => {
         }
       );
     }
-    const updatedUser = await User.findOne({ email: email });
+    const updatedUser = await User.findOne(
+      { email: email },
+      { password: false },
+    );
     res.status(200).json({
       success: true,
       result: updatedUser,

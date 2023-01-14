@@ -143,7 +143,6 @@ export default {
           body: JSON.stringify(requestData),
         });
         const res = await userResponse.json();
-        console.log('edit-user', res);
         if (res.success) {
           // setTimeout(() => {
           this.close();

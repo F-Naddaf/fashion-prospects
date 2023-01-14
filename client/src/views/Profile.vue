@@ -143,7 +143,6 @@ export default {
 }
 
 .form-container {
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -176,7 +175,6 @@ export default {
 }
 
 .edit-info {
-  /* position: absolute; */
   width: 95px;
   text-decoration: underline;
   color: #ff0084;

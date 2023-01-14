@@ -4,13 +4,19 @@
       <h3>Featured Products</h3>
       <span></span>
     </div>
+    <div v-if="isLoading"><LoadingSpinner /></div>
+    <h3 class="error" v-if="error.status">
+      {{ error.msg }}
+    </h3>
     <section class="featured-products-container">
-      <div v-if="isLoading"><LoadingSpinner /></div>
-      <h3 class="error" v-if="error.status">
-        {{ error.msg }}
-      </h3>
       <ul v-for="product in featuredList" :key="product.id">
-        <ProductCard :product="product" />
+        <li>
+          <router-link
+            :to="`/${product?.subCategory?.categoryTitle}/${product?.subCategory?.title}/${product?._id}`"
+          >
+            <ProductCard :product="product" />
+          </router-link>
+        </li>
       </ul>
     </section>
   </div>
@@ -32,25 +38,24 @@ export default {
   async mounted() {
     this.isLoading = true;
     try {
-      const result = await fetch('https://fakestoreapi.com/products');
-      const res = await result.json();
-      const productsRate = res.filter((rate) => rate.rating);
-      const sortProductRate = productsRate.sort((a, b) => {
-        return b.rating.rate - a.rating.rate;
+      const getProduct = await fetch('http://localhost:5000/api/products');
+      const response = await getProduct.json();
+      const products = response.result;
+      const sortProductRate = products.sort((a, b) => {
+        return b.rate - a.rate;
       });
       const topFourProducts = sortProductRate.slice(0, 4);
-      const highRated = topFourProducts.map((product) => {
+      const highRatedProducts = topFourProducts.map((product) => {
         return {
-          id: product.id,
-          category: product.category.split(' ').join(''),
-          title: product.title.slice(0, 35),
-          image: product.image,
+          images: [product.images],
+          title: product.title,
           price: product.price,
-          rate: Math.ceil(product.rating.rate),
-          quantity: product.rating.count,
+          subCategory: product.subCategory,
+          rate: Math.ceil(product.rate),
+          _id: product._id
         };
       });
-      this.featuredList = highRated;
+      this.featuredList = highRatedProducts;
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
@@ -103,23 +108,29 @@ export default {
 .featured-products-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
+  width: 100%;
 }
 ul {
-  display: flex;
-  width: 16%;
-  height: 300px;
-  margin: 2%;
-  padding: 1%;
-  background: white;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: hidden;
-  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  margin: 20px 0;
+  padding: 0;
 }
 ul:hover {
   transition-timing-function: ease-in-out;
   transition: 0.5s;
-  transform: translateY(-15px);
+  transform: translateY(-5px);
+}
+li {
+  display: flex;
+  list-style: none;
+  max-height: 100%;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+}
+a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  align-items: center;
 }
 </style>

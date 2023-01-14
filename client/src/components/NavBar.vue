@@ -18,7 +18,7 @@
         <li class="products-list">
           <router-link to="/" class="title"> Products </router-link>
           <ul class="drop-down">
-            <li class="catagory-list" v-for="category in categoryList" :key="category._id">
+            <li class="category-list" v-for="category in categoryList" :key="category._id">
               <router-link @mouseover="getSubcategories(category._id)"
                 :to="`/category/${category.title}/${category._id}`" class="drop-down-link">
                 {{ category.title }}
@@ -78,8 +78,9 @@
         <router-link to="/favorite">
           <i class="fa-solid fa-heart"></i>
         </router-link>
-        <router-link to="/">
+        <router-link to="/shopping" class="shopping-cart-container">
           <i class="fa-solid fa-bag-shopping"></i>
+          <h4 class="items">{{ store.state.userInfo?.shoppingCart?.length }}</h4>
         </router-link>
       </div>
     </aside>
@@ -109,6 +110,7 @@ export default {
       subcategoryList: [],
       isLoading: false,
       error: false,
+      itemsInShoppingCart: '',
     };
   },
   async mounted() {
@@ -132,7 +134,6 @@ export default {
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
-        // this.error = true;
       }
     },
   },
@@ -276,7 +277,7 @@ a:hover {
   border-bottom: 15px solid #ff0084;
 }
 
-.catagory-list:hover .subcategory-drop-down {
+.category-list:hover .subcategory-drop-down {
   display: block;
   flex-direction: column;
   justify-content: space-evenly;
@@ -435,5 +436,17 @@ a:hover {
 .fa-bag-shopping {
   color: #ff0084;
   font-size: 22px;
+  margin: 0;
+}
+
+.shopping-cart-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.shopping-cart-container .items {
+  color: #ff0084;
+  margin-bottom: 15px;
+  margin-left: 2px;
 }
 </style>

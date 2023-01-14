@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import validateAllowedFields from '../util/validateAllowedFields.js';
+import mongoose from "mongoose";
+import validateAllowedFields from "../util/validateAllowedFields.js";
 
 const userSchema = new mongoose.Schema({
   userName: { type: String, required: true },
@@ -15,39 +15,44 @@ const userSchema = new mongoose.Schema({
   postCode: String,
   favorites: [
     {
-      productId: { type: mongoose.ObjectId, ref: 'products' },
+      productId: { type: mongoose.ObjectId, ref: "products" },
       category: String,
       subCategory: String,
     },
   ],
   shoppingCart: [
-    { productId: { type: mongoose.ObjectId, ref: 'products' }, amount: Number },
+    {
+      productId: { type: mongoose.ObjectId, ref: "products" },
+      amount: Number,
+      category: String,
+      subCategory: String,
+    },
   ],
   recentViews: [
     {
-      productId: { type: mongoose.ObjectId, ref: 'products' },
+      productId: { type: mongoose.ObjectId, ref: "products" },
       category: String,
       subCategory: String,
     },
   ],
 });
 
-const User = mongoose.model('users', userSchema);
+const User = mongoose.model("users", userSchema);
 
 export const validateUser = (userObject) => {
   const errorList = [];
   const allowedKeys = [
-    'userName',
-    'fullName',
-    'email',
-    'password',
-    'isAdmin',
-    'phone',
-    'address',
-    'postCode',
-    'favorites',
-    'shoppingCart',
-    'recentViews',
+    "userName",
+    "fullName",
+    "email",
+    "password",
+    "isAdmin",
+    "phone",
+    "address",
+    "postCode",
+    "favorites",
+    "shoppingCart",
+    "recentViews",
   ];
 
   const validatedKeysMessage = validateAllowedFields(userObject, allowedKeys);
@@ -57,15 +62,15 @@ export const validateUser = (userObject) => {
   }
 
   if (userObject.userName == null) {
-    errorList.push('userName is a required field');
+    errorList.push("userName is a required field");
   }
 
   if (userObject.email == null) {
-    errorList.push('email is a required field');
+    errorList.push("email is a required field");
   }
 
   if (userObject.password == null) {
-    errorList.push('password is a required field');
+    errorList.push("password is a required field");
   }
 
   return errorList;
