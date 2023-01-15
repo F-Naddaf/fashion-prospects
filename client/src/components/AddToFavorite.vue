@@ -1,21 +1,22 @@
 <template>
   <button @click="handleClick" class="add-to-fav">
-    <i :class="`${isFavorite(store.state.userInfo.favorites)
-    ? 'fa-solid fa-heart'
-    : 'fa-regular fa-heart'
-    }`"></i>
+    <i
+      :class="`${
+        isFavorite(store.state.userInfo?.favorites)
+          ? 'fa-solid fa-heart'
+          : 'fa-regular fa-heart'
+      }`"
+    ></i>
   </button>
 </template>
 
 <script>
-
 import { onMounted, inject } from 'vue';
 
 export default {
   name: 'AddToFavorite',
   props: ['productId'],
   setup() {
-
     const store = inject('store');
     onMounted(() => {
       store.methods.load();

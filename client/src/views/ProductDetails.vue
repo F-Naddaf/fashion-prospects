@@ -351,15 +351,22 @@ a {
   background-color: #016da3;
 }
 .add-to-fav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 8%;
   height: 30px;
   font-size: 16px;
-  border: none;
-  background-color: #ff0084;
-  color: white;
+  border: 2px solid #ff0084;
   cursor: pointer;
 }
-.add-to-fav:hover {
-  background-color: #911053;
+.fa-heart {
+  font-size: 20px;
+  color: white;
+}
+
+.fa-regular {
+  font-size: 20px;
+  color: white;
 }
 </style>

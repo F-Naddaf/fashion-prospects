@@ -23,57 +23,85 @@
           <label>
             <h3>User Name:</h3>
           </label>
-          <input type="text" :placeholder="
-            store.state.userInfo && store.state.userInfo?.userName ? store.state.userInfo?.userName : 'User Name'
-          " v-model="user.userName" />
+          <input
+            type="text"
+            :placeholder="
+              store.state.userInfo && store.state.userInfo?.userName
+                ? store.state.userInfo?.userName
+                : 'User Name'
+            "
+            v-model="user.userName"
+          />
         </div>
         <div class="input-field">
           <label>
             <h3>First Name:</h3>
           </label>
-          <input type="text" :placeholder="
-            store.state.userInfo && store.state.userInfo?.fullName?.first
-              ? store.state.userInfo?.fullName?.first
-              : 'First Name'
-          " v-model="first" />
+          <input
+            type="text"
+            :placeholder="
+              store.state.userInfo && store.state.userInfo?.fullName?.first
+                ? store.state.userInfo?.fullName?.first
+                : 'First Name'
+            "
+            v-model="first"
+          />
         </div>
         <div class="input-field">
           <label>
             <h3>Last Name:</h3>
           </label>
-          <input type="text" :placeholder="
-            store.state.userInfo && store.state.userInfo?.fullName?.last
-              ? store.state.userInfo?.fullName?.last
-              : 'Last Name'
-          " v-model="last" />
+          <input
+            type="text"
+            :placeholder="
+              store.state.userInfo && store.state.userInfo?.fullName?.last
+                ? store.state.userInfo?.fullName?.last
+                : 'Last Name'
+            "
+            v-model="last"
+          />
         </div>
         <div class="input-field">
           <label>
             <h3>Phone Number:</h3>
           </label>
-          <input type="text" :placeholder="
-            store.state.userInfo && store.state.userInfo?.phone ? store.state.userInfo?.phone : 'Phone Number'
-          " v-model="user.phone" />
+          <input
+            type="text"
+            :placeholder="
+              store.state.userInfo && store.state.userInfo?.phone
+                ? store.state.userInfo?.phone
+                : 'Phone Number'
+            "
+            v-model="user.phone"
+          />
         </div>
         <div class="input-field">
           <label>
             <h3>Address:</h3>
           </label>
-          <input type="text" :placeholder="
-            store.state.userInfo && store.state.userInfo?.address
-              ? store.state.userInfo?.address
-              : 'Street name and number'
-          " v-model="user.address" />
+          <input
+            type="text"
+            :placeholder="
+              store.state.userInfo && store.state.userInfo?.address
+                ? store.state.userInfo?.address
+                : 'Street name and number'
+            "
+            v-model="user.address"
+          />
         </div>
         <div class="input-field">
           <label>
             <h3>PostCode:</h3>
           </label>
-          <input type="text" :placeholder="
-            store.state.userInfo && store.state.userInfo?.postCode
-              ? store.state.userInfo?.postCode
-              : 'PostCode, City'
-          " v-model="user.postCode" />
+          <input
+            type="text"
+            :placeholder="
+              store.state.userInfo && store.state.userInfo?.postCode
+                ? store.state.userInfo?.postCode
+                : 'PostCode, City'
+            "
+            v-model="user.postCode"
+          />
         </div>
       </div>
       <div class="btns">
@@ -85,7 +113,6 @@
 </template>
 
 <script>
-
 import { onMounted, inject } from 'vue';
 
 export default {
@@ -113,7 +140,6 @@ export default {
       store,
     };
   },
-
   methods: {
     close() {
       this.$emit('close');
@@ -121,8 +147,12 @@ export default {
     async handelSubmit() {
       const token = localStorage.getItem('accessToken');
       this.errors = [];
-      const firstName = this.first ? this.first : this.store.state.userInfo.fullName.first;
-      const lastName = this.last ? this.last : this.store.state.userInfo.fullName.last;
+      const firstName = this.first
+        ? this.first
+        : this.store.state.userInfo.fullName.first;
+      const lastName = this.last
+        ? this.last
+        : this.store.state.userInfo.fullName.last;
       const requestData = {
         userName: this.user.userName,
         fullName: { first: firstName, last: lastName },
@@ -144,13 +174,11 @@ export default {
         });
         const res = await userResponse.json();
         if (res.success) {
-          // setTimeout(() => {
-          this.close();
-          this.store.methods.updateUser(res.result);
-          // console.log("new user", newUser);
-          // }, 2000);
+          setTimeout(() => {
+            this.close();
+            this.store.methods.updateUser(res.result);
+          }, 2000);
           this.success = 'You have edit your profile successfully';
-          // this.$emit("profile-updated");
         } else {
           this.errors.push(res.msg);
         }
@@ -168,7 +196,9 @@ export default {
       }
       if (this.user.phone) {
         if (!this.validPhone(this.user.phone)) {
-          this.errors.push('Phone number should be contain only Numbers!');
+          this.errors.push(
+            'Phone number should be 10 digit and contains only Numbers!',
+          );
         }
       }
       if (this.errors.length > 0) {

@@ -6,7 +6,7 @@
     </div>
     <div class="products-container">
       <aside v-if="store.state.userInfo" class="shopping-cart-section">
-        <ul v-for="item in store.state.userInfo.shoppingCart" :key="item._id" class="shopping-images">
+        <ul v-for="item in store.state.userInfo?.shoppingCart" :key="item._id" class="shopping-images">
           <li>
             <ProductShoppingCart :product="item.productId" />
           </li>
@@ -66,8 +66,8 @@ export default {
   computed: {
     subTotal() {
       let subCost = 0;
-      for (let items in this.store.state.userInfo.shoppingCart) {
-        let individualItem = this.store.state.userInfo.shoppingCart[items];
+      for (let items in this.store.state.userInfo?.shoppingCart) {
+        let individualItem = this.store.state.userInfo?.shoppingCart[items];
         subCost += individualItem.productId.price;
       }
       return Math.round(subCost * 100) / 100;

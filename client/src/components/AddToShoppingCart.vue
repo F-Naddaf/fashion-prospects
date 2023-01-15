@@ -42,6 +42,8 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.add-to-cart p {
+  padding-right: 10px;
+}
 </style>
