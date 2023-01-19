@@ -5,18 +5,30 @@
         {{ error }}
       </li>
     </ul>
-    <p v-if="store.state.userInfo" class="success-message">{{ this.success }}</p>
+    <p v-if="store.state.userInfo" class="success-message">
+      {{ this.success }}
+    </p>
     <div class="form-container">
       <label>
         <p>Email *</p>
       </label>
-      <input type="email" placeholder="email@example.com" v-model="user.email" required />
+      <input
+        type="email"
+        placeholder="email@example.com"
+        v-model="user.email"
+        required
+      />
     </div>
     <div class="form-container">
       <label>
         <p>Password *</p>
       </label>
-      <input type="password" placeholder="Password" v-model="user.password" required />
+      <input
+        type="password"
+        placeholder="Password"
+        v-model="user.password"
+        required
+      />
     </div>
     <button>Login</button>
     <router-link to="/">Forgot Password</router-link>
@@ -24,33 +36,25 @@
 </template>
 
 <script>
-import { onMounted, inject } from 'vue';
+import { onMounted, inject, ref } from 'vue';
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'LoginForm',
-  data() {
-    return {
-      user: {
-        email: '',
-        password: '',
-      },
-      errors: [],
-      success: '',
-    };
-  },
   setup() {
-
+    const router = useRouter()
+    const user = ref({
+      email: '',
+      password: '',
+    });
+    const errors = ref([]);
+    const success = ref('');
     const store = inject('store');
     onMounted(() => {
       store.methods.load();
     });
-    return {
-      store,
-    };
-  },
-  methods: {
-    async handelSubmit() {
-      this.errors = [];
+    async function handelSubmit() {
+      this.errors.value = [];
       try {
         const response = await fetch(`http://localhost:5000/api/users/login`, {
           method: 'POST',
@@ -60,21 +64,27 @@ export default {
           body: JSON.stringify(this.user),
         });
         const result = await response.json();
-        console.log(result, 'res');
         if (result.success) {
-          this.success = 'You have logged in successfully';
+          success.value = 'You have logged in successfully';
           localStorage.setItem('accessToken', result.accessToken);
-          this.store.methods.login(result.user);
+          store.methods.login(result.user);
           setTimeout(() => {
-            this.$router.push('/');
+            router.push('/')
           }, 2000);
         } else {
-          this.errors.push(result.msg);
+          errors.value.push(result.msg);
         }
       } catch (error) {
-        this.errors.push('Sorry something went wrong');
+        errors.value.push('Sorry something went wrong');
       }
-    },
+    }
+    return {
+      store,
+      handelSubmit,
+      user,
+      errors,
+      success,
+    };
   },
 };
 </script>

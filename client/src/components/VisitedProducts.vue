@@ -26,11 +26,9 @@ export default {
   name: 'VisitedProducts',
 
   setup() {
-
     const store = inject('store');
     onMounted(() => {
       store.methods.load();
-
     });
     return {
       store,

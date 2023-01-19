@@ -10,20 +10,13 @@ import { inject } from 'vue';
 export default {
   name: 'DeleteFromCart',
   props: ['productId'],
-  setup() {
-
+  setup(props) {
     const store = inject('store');
-
-    return {
-      store,
-    };
-  },
-  methods: {
-    async handleDelete() {
+    async function handleDelete() {
       const token = localStorage.getItem('accessToken');
       try {
         const response = await fetch(
-          `http://localhost:5000/api/users/shopping-cart/delete-item/${this.productId}`,
+          `http://localhost:5000/api/users/shopping-cart/delete-item/${props.productId}`,
           {
             method: 'PATCH',
             headers: {
@@ -33,12 +26,15 @@ export default {
           },
         );
         const newUser = await response.json();
-        console.log(newUser)
-        this.store.methods.updateUser(newUser.result[0]);
+        store.methods.updateUser(newUser.result[0]);
       } catch (error) {
         console.log(error);
       }
-    },
+    }
+    return {
+      store,
+      handleDelete,
+    };
   },
 };
 </script>

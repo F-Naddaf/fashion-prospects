@@ -18,16 +18,31 @@
         <li class="products-list">
           <router-link to="/" class="title"> Products </router-link>
           <ul class="drop-down">
-            <li class="category-list" v-for="category in categoryList" :key="category._id">
-              <router-link @mouseover="getSubcategories(category._id)"
-                :to="`/category/${category.title}/${category._id}`" class="drop-down-link">
+            <li
+              class="category-list"
+              v-for="category in categoryList"
+              :key="category._id"
+            >
+              <router-link
+                @mouseover="getSubcategories(category._id)"
+                :to="`/category/${category.title}/${category._id}`"
+                class="drop-down-link"
+              >
                 {{ category.title }}
               </router-link>
               <ul class="subcategory-drop-down">
-                <span v-if="subcategoryList" :class="`${subcategoryList.length > 0 ? 'arrow' : 'empty'}`"></span>
-                <li v-for="subcategory in subcategoryList" :key="subcategory._id">
-                  <router-link :to="`/category/${category.title}/${subcategory.title}/${subcategory._id}`"
-                    class="drop-down-link">
+                <span
+                  v-if="subcategoryList"
+                  :class="`${subcategoryList.length > 0 ? 'arrow' : 'empty'}`"
+                ></span>
+                <li
+                  v-for="subcategory in subcategoryList"
+                  :key="subcategory._id"
+                >
+                  <router-link
+                    :to="`/category/${category.title}/${subcategory.title}/${subcategory._id}`"
+                    class="drop-down-link"
+                  >
                     {{ subcategory.title }}
                   </router-link>
                 </li>
@@ -63,7 +78,11 @@
               </router-link>
             </li>
             <li v-if="store.state.userInfo">
-              <router-link :to="`/`" @click="store.methods.logout" class="user-drop-down-link">
+              <router-link
+                :to="`/`"
+                @click="store.methods.logout"
+                class="user-drop-down-link"
+              >
                 Logout
               </router-link>
             </li>
@@ -80,7 +99,9 @@
         </router-link>
         <router-link to="/shopping" class="shopping-cart-container">
           <i class="fa-solid fa-bag-shopping"></i>
-          <h4 class="items">{{ store.state.userInfo?.shoppingCart?.length }}</h4>
+          <h4 class="items">
+            {{ store.state.userInfo?.shoppingCart?.length }}
+          </h4>
         </router-link>
       </div>
     </aside>
@@ -90,53 +111,85 @@
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
 
-import { onMounted, inject } from 'vue';
+import { onMounted, inject, ref } from 'vue';
 
 export default {
   name: 'NavBar',
   setup() {
-
     const store = inject('store');
+    const categoryList = ref([]);
+    const subcategoryList = ref([]);
+    const isLoading = ref(false);
+    const error = ref(false);
+    const itemsInShoppingCart = ref('');
     onMounted(() => {
       store.methods.load();
     });
-    return {
-      store,
-    };
-  },
-  data() {
-    return {
-      categoryList: [],
-      subcategoryList: [],
-      isLoading: false,
-      error: false,
-      itemsInShoppingCart: '',
-    };
-  },
-  async mounted() {
-    try {
-      const result = await fetch('http://localhost:5000/api/categories');
-      const res = await result.json();
-      this.categoryList = res.result;
-    } catch (error) {
-      this.error = true;
-    }
-  },
-  methods: {
-    async getSubcategories(id) {
-      this.isLoading = true;
+    onMounted(async () => {
+      try {
+        const result = await fetch('http://localhost:5000/api/categories');
+        const res = await result.json();
+        categoryList.value = res.result;
+      } catch (error) {
+        error.value = true;
+      }
+    });
+    async function getSubcategories(id) {
+      isLoading.value = true;
       try {
         const result = await fetch(
           `http://localhost:5000/api/subcategories/${id}`,
         );
         const res = await result.json();
-        this.subcategoryList = res.result;
-        this.isLoading = false;
+        subcategoryList.value = res.result;
+        isLoading.value = false;
       } catch (error) {
-        this.isLoading = false;
+        isLoading.value = false;
       }
-    },
+    }
+    return {
+      store,
+      getSubcategories,
+      categoryList,
+      subcategoryList,
+      isLoading,
+      error,
+      itemsInShoppingCart,
+    };
   },
+  // data() {
+  //   return {
+  //     categoryList: [],
+  //     subcategoryList: [],
+  //     isLoading: false,
+  //     error: false,
+  //     itemsInShoppingCart: '',
+  //   };
+  // },
+  // async mounted() {
+  //   try {
+  //     const result = await fetch('http://localhost:5000/api/categories');
+  //     const res = await result.json();
+  //     this.categoryList = res.result;
+  //   } catch (error) {
+  //     this.error = true;
+  //   }
+  // },
+  // methods: {
+  // async function getSubcategories(id) {
+  //   this.isLoading = true;
+  //   try {
+  //     const result = await fetch(
+  //       `http://localhost:5000/api/subcategories/${id}`,
+  //     );
+  //     const res = await result.json();
+  //     this.subcategoryList = res.result;
+  //     this.isLoading = false;
+  //   } catch (error) {
+  //     this.isLoading = false;
+  //   }
+  // },
+  // },
   components: {
     LoadingSpinner,
   },
