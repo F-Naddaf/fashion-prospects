@@ -16,30 +16,25 @@ import { onMounted, inject } from 'vue';
 export default {
   name: 'AddToFavorite',
   props: ['productId'],
-  setup() {
+  setup(props) {
     const store = inject('store');
     onMounted(() => {
       store.methods.load();
     });
-    return {
-      store,
-    };
-  },
-  methods: {
-    isFavorite(favoriteArray) {
+    function isFavorite(favoriteArray) {
       const getProductId = favoriteArray?.map((product) => {
         return {
           id: product.productId,
         };
       });
-      const isExist = getProductId?.some((item) => item.id === this.productId);
+      const isExist = getProductId?.some((item) => item.id === props.productId);
       return isExist;
-    },
-    async handleClick() {
+    }
+    async function handleClick() {
       const token = localStorage.getItem('accessToken');
       try {
         const response = await fetch(
-          `http://localhost:5000/api/users/add-favorite/${this.productId}`,
+          `http://localhost:5000/api/users/add-favorite/${props.productId}`,
           {
             method: 'PATCH',
             headers: {
@@ -49,11 +44,16 @@ export default {
           },
         );
         const newUser = await response.json();
-        this.store.methods.updateUser(newUser.result);
+        store.methods.updateUser(newUser.result);
       } catch (error) {
         console.log(error);
       }
-    },
+    }
+    return {
+      store,
+      isFavorite,
+      handleClick,
+    };
   },
 };
 </script>
