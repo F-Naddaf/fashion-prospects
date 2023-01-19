@@ -3,7 +3,7 @@
   <category />
   <FeaturedProducts />
   <LatestProducts />
-  <VisitedProducts userInfo="store.state.userInfo" />
+  <VisitedProducts />
   <ExclusiveProduct />
 </template>
 
@@ -22,7 +22,6 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Home',
   setup() {
-
     const store = inject('store');
     onMounted(() => {
       store.methods.load();

@@ -18,7 +18,10 @@
         </div>
         <div class="personal-info">
           <h3>Full Name:</h3>
-          <p>{{ store.state.userInfo?.fullName?.first }} {{ store.state.userInfo?.fullName?.last }}</p>
+          <p>
+            {{ store.state.userInfo?.fullName?.first }}
+            {{ store.state.userInfo?.fullName?.last }}
+          </p>
         </div>
         <div class="personal-info">
           <h3>Email:</h3>
@@ -37,18 +40,17 @@
           <p>{{ store.state.userInfo?.phone }}</p>
         </div>
         <button @click="openEdit" class="edit-info">Edit Profile</button>
-        <EditProfile v-if="open" @close="close" />
+        <EditProfile v-if="open" @close="close" :close="close" />
       </div>
     </div>
     <div class="visited">
-      <VisitedProducts userInfo="store.state.userInfo" />
+      <VisitedProducts />
     </div>
   </main>
 </template>
 
 <script>
-
-import { onMounted, inject } from 'vue';
+import { onMounted, inject, ref } from 'vue';
 import EditProfile from '../components/EditProfile.vue';
 import VisitedProducts from '@/components/VisitedProducts.vue';
 
@@ -57,32 +59,26 @@ export default {
   name: 'Profile',
   setup() {
     const store = inject('store');
+    const isLoading = ref(false);
+    const error = ref(false);
+    const open = ref(false);
     onMounted(() => {
       store.methods.load();
     });
+    function close() {
+      open.value = false;
+    }
+    function openEdit() {
+      open.value = true;
+    }
     return {
       store,
+      isLoading,
+      error,
+      open,
+      close,
+      openEdit,
     };
-  },
-  data() {
-    return {
-      isLoading: false,
-      error: false,
-      open: false,
-    };
-  },
-  methods: {
-    close() {
-      this.open = false;
-    },
-    openEdit() {
-      this.open = true;
-    },
-    // updateProfile() {
-    //   const { load, userInfo } = useUser();
-    //   load();
-    //   return { userInfo };
-    // },
   },
   components: {
     EditProfile,

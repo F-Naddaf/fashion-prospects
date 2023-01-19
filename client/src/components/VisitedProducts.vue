@@ -24,7 +24,7 @@ import ProductCard from './ProductCard.vue';
 
 export default {
   name: 'VisitedProducts',
-  props: ['userInfo'],
+
   setup() {
 
     const store = inject('store');

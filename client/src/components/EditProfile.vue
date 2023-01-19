@@ -1,7 +1,7 @@
 <template>
   <main>
     <form @submit.prevent="handelSubmit" class="edit-profile-container">
-      <i @click="close" class="fa-solid fa-circle-xmark"></i>
+      <i @click="$emit('close')" class="fa-solid fa-circle-xmark"></i>
       <div class="title">
         <h3>Edit Profile</h3>
         <span></span>
@@ -105,7 +105,9 @@
         </div>
       </div>
       <div class="btns">
-        <button type="button" @click="close" class="close">Cancel</button>
+        <button type="button" @click="$emit('close')" class="close">
+          Cancel
+        </button>
         <button type="submit" class="submit">Submit</button>
       </div>
     </form>
@@ -113,46 +115,37 @@
 </template>
 
 <script>
-import { onMounted, inject } from 'vue';
+import { onMounted, inject, ref } from 'vue';
 
 export default {
   name: 'EditProfile',
-  data() {
-    return {
-      errors: [],
-      success: '',
-      user: {
-        userName: this.store.state.userInfo?.userName,
-        phone: this.store.state.userInfo?.phone,
-        address: this.store.state.userInfo?.address,
-        postCode: this.store.state.userInfo?.postCode,
-      },
-      first: this.store.state.userInfo?.fullName?.first,
-      last: this.store.state.userInfo?.fullName?.last,
-    };
-  },
-  setup() {
+  props: ['close'],
+  setup(props) {
     const store = inject('store');
+    const errors = ref([]);
+    const success = ref('');
+    const user = ref({
+      userName: store.state.userInfo?.userName,
+      phone: store.state.userInfo?.phone,
+      address: store.state.userInfo?.address,
+      postCode: store.state.userInfo?.postCode,
+    });
+    const first = ref(store.state.userInfo?.fullName?.first);
+    const last = ref(store.state.userInfo?.fullName?.last);
+
     onMounted(() => {
       store.methods.load();
     });
-    return {
-      store,
-    };
-  },
-  methods: {
-    close() {
-      this.$emit('close');
-    },
-    async handelSubmit() {
+
+    async function handelSubmit() {
       const token = localStorage.getItem('accessToken');
-      this.errors = [];
+      this.errors.length = 0;
       const firstName = this.first
         ? this.first
-        : this.store.state.userInfo.fullName.first;
+        : store.state.userInfo.fullName.first;
       const lastName = this.last
         ? this.last
-        : this.store.state.userInfo.fullName.last;
+        : store.state.userInfo.fullName.last;
       const requestData = {
         userName: this.user.userName,
         fullName: { first: firstName, last: lastName },
@@ -161,7 +154,7 @@ export default {
         postCode: this.user.postCode,
       };
       try {
-        if (!this.validateEditForm()) {
+        if (!validateEditForm()) {
           return;
         }
         const userResponse = await fetch('http://localhost:5000/api/users', {
@@ -175,46 +168,55 @@ export default {
         const res = await userResponse.json();
         if (res.success) {
           setTimeout(() => {
-            this.close();
-            this.store.methods.updateUser(res.result);
+            props.close();
+            store.methods.updateUser(res.result);
           }, 2000);
-          this.success = 'You have edit your profile successfully';
+          success.value = 'You have edit your profile successfully';
         } else {
-          this.errors.push(res.msg);
+          errors.value.push(res.msg);
         }
       } catch (error) {
-        this.errors.push('Sorry something went wrong');
+        errors.value.push('Sorry something went wrong');  
       }
-    },
-    validateEditForm() {
-      if (this.user.userName) {
-        if (!this.validUserName(this.user.userName)) {
-          this.errors.push(
+    }
+    function validateEditForm() {
+      if (user.value.userName) {
+        if (!validUserName(user.value.userName)) {
+          errors.value.push(
             'User name must be at least 5 characters include 1 number, 1 capital character!',
           );
         }
       }
-      if (this.user.phone) {
-        if (!this.validPhone(this.user.phone)) {
-          this.errors.push(
+      if (user.value.phone) {
+        if (!validPhone(user.value.phone)) {
+          errors.value.push(
             'Phone number should be 10 digit and contains only Numbers!',
           );
         }
       }
-      if (this.errors.length > 0) {
+      if (errors.value.length > 0) {
         return false;
       } else {
         return true;
       }
-    },
-    validUserName(userName) {
+    }
+    function validUserName(userName) {
       const validation = /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*]{5,10}/;
       return validation.test(userName);
-    },
-    validPhone(phone) {
+    }
+    function validPhone(phone) {
       const validation = /^\d{10}$/;
       return validation.test(phone);
-    },
+    }
+    return {
+      handelSubmit,
+      errors,
+      success,
+      user,
+      first,
+      last,
+      store,
+    };
   },
 };
 </script>
