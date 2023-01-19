@@ -11,19 +11,13 @@ import { inject } from 'vue';
 export default {
   name: 'AddToShoppingCart',
   props: ['productId'],
-  setup() {
+  setup(props) {
     const store = inject('store');
-
-    return {
-      store,
-    };
-  },
-  methods: {
-    async handleClick() {
+    async function handleClick() {
       const token = localStorage.getItem('accessToken');
       try {
         const response = await fetch(
-          `http://localhost:5000/api/users/shopping-cart/add-to-cart/${this.productId}`,
+          `http://localhost:5000/api/users/shopping-cart/add-to-cart/${props.productId}`,
           {
             method: 'PATCH',
             headers: {
@@ -33,11 +27,15 @@ export default {
           },
         );
         const newUser = await response.json();
-        this.store.methods.updateUser(newUser.result[0]);
+        store.methods.updateUser(newUser.result[0]);
       } catch (error) {
         console.log(error);
       }
-    },
+    }
+    return {
+      store,
+      handleClick,
+    };
   },
 };
 </script>
