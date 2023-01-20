@@ -176,7 +176,7 @@ export default {
           errors.value.push(res.msg);
         }
       } catch (error) {
-        errors.value.push('Sorry something went wrong');  
+        errors.value.push('Sorry something went wrong');
       }
     }
     function validateEditForm() {
@@ -205,7 +205,7 @@ export default {
       return validation.test(userName);
     }
     function validPhone(phone) {
-      const validation = /^\d{10}$/;
+      const validation = /^\d{9}$/;
       return validation.test(phone);
     }
     return {
