@@ -10,7 +10,7 @@
       <h1>The Fashion Prospects Leadership Team</h1>
       <div class="team-card-container">
         <div class="team-card">
-          <img alt="Ibrahin-image" src="../assets/Fadi.png" />
+          <img alt="Fadi-image" src="../assets/Fadi.png" />
           <div class="info-container">
             <h3>Fadi Naddaf</h3>
             <p>Frontend Developer</p>
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="team-card">
-          <img alt="Ibrahin-image" src="../assets/Ibrahim.png" />
+          <img alt="Ibrahim-image" src="../assets/Ibrahim.png" />
           <div class="info-container">
             <h3>Ibrahim Akancay</h3>
             <p>Backend Developer</p>

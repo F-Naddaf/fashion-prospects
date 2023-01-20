@@ -11,9 +11,15 @@
       {{ error.msg }}
     </h3>
     <div v-if="store.state.userInfo" class="favorite-card-section">
-      <ul v-for="favorite in favorites" :key="favorite._id" class="favorite-images">
+      <ul
+        v-for="favorite in favorites"
+        :key="favorite._id"
+        class="favorite-images"
+      >
         <li>
-          <router-link :to="`/${favorite?.subCategory?.categoryTitle}/${favorite?.subCategory?.title}/${favorite._id}`">
+          <router-link
+            :to="`/${favorite?.subCategory?.categoryTitle}/${favorite?.subCategory?.title}/${favorite._id}`"
+          >
             <ProductCard :product="favorite" />
           </router-link>
         </li>
@@ -23,49 +29,46 @@
 </template>
 
 <script>
-
-import { onMounted, inject } from 'vue';
+import { onMounted, inject, ref } from 'vue';
 import LoadingSpinner from '@/components/Spinner.vue';
 import ProductCard from '@/components/ProductCard.vue';
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Favorite',
-  data() {
-    return {
-      favorites: '',
-      isLoading: false,
-      error: false,
-    };
-  },
   setup() {
-
     const store = inject('store');
-    onMounted(() => {
+    const favorites = ref('');
+    const isLoading = ref(false);
+    const error = ref(false);
+    onMounted(async () => {
+      isLoading.value = true
       store.methods.load();
+      const token = localStorage.getItem('accessToken');
+      try {
+        const result = await fetch(
+          'http://localhost:5000/api/products/favorites',
+          {
+            method: 'GET',
+            headers: {
+              'content-type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const res = await result.json();
+        favorites.value = res.result;
+        isLoading.value = false
+      } catch (error) {
+        error.value = true;
+      }
     });
     return {
       store,
+      favorites,
+      isLoading,
+      error,
     };
-  },
-  async mounted() {
-    const token = localStorage.getItem('accessToken');
-    try {
-      const result = await fetch(
-        'http://localhost:5000/api/products/favorites',
-        {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      const res = await result.json();
-      this.favorites = res.result;
-    } catch (error) {
-      this.error = true;
-    }
   },
   components: {
     ProductCard,

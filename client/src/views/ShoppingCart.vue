@@ -6,7 +6,11 @@
     </div>
     <div class="products-container">
       <aside v-if="store.state.userInfo" class="shopping-cart-section">
-        <ul v-for="item in store.state.userInfo?.shoppingCart" :key="item._id" class="shopping-images">
+        <ul
+          v-for="item in store.state.userInfo?.shoppingCart"
+          :key="item._id"
+          class="shopping-images"
+        >
           <li>
             <ProductShoppingCart :product="item.productId" />
           </li>
@@ -32,7 +36,11 @@
             Prices and shipping costs are confirmed at checkout.
           </p>
           <p class="payment">We accept:</p>
-          <img class="payment-icons" src="../assets/payment-icons.png" alt="payment-icons" />
+          <img
+            class="payment-icons"
+            src="../assets/payment-icons.png"
+            alt="payment-icons"
+          />
           <button class="check-out">Go to checkout</button>
         </div>
       </aside>
@@ -41,40 +49,38 @@
 </template>
 
 <script>
-
-import { onMounted, inject } from 'vue';
+import { onMounted, inject, ref, computed } from 'vue';
 import ProductShoppingCart from '@/components/ProductShoppingCart.vue';
 
 export default {
   name: 'ShoppingCart',
-  data() {
-    return {
-      delivery: 3.99,
-    };
-  },
   setup() {
-
     const store = inject('store');
+    const delivery = ref(3.99);
+
     onMounted(() => {
       store.methods.load();
     });
-    return {
-      store,
-    };
-  },
 
-  computed: {
-    subTotal() {
+    const subTotal = computed(() => {
       let subCost = 0;
-      for (let items in this.store.state.userInfo?.shoppingCart) {
-        let individualItem = this.store.state.userInfo?.shoppingCart[items];
+      for (let items in store.state.userInfo?.shoppingCart) {
+        let individualItem = store.state.userInfo?.shoppingCart[items];
         subCost += individualItem.productId.price;
       }
       return Math.round(subCost * 100) / 100;
-    },
-    total() {
-      return Math.round((this.subTotal + this.delivery) * 100) / 100;
-    },
+    });
+
+    const total = computed(() => {
+      return Math.round((subTotal.value + delivery.value) * 100) / 100;
+    });
+
+    return {
+      store,
+      delivery,
+      subTotal,
+      total,
+    };
   },
   components: {
     ProductShoppingCart,
