@@ -36,7 +36,7 @@ Project link is available at [Fashion Prospects App](https://c38-group2.herokuap
 <img src="./client/public/images/node.png" alt="node" width="150" />
 <img src="./client/public/images/css.png" alt="css" width="150" />
 
-## 6. Code structure
+## 5. Code structure
 
 ```
 client
