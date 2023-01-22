@@ -8,6 +8,7 @@ import Auth from "../views/Auth.vue";
 import Profile from "../views/Profile.vue";
 import Favorite from "../views/Favorite.vue";
 import ShoppingCart from "../views/ShoppingCart.vue";
+import Contact from "../views/Contact.vue";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact,
   },
   {
     path: "/category/:category/:id",
