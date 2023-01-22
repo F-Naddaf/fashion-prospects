@@ -1,7 +1,7 @@
 import Product, { validateProduct } from '../models/Product.js';
 import User from '../models/User.js';
 import SubCategory from '../models/SubCategory.js';
-import { logError } from '../util/logging.js';
+import { logError, logInfo } from '../util/logging.js';
 import validationErrorMessage from '../util/validationErrorMessage.js';
 
 export const getProducts = async (req, res) => {
@@ -87,7 +87,7 @@ export const deleteProduct = async (req, res) => {
     await Product.findByIdAndDelete(id, req.body);
     res.status(200).json({
       success: true,
-      msg: `Product with id: ${id} deleted from database`,
+      msg: `This product has been deleted from database`,
     });
   } catch (error) {
     logError(error);

@@ -57,11 +57,9 @@ export default {
   setup() {
     const store = inject('store');
     const delivery = ref(3.99);
-
     onMounted(() => {
       store.methods.load();
     });
-
     const subTotal = computed(() => {
       let subCost = 0;
       for (let items in store.state.userInfo?.shoppingCart) {
@@ -74,7 +72,6 @@ export default {
     const total = computed(() => {
       return Math.round((subTotal.value + delivery.value) * 100) / 100;
     });
-
     return {
       store,
       delivery,
