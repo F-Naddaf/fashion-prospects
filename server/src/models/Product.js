@@ -26,7 +26,6 @@ export const validateProduct = (productObject) => {
     'inStock',
     'size',
     'color',
-    'category',
     'subCategory',
     'brand',
     'rate',

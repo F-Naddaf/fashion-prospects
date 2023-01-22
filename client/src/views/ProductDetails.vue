@@ -22,6 +22,14 @@
       </router-link>
     </p>
   </div>
+  <div class="admin-container">
+    <EditAndDeleteProduct
+      :productId="productId"
+      :category="category"
+      :subCategoryTitle="subCategoryTitle"
+      :subCategoryId="subCategoryId"
+    />
+  </div>
   <div class="product-details">
     <aside class="product-image">
       <div class="main-image">
@@ -72,6 +80,7 @@ import LoadingSpinner from '@/components/Spinner.vue';
 import ProductRate from '@/components/ProductRate.vue';
 import AddToFavorite from '@/components/AddToFavorite.vue';
 import AddToShoppingCart from '@/components/AddToShoppingCart.vue';
+import EditAndDeleteProduct from '@/components/EditAndDeleteProduct.vue';
 
 export default {
   name: 'ProductDetails',
@@ -155,6 +164,7 @@ export default {
     ProductRate,
     AddToFavorite,
     AddToShoppingCart,
+    EditAndDeleteProduct,
   },
 };
 </script>
@@ -176,6 +186,11 @@ a {
 }
 .product-route p:hover {
   text-decoration: underline;
+}
+.admin-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 .product-details {
   width: 90%;

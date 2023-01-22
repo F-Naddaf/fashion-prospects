@@ -1,5 +1,5 @@
 <template>
-  <div v-if="store.state.userInfo" class="visited-products">
+  <div v-if="store.state.userInfo?.isAdmin === false" class="visited-products">
     <div class="title">
       <h3>Recently visited articles</h3>
       <span></span>
@@ -24,7 +24,6 @@ import ProductCard from './ProductCard.vue';
 
 export default {
   name: 'VisitedProducts',
-
   setup() {
     const store = inject('store');
     onMounted(() => {
@@ -34,9 +33,7 @@ export default {
       store,
     };
   },
-
   components: {
-
     ProductCard,
   },
 };

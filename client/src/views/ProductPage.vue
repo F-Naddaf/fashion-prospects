@@ -12,7 +12,7 @@
       <ul v-for="item in subCategories" :key="item._id" class="category-images">
         <li>
           <router-link :to="`/${category}/${subCategoryTitle}/${item._id}`">
-            <ProductCard :product="item" />
+            <ProductCard :product="item"/>
           </router-link>
         </li>
       </ul>
@@ -31,6 +31,7 @@ export default {
       subCategories: [],
       isLoading: false,
       error: { status: false, msg: '' },
+      success: { status: true, msg: '' },
       renderComponent: true,
       subCategoryTitle: '',
       subCategoryId: '',
@@ -101,6 +102,7 @@ ul:hover {
 }
 li {
   display: flex;
+  flex-direction: column;
   list-style: none;
   max-height: 100%;
 }
