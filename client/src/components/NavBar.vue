@@ -157,39 +157,6 @@ export default {
       itemsInShoppingCart,
     };
   },
-  // data() {
-  //   return {
-  //     categoryList: [],
-  //     subcategoryList: [],
-  //     isLoading: false,
-  //     error: false,
-  //     itemsInShoppingCart: '',
-  //   };
-  // },
-  // async mounted() {
-  //   try {
-  //     const result = await fetch('http://localhost:5000/api/categories');
-  //     const res = await result.json();
-  //     this.categoryList = res.result;
-  //   } catch (error) {
-  //     this.error = true;
-  //   }
-  // },
-  // methods: {
-  // async function getSubcategories(id) {
-  //   this.isLoading = true;
-  //   try {
-  //     const result = await fetch(
-  //       `http://localhost:5000/api/subcategories/${id}`,
-  //     );
-  //     const res = await result.json();
-  //     this.subcategoryList = res.result;
-  //     this.isLoading = false;
-  //   } catch (error) {
-  //     this.isLoading = false;
-  //   }
-  // },
-  // },
   components: {
     LoadingSpinner,
   },

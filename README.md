@@ -17,11 +17,102 @@ The guest user can have overview about our app also but with a limited permissio
 - Able to view the latest 10 products in slider.
 - Admin can (add, edit and delete) product.</br>
 
-To experience this feature Login as admin using:
-E-mail: admin@productProspects.com
+To experience the feature of be an admin try to Login using:</br>
+E-mail: admin@productProspects.com</br>
 Password: asdasdA1!
 
 ## 3. Link and Preview
 
-![App view](./client/public/Laptop.png)
+![App view](./client/public/images/Laptop.png)
 Project link is available at [Fashion Prospects App](https://c38-group2.herokuapp.com/)
+
+### Color guide
+
+![App color guide](./client/public/images/Project-color.png)
+
+## 4. Built with
+<img src="./client/public/images/vue.png" alt="vue" width="150" />
+<img src="./client/public/images/mongo.png" alt="mongo" width="150" />
+<img src="./client/public/images/node.png" alt="node" width="150" />
+<img src="./client/public/images/css.png" alt="css" width="150" />
+
+## 6. Code structure
+
+```
+client
+└── public
+    └── images
+    └── index.html
+└── src
+    └── assets
+    └── components
+        └── AddToFavorite.vue
+        └── AddToShoppingCart.vue
+        └── Carousel.vue
+        └── CarouselSlide.vue
+        └── Category.vue
+        └── CategoryCard.vue
+        └── DeleteFromCart.vue
+        └── EditAndDeleteProduct.vue
+        └── EditProduct.vue
+        └── EditProfile.vue
+        └── ExclusiveProduct.vue
+        └── FeaturedProducts.vue
+        └── Footer.vue
+        └── HeroSection.vue
+        └── LatestProducts.vue
+        └── LoginForm.vue
+        └── NavBar.vue
+        └── ProductCard.vue
+        └── ProductRate.vue
+        └── ProductShoppingCart.vue
+        └── SignUpForm.vue
+        └── Spinner.vue
+        └── VisitedProducts.vue
+    └── modules
+        └── user.js
+    └── router
+        └── index.js
+    └── views
+        └── About.vue
+        └── Auth.vue
+        └── CategoryPage.vue
+        └── Favorite.vue
+        └── Home.vue
+        └── ProductDetails.vue
+        └── ProductPage.vue
+        └── Profile.vue
+        └── ShoppingCart.vue
+    App.vue
+    main.jsx
+public
+└── index.html
+server
+└── src
+    └── controllers
+        └── category.js
+        └── product.js
+        └── shoppingCart.js
+        └── subCategory.js
+        └── user.js
+    └── db
+        └── connectDB.js
+    └── models
+        └── Category.js
+        └── Product.js
+        └── SubCategory.js
+        └── User.js
+    └── routes
+        └── category.js
+        └── product.js
+        └── subCategory.js
+        └── user.js
+    └── util
+        └── logging.js
+        └── validateAllowedFields.js
+        └── validationErrorMessage.js
+    app.js
+    index.js
+    testRouter.js
+README.md
+```
