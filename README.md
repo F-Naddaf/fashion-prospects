@@ -31,6 +31,7 @@ Project link is available at [Fashion Prospects App](https://c38-group2.herokuap
 ![App color guide](./client/public/images/Project-color.png)
 
 ## 4. Built with
+
 <img src="./client/public/images/vue.png" alt="vue" width="150" />
 <img src="./client/public/images/mongo.png" alt="mongo" width="150" />
 <img src="./client/public/images/node.png" alt="node" width="150" />
@@ -54,7 +55,6 @@ client
         └── CategoryCard.vue
         └── DeleteFromCart.vue
         └── EditAndDeleteProduct.vue
-        └── EditProduct.vue
         └── EditProfile.vue
         └── ExclusiveProduct.vue
         └── FeaturedProducts.vue
@@ -77,6 +77,9 @@ client
         └── About.vue
         └── Auth.vue
         └── CategoryPage.vue
+        └── Contact.vue
+        └── CreateProduct.vue
+        └── EditProduct.vue
         └── Favorite.vue
         └── Home.vue
         └── ProductDetails.vue

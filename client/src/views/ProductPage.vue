@@ -1,5 +1,11 @@
 <template>
   <main class="categories-section">
+    <router-link
+      v-if="store.state.userInfo?.isAdmin"
+      :to="`/category/${category}/${subCategoryTitle}/${subCategoryId}/create/`"
+    >
+      <button class="create">Create</button>
+    </router-link>
     <div class="category-title">
       <h3>{{ subCategoryTitle }}</h3>
       <span></span>
@@ -12,7 +18,7 @@
       <ul v-for="item in subCategories" :key="item._id" class="category-images">
         <li>
           <router-link :to="`/${category}/${subCategoryTitle}/${item._id}`">
-            <ProductCard :product="item"/>
+            <ProductCard :product="item" />
           </router-link>
         </li>
       </ul>
@@ -23,9 +29,19 @@
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
 import ProductCard from '@/components/ProductCard.vue';
+import { onMounted, inject } from 'vue';
 
 export default {
   name: 'ProductPage',
+  setup() {
+    const store = inject('store');
+    onMounted(() => {
+      store.methods.load();
+    });
+    return {
+      store,
+    };
+  },
   data() {
     return {
       subCategories: [],
@@ -64,9 +80,29 @@ export default {
 
 <style scoped>
 .categories-section {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-top: 45px;
+}
+a {
+  text-decoration: none;
+}
+.create {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 5px 30px;
+  border: none;
+  background-color: #01689c;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-right: 30px;
+  cursor: pointer;
+  color: white;
+}
+.create:hover {
+  background-color: #00527a;
 }
 .category-title h3 {
   font-size: 22px;
