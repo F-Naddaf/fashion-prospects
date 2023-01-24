@@ -9,6 +9,7 @@ import Profile from "../views/Profile.vue";
 import Favorite from "../views/Favorite.vue";
 import ShoppingCart from "../views/ShoppingCart.vue";
 import Contact from "../views/Contact.vue";
+import EditProduct from "../views/EditProduct.vue";
 
 const routes = [
   {
@@ -17,14 +18,29 @@ const routes = [
     component: Home,
   },
   {
-    path: "/about",
-    name: "About",
-    component: About,
+    path: "/auth",
+    name: "Auth",
+    component: Auth,
   },
   {
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/favorite",
+    name: "Favorite",
+    component: Favorite,
+  },
+  {
+    path: "/shopping",
+    name: "ShoppingCart",
+    component: ShoppingCart,
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About,
   },
   {
     path: "/contact",
@@ -47,19 +63,9 @@ const routes = [
     component: ProductDetails,
   },
   {
-    path: "/auth",
-    name: "Auth",
-    component: Auth,
-  },
-  {
-    path: "/favorite",
-    name: "Favorite",
-    component: Favorite,
-  },
-  {
-    path: "/shopping",
-    name: "ShoppingCart",
-    component: ShoppingCart,
+    path: "/edit/:productId",
+    name: "EditProduct",
+    component: EditProduct,
   },
 ];
 

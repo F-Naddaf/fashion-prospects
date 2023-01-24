@@ -1,11 +1,16 @@
 <template>
   <div class="edit-delete-container">
-    <p class="error">{{ error }}</p>
-    <p class="success">{{ success }}</p>
+    <div :class="`${error ? 'error' : 'hidden'}`">
+      <p>{{ this.error }}</p>
+    </div>
+    <div :class="`${success ? 'success' : 'hidden'}`">
+      <p>{{ this.success }}</p>
+    </div>
     <div v-if="store.state.userInfo?.isAdmin" class="btns-container">
-      <button @click="openEdit" class="edit-product btn">Edit</button>
+      <router-link :to="`/edit/${productId}`">
+        <button class="edit-product btn">Edit</button>
+      </router-link>
       <button @click="deleteProduct" class="delete-product btn">Delete</button>
-      <EditProduct v-if="open" @close="close" :close="close" />
     </div>
   </div>
 </template>
@@ -13,7 +18,6 @@
 <script>
 import { onMounted, inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import EditProduct from './EditProduct.vue';
 
 export default {
   name: 'EditAndDeleteProduct',
@@ -48,11 +52,11 @@ export default {
           },
         );
         const res = await response.json();
-        setTimeout(() => {
-          goBack();
-        }, 2000);
         if (res.success) {
           success.value = res.msg;
+          setTimeout(() => {
+            goBack();
+          }, 3000);
         } else {
           error.value = res.msg;
         }
@@ -71,7 +75,6 @@ export default {
       store,
     };
   },
-  components: { EditProduct },
 };
 </script>
 
@@ -81,11 +84,48 @@ export default {
   flex-direction: column;
   width: 20%;
 }
+.hidden {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  right: 50%;
+  transform: translateY(-70px);
+  transform: translateX(50%);
+  width: 300px;
+  height: 60px;
+  background-color: white;
+  border-bottom: 3px solid red;
+}
 .error {
+  position: absolute;
+  top: 80px;
+  right: 50%;
+  transform: translateY(80px);
+  transform: translateX(50%);
+  width: 300px;
+  height: 60px;
+  transition: 1s;
+  font-size: 14px;
   color: red;
+  background-color: white;
+  border-bottom: 3px solid red;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .success {
-  color: green;
+  position: absolute;
+  top: 80px;
+  right: 50%;
+  transform: translateY(80px);
+  transform: translateX(50%);
+  width: 300px;
+  height: 60px;
+  transition: 1s;
+  font-size: 14px;
+  color: red;
+  background-color: white;
+  border-bottom: 3px solid red;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .edit-delete-container p {
   font-size: 14px;
@@ -96,20 +136,41 @@ export default {
   justify-content: space-evenly;
 }
 .btn {
+  display: flex;
+  width: 95%;
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+a {
+  text-decoration: none;
   width: 30%;
-  margin-bottom: 10px;
-  border: none;
-  color: #f3f5f6;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
 }
 .edit-product {
+  padding: 5px 30px;
+  border: none;
   background-color: green;
+  border-radius: 8px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+.edit-product:hover {
+  background-color: rgb(0, 102, 0);
 }
 .delete-product {
+  display: flex;
+  padding: 5px 30px;
+  border: none;
   background-color: red;
+  border-radius: 8px;
+  font-weight: 600;
+  color: white;
+  width: 30%;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+.delete-product:hover {
+  background-color: rgb(180, 0, 0);
 }
 </style>
