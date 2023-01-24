@@ -11,6 +11,7 @@ import ShoppingCart from "../views/ShoppingCart.vue";
 import Contact from "../views/Contact.vue";
 import EditProduct from "../views/EditProduct.vue";
 import CreateProduct from "../views/CreateProduct.vue";
+import CreateSubCategory from "../views/CreateSubCategory.vue";
 
 const routes = [
   {
@@ -72,6 +73,11 @@ const routes = [
     path: "/category/:category/:item/:id/create",
     name: "CreateProduct",
     component: CreateProduct,
+  },
+  {
+    path: "/category/:category/:id/create",
+    name: "CreateSubCategory",
+    component: CreateSubCategory,
   },
 ];
 
