@@ -85,9 +85,6 @@ export default {
   flex-direction: column;
   margin-top: 45px;
 }
-a {
-  text-decoration: none;
-}
 .create {
   position: absolute;
   top: 20px;
@@ -147,5 +144,6 @@ a {
   flex-direction: column;
   text-decoration: none;
   align-items: center;
+  text-decoration: none;
 }
 </style>

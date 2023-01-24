@@ -1,5 +1,11 @@
 <template>
   <section class="categories-section">
+    <router-link
+      v-if="store.state.userInfo?.isAdmin"
+      :to="`/category/${categoryTitle}/${categoryId}/create/`"
+    >
+      <button class="create">Create</button>
+    </router-link>
     <div class="category-title">
       <h3>{{ categoryTitle }}</h3>
       <span></span>
@@ -29,9 +35,19 @@
 <script>
 import LoadingSpinner from '@/components/Spinner.vue';
 import CategoryCard from '@/components/CategoryCard.vue';
+import { onMounted, inject } from 'vue';
 
 export default {
   name: 'CategoryPage',
+  setup() {
+    const store = inject('store');
+    onMounted(() => {
+      store.methods.load();
+    });
+    return {
+      store,
+    };
+  },
   data() {
     return {
       SubCategories: [],
@@ -67,9 +83,23 @@ export default {
 
 <style scoped>
 .categories-section {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-top: 45px;
+}
+.create {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 5px 30px;
+  border: none;
+  background-color: #01689c;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-right: 30px;
+  cursor: pointer;
+  color: white;
 }
 .category-title h3 {
   font-size: 22px;
@@ -89,9 +119,13 @@ export default {
 }
 .category-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   margin: 5% 0;
   width: 100%;
+}
+ul {
+  padding: 0;
 }
 ul:hover {
   transition-timing-function: ease-in-out;
@@ -108,5 +142,6 @@ a {
   flex-direction: column;
   text-decoration: none;
   align-items: center;
+  text-decoration: none;
 }
 </style>

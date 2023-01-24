@@ -59,9 +59,11 @@ export default {
 
 <style scoped>
 section {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   height: 35vh;
-  margin-top: 220px;
+  margin-bottom: -220px;
   background-color: black;
 }
 .footer-container {
