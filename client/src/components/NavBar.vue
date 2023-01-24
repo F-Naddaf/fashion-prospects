@@ -175,9 +175,11 @@ export default {
 
 nav {
   display: flex;
+  position: relative;
   justify-content: space-between;
   width: 100%;
   height: 7vh;
+  z-index: 10;
   background-color: black;
 }
 
