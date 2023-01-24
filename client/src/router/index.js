@@ -10,6 +10,7 @@ import Favorite from "../views/Favorite.vue";
 import ShoppingCart from "../views/ShoppingCart.vue";
 import Contact from "../views/Contact.vue";
 import EditProduct from "../views/EditProduct.vue";
+import CreateProduct from "../views/CreateProduct.vue";
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: "/edit/:productId",
     name: "EditProduct",
     component: EditProduct,
+  },
+  {
+    path: "/category/:category/:item/:id/create",
+    name: "CreateProduct",
+    component: CreateProduct,
   },
 ];
 

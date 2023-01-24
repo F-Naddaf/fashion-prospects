@@ -2,7 +2,7 @@
   <main>
     <form @submit.prevent="handelSubmit" class="edit-product-container">
       <div class="title">
-        <h3>Edit Product</h3>
+        <h3>Create New Product</h3>
         <span></span>
       </div>
       <div :class="`${error ? 'error' : 'hidden'}`">
@@ -19,8 +19,8 @@
             </label>
             <input
               type="text"
-              :placeholder="productDetail.title"
-              v-model="title"
+              placeholder="Add the title here"
+              v-model="product.title"
             />
           </div>
           <div class="input-field">
@@ -29,8 +29,8 @@
             </label>
             <input
               type="number"
-              :placeholder="productDetail.price"
-              v-model="price"
+              placeholder="Add a price by Euro"
+              v-model="product.price"
             />
           </div>
           <div class="input-field">
@@ -39,8 +39,8 @@
             </label>
             <input
               type="number"
-              :placeholder="productDetail.inStock"
-              v-model="inStock"
+              placeholder="Enter an available quantity "
+              v-model="product.inStock"
             />
           </div>
           <div class="input-field">
@@ -49,8 +49,8 @@
             </label>
             <input
               type="text"
-              :placeholder="mainImage"
-              v-model="mainImage"
+              placeholder="Add the image URL: https://www.image.jpg"
+              v-model="product.mainImage"
               required
             />
           </div>
@@ -58,25 +58,41 @@
             <label>
               <h3>Image 2:</h3>
             </label>
-            <input type="text" :placeholder="image1" v-model="image1" />
+            <input
+              type="text"
+              placeholder="Add the image URL: https://www.image.jpg"
+              v-model="product.image1"
+            />
           </div>
           <div class="input-field">
             <label>
               <h3>Image 3:</h3>
             </label>
-            <input type="text" :placeholder="image2" v-model="image2" />
+            <input
+              type="text"
+              placeholder="Add the image URL: https://www.image.jpg"
+              v-model="product.image2"
+            />
           </div>
           <div class="input-field">
             <label>
               <h3>Image 4:</h3>
             </label>
-            <input type="text" :placeholder="image3" v-model="image3" />
+            <input
+              type="text"
+              placeholder="Add the image URL: https://www.image.jpg"
+              v-model="product.image3"
+            />
           </div>
           <div class="input-field">
             <label>
               <h3>Image 5:</h3>
             </label>
-            <input type="text" :placeholder="image4" v-model="image4" />
+            <input
+              type="text"
+              placeholder="Add the image URL: https://www.image.jpg"
+              v-model="product.image4"
+            />
           </div>
         </section>
         <section class="right-container">
@@ -86,8 +102,8 @@
             </label>
             <textarea
               rows="3"
-              :placeholder="details"
-              v-model="details"
+              placeholder="Enter the product Details"
+              v-model="product.details"
             ></textarea>
           </div>
           <div class="input-field">
@@ -96,8 +112,8 @@
             </label>
             <textarea
               rows="2"
-              :placeholder="maintenance"
-              v-model="maintenance"
+              placeholder="Add the product Maintenance"
+              v-model="product.maintenance"
             ></textarea>
           </div>
           <div class="input-field">
@@ -106,8 +122,8 @@
             </label>
             <input
               type="text"
-              :placeholder="composition"
-              v-model="composition"
+              placeholder="Add the product Composition"
+              v-model="product.composition"
             />
           </div>
           <div class="input-field">
@@ -116,8 +132,8 @@
             </label>
             <input
               type="text"
-              :placeholder="productDetail.size"
-              v-model="size"
+              placeholder="Enter the available sizes"
+              v-model="product.size"
             />
           </div>
           <div class="input-field">
@@ -126,8 +142,8 @@
             </label>
             <input
               type="text"
-              :placeholder="productDetail.color"
-              v-model="color"
+              placeholder="Add the product available colors"
+              v-model="product.color"
             />
           </div>
           <div class="input-field">
@@ -136,8 +152,8 @@
             </label>
             <input
               type="text"
-              :placeholder="productDetail.brand"
-              v-model="brand"
+              placeholder="What is the product brand?"
+              v-model="product.brand"
             />
           </div>
           <div class="input-field">
@@ -146,15 +162,15 @@
             </label>
             <input
               type="text"
-              :placeholder="productDetail.rate"
-              v-model="rate"
+              placeholder="Fill up the product rate"
+              v-model="product.rate"
             />
           </div>
         </section>
       </div>
       <div class="btns">
         <router-link
-          :to="`/${productDetail?.subCategory?.categoryTitle}/${productDetail?.subCategory?.title}/${productId}`"
+          :to="`/category/${category}/${subCategoryTitle}/${subCategoryId}`"
         >
           <button type="button" class="close">Cancel</button>
         </router-link>
@@ -166,117 +182,67 @@
 
 <script>
 export default {
-  name: 'EditProduct',
+  name: 'CreateProduct',
   props: ['close'],
   data() {
     return {
       error: '',
       success: '',
-      productId: '',
-      title: '',
-      price: '',
-      inStock: '',
-      size: '',
-      color: '',
-      brand: '',
-      rate: '',
-      productDetail: '',
-      subCategoryTitle: '',
-      subCategoryId: '',
-      mainImage: '',
-      image1: '',
-      image2: '',
-      image3: '',
-      image4: '',
-      details: '',
-      maintenance: '',
-      composition: '',
+      category: this.$route.params.category,
+      subCategoryTitle: this.$route.params.item,
+      subCategoryId: this.$route.params.id,
       product: {
-        title: this.productDetail?.title,
-        price: this.productDetail?.price,
-        inStock: this.productDetail?.inStock,
-        size: this.productDetail?.size,
-        color: this.productDetail?.color,
-        brand: this.productDetail?.brand,
-        rate: this.productDetail?.rate,
-        images: this.productDetail?.images,
+        title: '',
+        price: '',
+        inStock: '',
+        size: '',
+        color: '',
+        brand: '',
+        rate: '',
+        details: '',
+        maintenance: '',
+        composition: '',
+        mainImage: '',
+        image1: '',
+        image2: '',
+        image3: '',
+        image4: '',
       },
     };
   },
-  async mounted() {
-    this.productId = this.$route.params.productId;
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/products/product_detail/${this.productId}`,
-      );
-      const res = await response.json();
-      this.productDetail = res.result;
-      this.subCategoryTitle = res.result.subCategory.title;
-      this.subCategoryId = res.result.subCategory._id;
-      this.title = res.result.title;
-      this.price = res.result.price;
-      this.inStock = res.result.inStock;
-      this.size = res.result.size;
-      this.color = res.result.color;
-      this.brand = res.result.brand;
-      this.rate = res.result.rate;
-      this.details = res.result.description?.details;
-      this.maintenance = res.result.description?.maintenance;
-      this.composition = res.result.description?.composition;
-      this.mainImage = res.result.images[0];
-      this.image1 = res.result.images[1];
-      this.image2 = res.result.images[2];
-      this.image3 = res.result.images[3];
-      this.image4 = res.result.images[4];
-    } catch (error) {
-      this.error = error.msg;
-    }
-  },
   methods: {
     async handelSubmit() {
-      const updatedProduct = {
-        title: this.title === '' ? this.productDetail?.title : this.title,
-        price:
-          this.price === '' || this.product?.price <= 0
-            ? this.productDetail?.price
-            : this.price,
-        inStock:
-          this.inStock === '' ? this.productDetail?.inStock : this.inStock,
-        size: this.size === '' ? this.productDetail?.size : this.size,
-        color: this.color === '' ? this.productDetail?.color : this.color,
-        brand: this.brand === '' ? this.productDetail?.brand : this.brand,
-        rate: this.rate === '' ? this.productDetail?.rate : this.rate,
+      const CreateProduct = {
+        title: this.product.title,
+        price: this.product.price,
+        inStock: this.product.inStock,
+        size: this.product.size,
+        color: this.product.color,
+        brand: this.product.brand,
+        rate: this.product.rate,
+        subCategory: this.subCategoryId,
         description: {
-          details:
-            this.details === ''
-              ? this.productDetail?.description?.details
-              : this.details,
-          maintenance:
-            this.maintenance === ''
-              ? this.productDetail?.description?.maintenance
-              : this.maintenance,
-          composition:
-            this.composition === ''
-              ? this.productDetail?.description?.composition
-              : this.composition,
+          details: this.product.details,
+          maintenance: this.product.maintenance,
+          composition: this.product.composition,
         },
         images: [
-          this.mainImage ? this.mainImage : this.productDetail?.images[0],
-          this.image1 ? this.image1 : this.productDetail?.images[1],
-          this.image2 ? this.image2 : this.productDetail?.images[2],
-          this.image3 ? this.image3 : this.productDetail?.images[3],
-          this.image4 ? this.image4 : this.productDetail?.images[4],
+          this.product.mainImage,
+          this.product.image1,
+          this.product.image2,
+          this.product.image3,
+          this.product.image4,
         ],
       };
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/update/${this.productId}`,
+          `http://localhost:5000/api/products/create`,
           {
-            method: 'PATCH',
+            method: 'POST',
             headers: {
-              'content-type': 'application/json',
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify(updatedProduct),
+            body: JSON.stringify(CreateProduct),
           },
         );
         const res = await response.json();
@@ -284,12 +250,13 @@ export default {
           this.success = 'You have updated the product successfully';
           setTimeout(() => {
             this.$router.push(
-              `/${this.productDetail.subCategory.categoryTitle}/${this.productDetail.subCategory.title}/${this.productId}`,
+              `/category/${this.category}/${this.subCategoryTitle}/${this.subCategoryId}`,
             );
           }, 2000);
         } else {
           this.error = res.msg;
         }
+        console.log(res);
       } catch (error) {
         this.error = error.msg;
       }
@@ -454,6 +421,6 @@ textarea {
   border: 1px solid #01689c;
   background-color: #01689c;
   color: white;
-  }
+  cursor: pointer;
+}
 </style>
-  
