@@ -50,7 +50,7 @@
             <input
               type="text"
               placeholder="Add the image URL: https://www.image.jpg"
-              v-model="mainImage"
+              v-model="product.mainImage"
               required
             />
           </div>
@@ -61,7 +61,7 @@
             <input
               type="text"
               placeholder="Add the image URL: https://www.image.jpg"
-              v-model="image1"
+              v-model="product.image1"
             />
           </div>
           <div class="input-field">
@@ -71,7 +71,7 @@
             <input
               type="text"
               placeholder="Add the image URL: https://www.image.jpg"
-              v-model="image2"
+              v-model="product.image2"
             />
           </div>
           <div class="input-field">
@@ -81,7 +81,7 @@
             <input
               type="text"
               placeholder="Add the image URL: https://www.image.jpg"
-              v-model="image3"
+              v-model="product.image3"
             />
           </div>
           <div class="input-field">
@@ -91,7 +91,7 @@
             <input
               type="text"
               placeholder="Add the image URL: https://www.image.jpg"
-              v-model="image4"
+              v-model="product.image4"
             />
           </div>
         </section>
@@ -103,7 +103,7 @@
             <textarea
               rows="3"
               placeholder="Enter the product Details"
-              v-model="details"
+              v-model="product.details"
             ></textarea>
           </div>
           <div class="input-field">
@@ -113,7 +113,7 @@
             <textarea
               rows="2"
               placeholder="Add the product Maintenance"
-              v-model="maintenance"
+              v-model="product.maintenance"
             ></textarea>
           </div>
           <div class="input-field">
@@ -123,7 +123,7 @@
             <input
               type="text"
               placeholder="Add the product Composition"
-              v-model="composition"
+              v-model="product.composition"
             />
           </div>
           <div class="input-field">
@@ -220,7 +220,7 @@ export default {
         color: this.product.color,
         brand: this.product.brand,
         rate: this.product.rate,
-        // subCategoryId: this.subCategoryId,
+        subCategory: this.subCategoryId,
         description: {
           details: this.product.details,
           maintenance: this.product.maintenance,
