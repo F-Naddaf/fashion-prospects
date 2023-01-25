@@ -256,7 +256,6 @@ export default {
         } else {
           this.error = res.msg;
         }
-        console.log(res);
       } catch (error) {
         this.error = error.msg;
       }
