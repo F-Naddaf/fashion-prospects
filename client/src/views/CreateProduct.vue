@@ -274,7 +274,7 @@ main {
   justify-content: space-evenly;
   width: 80%;
   height: 80%;
-  margin: auto;
+  margin: 0 auto 10% auto;
 }
 .edit-product-container {
   display: flex;

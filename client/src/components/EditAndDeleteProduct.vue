@@ -88,7 +88,7 @@ export default {
   position: absolute;
   display: flex;
   align-items: center;
-  top: 0;
+  top: -10px;
   right: 50%;
   transform: translateY(-70px);
   transform: translateX(50%);
@@ -146,6 +146,9 @@ a {
   width: 30%;
 }
 .edit-product {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px 30px;
   border: none;
   background-color: green;

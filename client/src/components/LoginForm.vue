@@ -97,14 +97,12 @@ export default {
   align-items: center;
   width: 400px;
 }
-
 .error-container {
   position: absolute;
   top: -140px;
   width: 100%;
   padding: 0;
 }
-
 .error-section {
   font-size: 14px;
   text-align: justify;
@@ -112,7 +110,6 @@ export default {
   padding-bottom: 15px;
   line-height: 1;
 }
-
 .success-message {
   position: absolute;
   top: -100px;
@@ -121,12 +118,10 @@ export default {
   font-size: 14px;
   color: green;
 }
-
 .form-container {
   position: relative;
   width: 100%;
 }
-
 .form-container label p {
   position: absolute;
   top: -20px;
@@ -137,18 +132,15 @@ export default {
   padding: 0 6px;
   color: #b3005c;
 }
-
 .form-container input {
   width: 97%;
   padding: 5px;
   margin-bottom: 20px;
 }
-
 .form-container input::placeholder {
   color: rgba(80, 80, 80, 0.7);
   font-size: 12px;
 }
-
 .login-input-form button {
   width: 100%;
   padding: 6px;
@@ -158,20 +150,23 @@ export default {
   font-size: 14px;
   font-weight: 700;
 }
-
 .login-input-form button:hover {
   cursor: pointer;
   background-color: #b3005c;
 }
-
 .login-input-form a {
   margin: 8px auto auto auto;
   text-decoration: none;
   font-size: 12px;
   color: rgb(80, 80, 80);
 }
-
 .login-input-form a:hover {
   text-decoration: underline;
+}
+@media screen and (min-width: 1024px) {
+  .login-input-form {
+  width: 90%;
+  margin-left: 5%;
+}
 }
 </style>

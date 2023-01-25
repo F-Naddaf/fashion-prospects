@@ -80,6 +80,7 @@ export default {
   margin: 0;
 }
 .about-team {
+  height: 60vh;
   margin-top: 80px;
   display: flex;
   flex-direction: column;

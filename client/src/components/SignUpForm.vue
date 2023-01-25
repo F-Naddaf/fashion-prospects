@@ -228,4 +228,10 @@ export default {
 .signup-input-form a:hover {
   text-decoration: underline;
 }
+@media screen and (min-width: 1024px) {
+  .signup-input-form {
+    width: 90%;
+    margin-bottom: -20px;
+  }
+}
 </style>

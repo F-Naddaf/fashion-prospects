@@ -172,4 +172,22 @@ export default {
   height: 400px;
   align-items: center;
 }
+@media screen and (min-width: 1024px) {
+  .latest-products-container {
+    width: 100vw;
+    overflow: hidden;
+    justify-content: flex-start;
+  }
+  .carousel {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .carousel-slider {
+    margin: 20px 20px;
+  }
+  .btn {
+    margin: 5px 10px;
+    color: rgb(238 121 179);
+  }
+}
 </style>
