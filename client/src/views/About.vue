@@ -22,7 +22,6 @@
   </div>
 </template>
 <script>
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'About',
@@ -55,6 +54,7 @@ export default {
   align-items: center;
   margin-top: 80px;
   width: 50%;
+  height: 50vh;
 }
 .about-team h3 {
   font-size: 22px;

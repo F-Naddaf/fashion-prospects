@@ -194,9 +194,10 @@ a {
 }
 .product-details {
   width: 90%;
+  height: 90vh;
   display: flex;
   justify-content: center;
-  margin: 40px auto;
+  margin: 40px auto 15% auto;
 }
 .product-image {
   width: 40%;
@@ -254,7 +255,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   margin-left: 80px;
-  height: 50vh;
+  height: 50%;
 }
 .product-info h2 {
   color: rgb(80, 80, 80);
@@ -383,5 +384,31 @@ a {
 .fa-regular {
   font-size: 20px;
   color: white;
+}
+@media screen and (min-width: 1024px) {
+  .price-section {
+    margin: 0 auto;
+  }
+  .rate {
+    margin: 0 auto 0 auto;
+  }
+  h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .price-section {
+    margin: 0 auto;
+  }
+  .rate {
+    margin: 0 auto 20px auto;
+  }
+  h4 {
+    display: block;
+  }
+  .btn {
+    margin-top: 20px;
+  }
 }
 </style>

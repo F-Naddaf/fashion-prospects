@@ -307,7 +307,7 @@ main {
   justify-content: space-evenly;
   width: 80%;
   height: 80%;
-  margin: auto;
+  margin: 0 auto 15% auto;
 }
 .edit-product-container {
   display: flex;
@@ -338,7 +338,7 @@ main {
   position: absolute;
   display: flex;
   align-items: center;
-  top: 0;
+  top: -10px;
   right: 0;
   transform: translateY(-70px);
   width: 300px;
@@ -454,6 +454,5 @@ textarea {
   border: 1px solid #01689c;
   background-color: #01689c;
   color: white;
-  }
+}
 </style>
-  

@@ -42,7 +42,7 @@ export default {
     const isLoading = ref(false);
     const error = ref(false);
     onMounted(async () => {
-      isLoading.value = true
+      isLoading.value = true;
       store.methods.load();
       const token = localStorage.getItem('accessToken');
       try {
@@ -58,7 +58,7 @@ export default {
         );
         const res = await result.json();
         favorites.value = res.result;
-        isLoading.value = false
+        isLoading.value = false;
       } catch (error) {
         error.value = true;
       }
@@ -82,6 +82,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 45px;
+  height: 75vh;
 }
 
 .favorite-title h3 {

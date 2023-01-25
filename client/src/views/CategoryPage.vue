@@ -87,6 +87,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 45px;
+  margin-bottom: 10%;
 }
 .create {
   position: absolute;

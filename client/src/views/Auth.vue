@@ -14,12 +14,12 @@
         </div>
       </div>
       <section :class="`${!showLogin && 'show-signup'}`">
-        <div>
-          <SignUpForm />
-        </div>
-        <div>
-          <LoginForm />
-        </div>
+        <!-- <div> -->
+        <SignUpForm />
+        <!-- </div>
+        <div> -->
+        <LoginForm />
+        <!-- </div> -->
       </section>
     </div>
   </div>
@@ -142,5 +142,58 @@ p {
   width: 180%;
   justify-content: space-between;
   transition: transform 1s;
+}
+
+@media screen and (min-width: 1024px) {
+  .auth-form-container .underline[data-v-1633063c] {
+    transform: translate(188px, 5px);
+}
+  .image-container {
+    width: 40%;
+  }
+  .auth-form-container {
+    width: 60%;
+    height: 50vh;
+    margin: 0 200px 0 200px;
+  }
+  .auth-form-container section {
+    transform: translate(-178px);
+  }
+  .auth-form-container .show-signup {
+    transform: translate(178px);
+    width: 180%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .auth-form-container .underline[data-v-1633063c] {
+    transform: translate(250px, 5px);
+}
+  .auth-form-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 500px;
+    height: 50vh;
+    margin: 0 200px 0 200px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: all 1s;
+    overflow: hidden;
+  }
+  .auth-form-container section {
+    display: flex;
+    transform: translate(-235px);
+    width: 180%;
+    justify-content: space-between;
+    transition: transform 1s;
+  }
+  .auth-form-container .show-signup {
+    display: flex;
+    transform: translate(235px);
+    width: 180%;
+    justify-content: space-between;
+    transition: transform 1s;
+  }
 }
 </style>

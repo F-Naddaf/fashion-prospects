@@ -85,6 +85,9 @@ export default {
   margin: 5% 0;
   width: 100%;
 }
+ul {
+  padding: 0;
+}
 ul:hover {
   transition-timing-function: ease-in-out;
   transition: 0.5s;

@@ -38,4 +38,9 @@ img {
   margin-bottom: -10px;
   color: rgb(80, 80, 80);
 }
+@media screen and (min-width: 1024px) {
+  img {
+    width: 90%;
+  }
+}
 </style>
