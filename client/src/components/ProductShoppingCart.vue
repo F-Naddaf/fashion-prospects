@@ -24,6 +24,7 @@
           </div>
         </div>
         <p class="brand">Brand: {{ product?.brand }}</p>
+        <p class="brand">Size: {{ product?.size }}</p>
       </div>
     </aside>
     <aside class="right-container">

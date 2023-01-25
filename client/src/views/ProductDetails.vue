@@ -1,78 +1,112 @@
 <template>
-  <div v-if="isLoading"><LoadingSpinner /></div>
-  <h3 class="error" v-if="error.status">
-    {{ error.msg }}
-  </h3>
-  <div class="product-route">
-    <p>
-      <router-link to="/" class="product-home-route">Home</router-link>
-    </p>
-    <span> > </span>
-    <p>
-      <router-link
-        :to="`/category/${category}/${subCategoryTitle}/${subCategoryId}`"
-      >
-        {{ subCategoryTitle }}
-      </router-link>
-    </p>
-    <span> > </span>
-    <p>
-      <router-link :to="`/${category}/${subCategoryTitle}/${productId}`">
-        {{ titleRoute }}
-      </router-link>
-    </p>
-  </div>
-  <div class="admin-container">
-    <EditAndDeleteProduct
-      :productId="productId"
-      :category="category"
-      :subCategoryTitle="subCategoryTitle"
-      :subCategoryId="subCategoryId"
-    />
-  </div>
-  <div class="product-details">
-    <aside class="product-image">
-      <div class="main-image">
-        <img :src="displayImage" />
-      </div>
-      <div class="slid-image-container">
-        <div class="slid-images" v-for="image in images" :key="image.index">
-          <button class="small-images active">
-            <img @click="changeImageURL" :src="image" />
-          </button>
+  <main>
+    <div v-if="isLoading"><LoadingSpinner /></div>
+    <h3 class="error" v-if="error.status">
+      {{ error.msg }}
+    </h3>
+    <div class="product-route">
+      <p>
+        <router-link to="/" class="product-home-route">Home</router-link>
+      </p>
+      <span> > </span>
+      <p>
+        <router-link
+          :to="`/category/${category}/${subCategoryTitle}/${subCategoryId}`"
+        >
+          {{ subCategoryTitle }}
+        </router-link>
+      </p>
+      <span> > </span>
+      <p>
+        <router-link :to="`/${category}/${subCategoryTitle}/${productId}`">
+          {{ titleRoute }}
+        </router-link>
+      </p>
+    </div>
+    <div class="admin-container">
+      <EditAndDeleteProduct
+        :productId="productId"
+        :category="category"
+        :subCategoryTitle="subCategoryTitle"
+        :subCategoryId="subCategoryId"
+      />
+    </div>
+    <div class="product-details">
+      <aside class="product-image">
+        <div class="main-image">
+          <img :src="displayImage" />
         </div>
-      </div>
-    </aside>
-    <aside class="product-info">
-      <h2>{{ productInfo.title }}</h2>
-      <div class="price-section">
-        <p class="price">€{{ productInfo.price }}</p>
-        <p class="in-stock" v-if="inStock"><span></span>In Stock</p>
-        <p class="almost-out" v-else-if="almostSoldOut">
-          <span></span>Almost sold out
-        </p>
-        <p class="out-of-stock" v-else><span></span>Out of Stock</p>
-      </div>
-      <div class="rate">
-        <p>Item rate</p>
-        <div class="rate-compo">
-          <ProductRate :rate="rate" />
+        <div class="slid-image-container">
+          <div class="slid-images" v-for="image in images" :key="image.index">
+            <button class="small-images active">
+              <img @click="changeImageURL" :src="image" />
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="description">
+      </aside>
+      <aside class="product-info">
+        <h2>{{ productInfo.title }}</h2>
+        <div class="price-section">
+          <p class="price">€{{ productInfo.price }}</p>
+          <p class="in-stock" v-if="inStock"><span></span>In Stock</p>
+          <p class="almost-out" v-else-if="almostSoldOut">
+            <span></span>Almost sold out
+          </p>
+          <p class="out-of-stock" v-else><span></span>Out of Stock</p>
+        </div>
+        <div class="rate">
+          <p>Item rate</p>
+          <div class="rate-compo">
+            <ProductRate :rate="rate" />
+          </div>
+        </div>
+        <div class="size-container">
+          <label>Sizes</label>
+          <select name="size" id="size-select">
+            <option value="">Please select your size</option>
+            <option
+              v-for="size in sizes"
+              :key="size.index"
+              :value="size"
+              class="available-sizes"
+            >
+              {{ size }}
+            </option>
+          </select>
+        </div>
+        <div class="color-container">
+          <label>Colors</label>
+          <select name="color" id="color-select">
+            <option value="">Please select your color</option>
+            <option
+              v-for="color in colors"
+              :key="color.index"
+              :value="color"
+              class="available-colors"
+            >
+              {{ color }}
+            </option>
+          </select>
+        </div>
+        <div class="btn">
+          <AddToShoppingCart :productId="productInfo?._id" />
+          <AddToFavorite :productId="productInfo?._id" />
+        </div>
+      </aside>
+    </div>
+    <div class="description-container">
+      <div class="product-description">
         <h3>Product description:</h3>
         <p>{{ productDetails }}</p>
+      </div>
+      <div class="product-extra-details">
         <h4>Composition:</h4>
         <p>{{ productComposition }}</p>
         <h4 v-if="maintenanceInstructions">maintenance instructions:</h4>
         <p>{{ maintenanceInstructions }}</p>
       </div>
-      <div class="btn">
-        <AddToShoppingCart :productId="productInfo?._id" />
-        <AddToFavorite :productId="productInfo?._id" />
-      </div>
-    </aside>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -88,6 +122,8 @@ export default {
     return {
       productInfo: {},
       productDetails: '',
+      sizes: [],
+      colors: [],
       productComposition: '',
       maintenanceInstructions: '',
       displayImage: [],
@@ -133,6 +169,8 @@ export default {
       const res = await result.json();
       const getQuantity = res.result.inStock;
       this.productInfo = res.result;
+      this.sizes = res.result.size;
+      this.colors = res.result.color;
       this.productDetails = res.result.description.details;
       this.productComposition = res.result.description.composition;
       this.maintenanceInstructions = res.result.description.maintenance;
@@ -170,6 +208,10 @@ export default {
 </script>
 
 <style scoped>
+main {
+  height: 100%;
+  width: 100%;
+}
 .product-route {
   display: flex;
   align-items: center;
@@ -194,10 +236,10 @@ a {
 }
 .product-details {
   width: 90%;
-  height: 90vh;
+  height: 480px;
   display: flex;
   justify-content: center;
-  margin: 40px auto 15% auto;
+  margin: 40px auto 60px auto;
 }
 .product-image {
   width: 40%;
@@ -209,13 +251,15 @@ a {
   border: 1px solid rgb(80, 80, 80);
   border-radius: 20px;
   background-color: #f4f4f4;
-  height: 45vh;
+  height: 80%;
 }
 .slid-image-container {
   display: flex;
   justify-content: space-between;
   width: 90%;
+  height: 20%;
   margin: auto;
+  align-items: flex-end;
 }
 .slid-images {
   display: flex;
@@ -225,7 +269,7 @@ a {
   border: 1px solid rgb(80, 80, 80);
   height: 60px;
   width: 60px;
-  margin: 10px auto;
+  margin: 10px auto 0 auto;
   background-color: #f4f4f4;
   align-items: center;
   justify-content: center;
@@ -255,7 +299,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   margin-left: 80px;
-  height: 50%;
+  height: 490px;
 }
 .product-info h2 {
   color: rgb(80, 80, 80);
@@ -327,17 +371,53 @@ a {
 .rate-compo {
   margin: 0;
 }
-.description {
+.size-container,
+.color-container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.color-container label,
+.size-container label {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(80, 80, 80);
+  margin-bottom: 5px;
+}
+#size-select,
+#color-select {
+  width: 100%;
+  padding: 5px;
+}
+.available-sizes,
+.available-colors {
+  color: #ff0084;
+  padding: 5px 20px;
+  border: 1px solid #ff0084;
+  font-size: 14px;
+  cursor: pointer;
+}
+.description-container {
+  display: flex;
+  width: 85%;
+  margin: 100px auto;
+  align-items: center;
+  justify-content: space-around;
+}
+.product-description,
+.product-extra-details {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: -20px;
+  width: 40%;
 }
-.description h3 {
+.product-description h3,
+.product-extra-details h3 {
   color: rgb(80, 80, 80);
   font-size: 18px;
 }
-.description p {
+.product-description p,
+.product-extra-details p {
   text-align: justify;
   margin-top: -10px;
   font-size: 14px;
@@ -386,6 +466,13 @@ a {
   color: white;
 }
 @media screen and (min-width: 1024px) {
+  .product-info {
+    height: 450px;
+  }
+  .product-details {
+    width: 90%;
+    height: 450px;
+  }
   .price-section {
     margin: 0 auto;
   }
@@ -398,6 +485,13 @@ a {
   }
 }
 @media screen and (min-width: 1440px) {
+  .product-info {
+    height: 480px;
+  }
+  .product-details {
+    width: 90%;
+    height: 480px;
+  }
   .price-section {
     margin: 0 auto;
   }
