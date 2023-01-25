@@ -62,7 +62,12 @@
         </div>
         <div class="size-container">
           <label>Sizes</label>
-          <select name="size" id="size-select">
+          <select
+            v-model="selectedSize"
+            @change="handleSizeChange"
+            name="size"
+            id="size-select"
+          >
             <option value="">Please select your size</option>
             <option
               v-for="size in sizes"
@@ -76,7 +81,12 @@
         </div>
         <div class="color-container">
           <label>Colors</label>
-          <select name="color" id="color-select">
+          <select
+            v-model="selectedColor"
+            @change="handleColorChange"
+            name="color"
+            id="color-select"
+          >
             <option value="">Please select your color</option>
             <option
               v-for="color in colors"
@@ -89,7 +99,11 @@
           </select>
         </div>
         <div class="btn">
-          <AddToShoppingCart :productId="productInfo?._id" />
+          <AddToShoppingCart
+            :productId="productInfo?._id"
+            :size="selectedSize"
+            :color="selectedColor"
+          />
           <AddToFavorite :productId="productInfo?._id" />
         </div>
       </aside>
@@ -124,6 +138,8 @@ export default {
       productDetails: '',
       sizes: [],
       colors: [],
+      selectedSize: '',
+      selectedColor: '',
       productComposition: '',
       maintenanceInstructions: '',
       displayImage: [],
@@ -140,6 +156,17 @@ export default {
       isLoading: false,
       error: { status: false, msg: '' },
     };
+  },
+  methods: {
+    changeImageURL(e) {
+      this.displayImage = e.target.src;
+    },
+    handleSizeChange(e) {
+      e.target.value;
+    },
+    handleColorChange(e) {
+      e.target.value;
+    },
   },
   async mounted() {
     window.scroll(0, 0);
@@ -191,11 +218,6 @@ export default {
       this.isLoading = false;
       this.error = { status: true, msg: 'Oops something went wrong!' };
     }
-  },
-  methods: {
-    changeImageURL(e) {
-      this.displayImage = e.target.src;
-    },
   },
   components: {
     LoadingSpinner,

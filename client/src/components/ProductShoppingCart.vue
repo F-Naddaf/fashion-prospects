@@ -24,12 +24,21 @@
           </div>
         </div>
         <p class="brand">Brand: {{ product?.brand }}</p>
-        <p class="brand">Size: {{ product?.size }}</p>
       </div>
     </aside>
     <aside class="right-container">
-      <AddToFavorite :productId="product?._id" />
-      <DeleteFromCart :productId="product?._id" />
+      <div class="icons">
+        <AddToFavorite :productId="product?._id" />
+        <DeleteFromCart :productId="product?._id" />
+      </div>
+      <div class="selected-product">
+        <p class="brand">
+          Size: <span>{{ productSize }}</span>
+        </p>
+        <p class="brand">
+          Color: <span>{{ productColor }}</span>
+        </p>
+      </div>
     </aside>
   </section>
 </template>
@@ -41,10 +50,12 @@ import ProductRate from './ProductRate.vue';
 
 export default {
   name: 'ProductShoppingCart',
-  props: ['product'],
-  data() {
+  props: ['product', 'color', 'size'],
+  data(props) {
     return {
       inStock: false,
+      productColor: props.color,
+      productSize: props.size,
     };
   },
   components: { ProductRate, AddToFavorite, DeleteFromCart },
@@ -159,8 +170,20 @@ img {
 }
 .right-container {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-between;
   width: 25%;
+}
+.icons {
+  display: flex;
+  justify-content: space-around;
   margin: 10px 0;
+}
+.selected-product {
+  display: flex;
+  justify-content: space-around;
+}
+.brand span {
+  color: #ff0084;
 }
 </style>

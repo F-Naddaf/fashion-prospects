@@ -1,13 +1,13 @@
-import User from "../models/User.js";
-import Product from "../models/Product.js";
-import { logError, logInfo } from "../util/logging.js";
+import User from '../models/User.js';
+import Product from '../models/Product.js';
+import { logError, logInfo } from '../util/logging.js';
 
 export const addToShoppingCart = async (req, res) => {
   const email = req.user;
   const { productId } = req.params;
-
+  const { size, color } = req.body;
   const product = await Product.find({ _id: productId })
-    .populate({ path: "subCategory", select: "title category categoryTitle" })
+    .populate({ path: 'subCategory', select: 'title category categoryTitle' })
     .exec();
 
   const category = product[0]?.subCategory?.categoryTitle;
@@ -15,23 +15,23 @@ export const addToShoppingCart = async (req, res) => {
 
   const user = await User.find({ email: email });
   const isProductInTheCart = user[0].shoppingCart?.some(
-    (item) => item.productId.toString() === productId
+    (item) => item.productId.toString() === productId,
   );
   if (isProductInTheCart) {
     try {
       await User.findOneAndUpdate(
         { email: email },
-        { $inc: { "shoppingCart.$[item].amount": 1 } },
-        { arrayFilters: [{ "item.productId": productId }] }
+        { $inc: { 'shoppingCart.$[item].amount': 1 } },
+        { arrayFilters: [{ 'item.productId': productId }] },
       );
       const updatedUser = await User.find({ email: email }, { password: false })
         .populate({
-          path: "recentViews.productId",
-          select: "images price title rate",
+          path: 'recentViews.productId',
+          select: 'images price title rate',
         })
         .populate({
-          path: "shoppingCart.productId",
-          select: "images price title inStock rate brand",
+          path: 'shoppingCart.productId',
+          select: 'images price title inStock rate brand',
         })
         .exec();
       res.status(200).json({ success: true, result: updatedUser });
@@ -39,7 +39,7 @@ export const addToShoppingCart = async (req, res) => {
       logError(error);
       res.status(500).json({
         success: false,
-        msg: "Unable to update shopping cart, try again later",
+        msg: 'Unable to update shopping cart, try again later',
       });
     }
   } else {
@@ -53,18 +53,20 @@ export const addToShoppingCart = async (req, res) => {
               amount: 1,
               category,
               subCategory,
+              size,
+              color,
             },
           },
-        }
+        },
       );
       const updatedUser = await User.find({ email: email }, { password: false })
         .populate({
-          path: "recentViews.productId",
-          select: "images price title rate",
+          path: 'recentViews.productId',
+          select: 'images price title rate',
         })
         .populate({
-          path: "shoppingCart.productId",
-          select: "images price title inStock rate brand",
+          path: 'shoppingCart.productId',
+          select: 'images price title inStock rate brand',
         })
         .exec();
       res.status(200).json({ success: true, result: updatedUser });
@@ -72,7 +74,7 @@ export const addToShoppingCart = async (req, res) => {
       logError(error);
       res.status(500).json({
         success: false,
-        msg: "Unable to update shopping cart, try again later",
+        msg: 'Unable to update shopping cart, try again later',
       });
     }
   }
@@ -84,22 +86,22 @@ export const decreaseAmountOfProduct = async (req, res) => {
 
   const user = await User.find({ email: email });
   const product = user[0]?.shoppingCart?.find(
-    (item) => item.productId.toString() === productId
+    (item) => item.productId.toString() === productId,
   );
   if (product?.amount === 1) {
     try {
       await User.findOneAndUpdate(
         { email: email },
-        { $pull: { shoppingCart: { productId: productId } } }
+        { $pull: { shoppingCart: { productId: productId } } },
       );
       const updatedUser = await User.find({ email: email }, { password: false })
         .populate({
-          path: "recentViews.productId",
-          select: "images price title rate",
+          path: 'recentViews.productId',
+          select: 'images price title rate',
         })
         .populate({
-          path: "shoppingCart.productId",
-          select: "images price title inStock rate brand",
+          path: 'shoppingCart.productId',
+          select: 'images price title inStock rate brand',
         })
         .exec();
       res.status(200).json({ success: true, result: updatedUser });
@@ -107,24 +109,24 @@ export const decreaseAmountOfProduct = async (req, res) => {
       logError(error);
       res.status(500).json({
         success: false,
-        msg: "Unable to update shopping cart, try again later",
+        msg: 'Unable to update shopping cart, try again later',
       });
     }
   } else {
     try {
       await User.findOneAndUpdate(
         { email: email },
-        { $inc: { "shoppingCart.$[item].amount": -1 } },
-        { arrayFilters: [{ "item.productId": productId }] }
+        { $inc: { 'shoppingCart.$[item].amount': -1 } },
+        { arrayFilters: [{ 'item.productId': productId }] },
       );
       const updatedUser = await User.find({ email: email }, { password: false })
         .populate({
-          path: "recentViews.productId",
-          select: "images price title rate",
+          path: 'recentViews.productId',
+          select: 'images price title rate',
         })
         .populate({
-          path: "shoppingCart.productId",
-          select: "images price title inStock rate brand",
+          path: 'shoppingCart.productId',
+          select: 'images price title inStock rate brand',
         })
         .exec();
       res.status(200).json({ success: true, result: updatedUser });
@@ -132,7 +134,7 @@ export const decreaseAmountOfProduct = async (req, res) => {
       logError(error);
       res.status(500).json({
         success: false,
-        msg: "Unable to update shopping cart, try again later",
+        msg: 'Unable to update shopping cart, try again later',
       });
     }
   }
@@ -144,16 +146,16 @@ export const deleteItemFromShoppingCart = async (req, res) => {
   try {
     await User.findOneAndUpdate(
       { email: email },
-      { $pull: { shoppingCart: { productId: productId } } }
+      { $pull: { shoppingCart: { productId: productId } } },
     );
     const updatedUser = await User.find({ email: email }, { password: false })
       .populate({
-        path: "recentViews.productId",
-        select: "images price title rate",
+        path: 'recentViews.productId',
+        select: 'images price title rate',
       })
       .populate({
-        path: "shoppingCart.productId",
-        select: "images price title inStock rate brand",
+        path: 'shoppingCart.productId',
+        select: 'images price title inStock rate brand',
       })
       .exec();
     res.status(200).json({ success: true, result: updatedUser });
@@ -161,7 +163,7 @@ export const deleteItemFromShoppingCart = async (req, res) => {
     logError(error);
     res.status(500).json({
       success: false,
-      msg: "Unable to update shopping cart, try again later",
+      msg: 'Unable to update shopping cart, try again later',
     });
   }
 };
@@ -171,12 +173,12 @@ export const deleteShoppingCart = async (req, res) => {
     await User.findOneAndUpdate({ email: email }, { shoppingCart: [] });
     const updatedUser = await User.find({ email: email }, { password: false })
       .populate({
-        path: "recentViews.productId",
-        select: "images price title rate",
+        path: 'recentViews.productId',
+        select: 'images price title rate',
       })
       .populate({
-        path: "shoppingCart.productId",
-        select: "images price title inStock rate brand",
+        path: 'shoppingCart.productId',
+        select: 'images price title inStock rate brand',
       })
       .exec();
     res.status(200).json({ success: true, result: updatedUser });
@@ -184,7 +186,7 @@ export const deleteShoppingCart = async (req, res) => {
     logError(error);
     res.status(500).json({
       success: false,
-      msg: "Unable to delete shopping cart, try again later",
+      msg: 'Unable to delete shopping cart, try again later',
     });
   }
 };

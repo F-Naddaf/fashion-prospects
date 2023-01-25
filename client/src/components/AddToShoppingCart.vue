@@ -10,11 +10,14 @@ import { inject } from 'vue';
 
 export default {
   name: 'AddToShoppingCart',
-  props: ['productId'],
+  props: ['productId', 'color', 'size'],
   setup(props) {
     const store = inject('store');
     async function handleClick() {
       const token = localStorage.getItem('accessToken');
+      if (!props.color || !props.size) {
+        return;
+      }
       try {
         const response = await fetch(
           `http://localhost:5000/api/users/shopping-cart/add-to-cart/${props.productId}`,
@@ -24,6 +27,7 @@ export default {
               'Content-Type': 'application/json',
               Authorization: `accessToken ${token}`,
             },
+            body: JSON.stringify({ color: props.color, size: props.size }),
           },
         );
         const newUser = await response.json();

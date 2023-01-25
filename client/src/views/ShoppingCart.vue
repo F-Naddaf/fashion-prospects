@@ -12,7 +12,11 @@
           class="shopping-images"
         >
           <li>
-            <ProductShoppingCart :product="item.productId" />
+            <ProductShoppingCart
+              :product="item.productId"
+              :color="item.color"
+              :size="item.size"
+            />
           </li>
         </ul>
       </aside>
