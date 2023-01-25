@@ -141,4 +141,14 @@ export default {
   color: #01689c;
   color: black;
 }
+@media screen and (min-width: 1024px) {
+  .team-card {
+    width: 45%;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .team-card {
+    width: 40%;
+  }
+}
 </style>
