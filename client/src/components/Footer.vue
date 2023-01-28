@@ -105,6 +105,7 @@ a {
   display: flex;
   flex-direction: column;
   width: 30%;
+  height: 90%;
   align-items: center;
 }
 .logo-section {
@@ -113,14 +114,14 @@ a {
 }
 .logo-container p {
   color: rgba(255, 255, 255, 0.5);
-  margin-top: 40px;
-  font-size: 14px;
+  margin-top: 20px;
+  font-size: 10px;
 }
 .logo-container h3 {
-  font-size: 22px;
+  font-size: 18px;
 }
 img {
-  height: 100px;
+  height: 80px;
 }
 .logo-name {
   display: flex;
@@ -147,7 +148,7 @@ h3 {
   margin-bottom: 5px;
 }
 .copyright p {
-  font-size: 12px;
+  font-size: 8px;
   color: rgb(80, 80, 80);
 }
 .social-container {
@@ -172,5 +173,68 @@ h3 {
 }
 .social-container a p:hover {
   color: #ff0084;
+}
+@media screen and (min-width: 1024px) {
+  .overview-container .title {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .overview-container p {
+    margin-top: 0px;
+    font-size: 10px;
+  }
+  img {
+    height: 80px;
+  }
+  .logo-container p {
+    margin-top: 40px;
+    font-size: 10px;
+  }
+  .logo-container h3 {
+    font-size: 18px;
+  }
+  .copyright p {
+    font-size: 8px;
+  }
+  .social-container .title {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .social-container p {
+    font-size: 10px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .overview-container .title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  .overview-container p {
+    margin-top: 0px;
+    font-size: 14px;
+  }
+  img {
+    height: 80px;
+  }
+  .logo-container p {
+    margin-top: 40px;
+    font-size: 12px;
+  }
+  .logo-container h3 {
+    font-size: 22px;
+  }
+  .logo-container p {
+    margin-top: 40px;
+    font-size: 12px;
+  }
+  .copyright p {
+    font-size: 12px;
+  }
+  .social-container .title {
+    font-size: 18px;
+  }
+  .social-container p {
+    font-size: 14px;
+  }
 }
 </style>

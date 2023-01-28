@@ -82,7 +82,6 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 45px;
-  height: 75vh;
 }
 
 .favorite-title h3 {

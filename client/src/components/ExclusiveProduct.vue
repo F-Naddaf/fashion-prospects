@@ -108,4 +108,43 @@ img {
 .exc-product-title a:hover {
   background-color: #911053;
 }
+@media screen and (min-width: 1024px) {
+  .exc-product-title .title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 15%;
+  }
+  .exc-product-title h1 {
+    font-size: 26px;
+  }
+  .exc-product-title .description {
+    font-size: 12px;
+    width: 60%;
+  }
+  .exc-product-title a {
+    font-size: 14px;
+    margin-top: 30px;
+    font-weight: 700;
+    padding: 4px 12px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .exc-product-title .title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 15%;
+  }
+  .exc-product-title h1 {
+    font-size: 30px;
+  }
+  .exc-product-title .description {
+    font-size: 14px;
+    width: 60%;
+  }
+  .exc-product-title a {
+    font-size: 16px;
+    margin-top: 30px;
+    font-weight: 700;
+  }
+}
 </style>

@@ -8,7 +8,7 @@
       </p>
       <router-link to="/About">Explore Now</router-link>
     </div>
-    <img alt="banner-image" src="../assets/Banner-image.png">
+    <img alt="banner-image" src="../assets/Banner-image.png" />
   </div>
 </template>
 
@@ -60,5 +60,39 @@ export default {
 img {
   height: 75%;
   filter: drop-shadow(2px 5px 8px);
+}
+@media screen and (min-width: 1024px) {
+  .slogan {
+    width: 25%;
+  }
+  .slogan h3 {
+    font-size: 16px;
+  }
+  .slogan p {
+    font-size: 10px;
+  }
+  .hero-container a {
+    font-size: 14px;
+    margin-top: 30px;
+    font-weight: 700;
+    padding: 4px 12px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .slogan {
+    width: 35%;
+  }
+  .slogan h3 {
+    font-size: 30px;
+  }
+  .slogan p {
+    font-size: 14px;
+  }
+  .hero-container a {
+    font-size: 16px;
+    margin-top: 30px;
+    font-weight: 700;
+    padding: 6px 15px;
+  }
 }
 </style>

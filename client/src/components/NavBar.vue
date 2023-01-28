@@ -373,7 +373,7 @@ a:hover {
   height: fit-content;
   top: 7vh;
   padding: 0;
-  right: 35px;
+  right: -30px;
   align-items: center;
   background-color: #0091dc;
   border-top: 4px solid #ff0084;
@@ -391,7 +391,7 @@ a:hover {
 .user-drop-down::before {
   content: '';
   top: -15px;
-  left: 55px;
+  left: 50px;
   position: absolute;
   width: 0;
   height: 0;
@@ -426,5 +426,83 @@ a:hover {
   color: #ff0084;
   margin-bottom: 15px;
   margin-left: 2px;
+}
+@media screen and (min-width: 1024px) {
+  .logo-name h3 {
+    font-size: 12px;
+    margin-left: 4px;
+  }
+  .menu-container li {
+    font-size: 12px;
+  }
+  .drop-down::before {
+    left: 55px;
+  }
+  .category-list:hover .subcategory-drop-down {
+    right: 130px;
+  }
+  .user-drop-down a {
+    margin-left: 0px;
+    font-size: 12px;
+  }
+  .user-drop-down li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .user-btn:hover .user-drop-down {
+    right: -35px;
+  }
+  .user-drop-down::before {
+    left: 48px;
+  }
+  .fa-user {
+    font-size: 16px;
+  }
+  .fa-heart {
+    font-size: 16px;
+  }
+  .fa-bag-shopping {
+    font-size: 16px;
+  }
+  .fa-solid {
+    margin: 0 10px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .logo-name h3 {
+    font-size: 16px;
+    margin-left: 4px;
+  }
+  .menu-container li {
+    font-size: 16px;
+  }
+  .drop-down::before {
+    left: 60px;
+  }
+  .category-list:hover .subcategory-drop-down {
+    right: 144px;
+  }
+  .user-drop-down a {
+    font-size: 16px;
+  }
+  .user-btn:hover .user-drop-down {
+    right: -30px;
+  }
+  .user-drop-down::before {
+    left: 52px;
+  }
+  .fa-user {
+    font-size: 18px;
+  }
+  .fa-heart {
+    font-size: 18px;
+  }
+  .fa-bag-shopping {
+    font-size: 18px;
+  }
+  .fa-solid {
+    margin: 0 20px;
+  }
 }
 </style>

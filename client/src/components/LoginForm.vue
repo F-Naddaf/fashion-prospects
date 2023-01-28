@@ -37,12 +37,12 @@
 
 <script>
 import { onMounted, inject, ref } from 'vue';
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'LoginForm',
   setup() {
-    const router = useRouter()
+    const router = useRouter();
     const user = ref({
       email: '',
       password: '',
@@ -69,7 +69,7 @@ export default {
           localStorage.setItem('accessToken', result.accessToken);
           store.methods.login(result.user);
           setTimeout(() => {
-            router.push('/')
+            router.push('/');
           }, 2000);
         } else {
           errors.value.push(result.msg);
@@ -165,8 +165,48 @@ export default {
 }
 @media screen and (min-width: 1024px) {
   .login-input-form {
-  width: 90%;
-  margin-left: 5%;
+    width: 90%;
+    margin-left: 5%;
+  }
+  .error-section {
+    font-size: 12px;
+  }
+  .success-message {
+    font-size: 12px;
+  }
+  .form-container label p {
+    font-size: 10px;
+    top: -16px;
+  }
+  .form-container input::placeholder {
+    font-size: 10px;
+  }
+  .login-input-form button {
+    font-size: 12px;
+  }
+  .login-input-form a {
+    font-size: 10px;
+  }
 }
+@media screen and (min-width: 1024px) {
+  .error-section {
+    font-size: 14px;
+  }
+  .success-message {
+    font-size: 14px;
+  }
+  .form-container label p {
+    font-size: 12px;
+    top: -20px;
+  }
+  .form-container input::placeholder {
+    font-size: 12px;
+  }
+  .login-input-form button {
+    font-size: 14px;
+  }
+  .login-input-form a {
+    font-size: 12px;
+  }
 }
 </style>

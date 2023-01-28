@@ -233,5 +233,45 @@ export default {
     width: 90%;
     margin-bottom: -20px;
   }
+  .error-section {
+    font-size: 12px;
+  }
+  .success-message {
+    font-size: 12px;
+  }
+  .form-container label p {
+    font-size: 10px;
+    top: -16px;
+  }
+  .form-container input::placeholder {
+    font-size: 10px;
+  }
+  .signup-input-form button {
+    font-size: 12px;
+  }
+  .signup-input-form a {
+    font-size: 10px;
+  } 
+}
+@media screen and (min-width: 1440px) {
+  .error-section {
+    font-size: 14px;
+  }
+  .success-message {
+    font-size: 14px;
+  }
+  .form-container label p {
+    font-size: 12px;
+    top: -20px;
+  }
+  .form-container input::placeholder {
+    font-size: 12px;
+  }
+  .signup-input-form button {
+    font-size: 14px;
+  }
+  .signup-input-form a {
+    font-size: 12px;
+  } 
 }
 </style>
