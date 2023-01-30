@@ -170,6 +170,7 @@ export default {
 }
 .user-name {
   color: white;
+  font-size: 14px;
 }
 nav {
   display: flex;
@@ -381,6 +382,8 @@ a:hover {
 }
 .user-drop-down li {
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 .user-btn {
   padding: 0;
@@ -420,12 +423,16 @@ a:hover {
 }
 .shopping-cart-container {
   display: flex;
+  position: relative;
   align-items: flex-end;
 }
 .shopping-cart-container .items {
   color: #ff0084;
   margin-bottom: 15px;
-  margin-left: 2px;
+  position: absolute;
+  font-size: 12px;
+  right: 0;
+  top: 2px;
 }
 @media screen and (min-width: 1024px) {
   .logo-name h3 {
@@ -445,16 +452,14 @@ a:hover {
     margin-left: 0px;
     font-size: 12px;
   }
-  .user-drop-down li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
   .user-btn:hover .user-drop-down {
     right: -35px;
   }
   .user-drop-down::before {
     left: 48px;
+  }
+  .user-name {
+    font-size: 12px;
   }
   .fa-user {
     font-size: 16px;
@@ -467,6 +472,9 @@ a:hover {
   }
   .fa-solid {
     margin: 0 10px;
+  }
+  .shopping-cart-container .items {
+    top: 12px;
   }
 }
 @media screen and (min-width: 1440px) {
@@ -492,6 +500,9 @@ a:hover {
   .user-drop-down::before {
     left: 52px;
   }
+  .user-name {
+    font-size: 14px;
+  }
   .fa-user {
     font-size: 18px;
   }
@@ -503,6 +514,10 @@ a:hover {
   }
   .fa-solid {
     margin: 0 20px;
+  }
+  .shopping-cart-container .items {
+    right: 10px;
+    top: 12px;
   }
 }
 </style>

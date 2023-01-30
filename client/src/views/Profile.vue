@@ -91,6 +91,7 @@ export default {
 main {
   display: flex;
   flex-direction: column;
+  height: 70vh;
 }
 .profile-title h3 {
   font-size: 22px;

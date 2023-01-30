@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="main">
     <form @submit.prevent="handelSubmit" class="edit-profile-container">
       <i @click="$emit('close')" class="fa-solid fa-circle-xmark"></i>
       <div class="title">
@@ -111,7 +111,7 @@
         <button type="submit" class="submit">Submit</button>
       </div>
     </form>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -222,15 +222,15 @@ export default {
 </script>
 
 <style scoped>
-main {
-  display: flex;
+.main {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 10;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
+  height: 100vh;
 }
 .edit-profile-container {
   position: relative;
@@ -239,7 +239,7 @@ main {
   z-index: 20;
   background-color: white;
   border-radius: 20px;
-  margin: 150px auto;
+  margin: 100px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -275,7 +275,7 @@ main {
 .error-container {
   position: absolute;
   left: 60px;
-  top: 80px;
+  top: 120px;
   width: 100%;
   padding: 0;
 }
@@ -288,7 +288,7 @@ main {
 }
 .success-message {
   position: absolute;
-  top: 80px;
+  top: 120px;
   width: 100%;
   padding: 0;
   font-size: 14px;
@@ -330,7 +330,7 @@ main {
   width: 75%;
   justify-content: space-between;
   align-self: flex-end;
-  margin: 30px auto 0 auto;
+  margin: 30px auto 20px auto;
 }
 .close {
   padding: 5px 30px;
@@ -365,7 +365,7 @@ main {
 @media screen and (min-width: 1024px) {
   .edit-profile-container {
     width: 65%;
-    height: 65%;
+    height: 75%;
   }
   .input-container {
     width: 80%;
@@ -376,8 +376,8 @@ main {
 }
 @media screen and (min-width: 1440px) {
   .edit-profile-container {
-    width: 50%;
-    height: 50%;
+    width: 65%;
+    height: 75%;
   }
   .input-container {
     width: 80%;
