@@ -235,11 +235,18 @@ textarea {
 .submit:hover {
   background-color: #911053;
 }
-
 .close:hover {
   border: 1px solid #01689c;
   background-color: #01689c;
   color: white;
   cursor: pointer;
+}
+@media screen and (min-width: 1024px) {
+  .input-field {
+    width: 90%;
+  }
+  .btns {
+    width: 85%;
+  }
 }
 </style>

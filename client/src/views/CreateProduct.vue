@@ -21,6 +21,7 @@
               type="text"
               placeholder="Add the title here"
               v-model="product.title"
+              required
             />
           </div>
           <div class="input-field">
@@ -31,6 +32,7 @@
               type="number"
               placeholder="Add a price by Euro"
               v-model="product.price"
+              required
             />
           </div>
           <div class="input-field">
@@ -41,6 +43,7 @@
               type="number"
               placeholder="Enter an available quantity "
               v-model="product.inStock"
+              required
             />
           </div>
           <div class="input-field">
@@ -415,11 +418,36 @@ textarea {
 .submit:hover {
   background-color: #911053;
 }
-
 .close:hover {
   border: 1px solid #01689c;
   background-color: #01689c;
   color: white;
   cursor: pointer;
+}
+@media screen and (min-width: 1024px) {
+  main {
+    width: 90%;
+  }
+  .input-field h3 {
+    font-size: 14px;
+    margin: 5px 5px;
+  }
+  .left-container,
+  .right-container {
+    width: 49%;
+  }
+}
+@media screen and (min-width: 1440px) {
+  main {
+    width: 80%;
+  }
+  .input-field h3 {
+    font-size: 16px;
+    margin: 5px 10px;
+  }
+  .left-container,
+  .right-container {
+    width: 45%;
+  }
 }
 </style>

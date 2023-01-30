@@ -1,14 +1,14 @@
 <template>
-    <div class="image-container">
-      <img :src="product.images" />
-    </div>
-    <div class="product-details">
-      <p class="title">
-        {{ product?.title }}
-      </p>
-      <p v-if="product?.price" class="price">€ {{ product?.price }}</p>
-    </div>
-    <ProductRate :rate="product?.rate" />
+  <div class="image-container">
+    <img :src="product.images" />
+  </div>
+  <div class="product-details">
+    <p class="title">
+      {{ product?.title }}
+    </p>
+    <p v-if="product?.price" class="price">€ {{ product?.price }}</p>
+  </div>
+  <ProductRate :rate="product?.rate" />
 </template>
 
 <script>
@@ -46,5 +46,21 @@ img {
 .btns-container {
   display: flex;
   justify-content: space-evenly;
+}
+@media screen and (min-width: 1024px) {
+  .image-container {
+    width: 180px;
+  }
+  img {
+    height: auto;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .image-container {
+    width: 208px;
+  }
+  img {
+    height: auto;
+  }
 }
 </style>

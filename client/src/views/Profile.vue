@@ -88,18 +88,21 @@ export default {
 </script>
 
 <style scoped>
+main {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+}
 .profile-title h3 {
   font-size: 22px;
   color: #01689c;
 }
-
 .profile-title {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px 0 100px 0;
 }
-
 .profile-title span {
   width: 75px;
   height: 3px;
@@ -107,21 +110,18 @@ export default {
   margin: -18px 0 0 0;
   background-color: #ff0084;
 }
-
 .personal-info-container {
   display: flex;
   justify-content: space-around;
-  margin: 40px auto;
+  margin: 0 auto 15% auto;
   width: 90%;
 }
-
 .image-container {
   position: relative;
   display: flex;
   justify-content: flex-end;
   width: 20%;
 }
-
 .user-icon {
   display: flex;
   justify-content: center;
@@ -130,14 +130,12 @@ export default {
   background-color: #2c3e50;
   border-radius: 100px;
 }
-
 .fa-user {
   font-size: 160px;
   align-self: center;
   padding-bottom: 15px;
   color: #f3f5f6;
 }
-
 .form-container {
   display: flex;
   flex-direction: column;
@@ -145,31 +143,26 @@ export default {
   justify-content: center;
   width: 20%;
 }
-
 .personal-info {
   display: flex;
   align-items: center;
   height: 30px;
   width: 100%;
 }
-
 .personal-info span {
   color: #ff0084;
   padding-right: 10px;
 }
-
 .personal-info h3 {
   font-size: 16px;
   padding-right: 10px;
   font-weight: 500;
   color: #01689c;
 }
-
 .personal-info p {
   font-size: 16px;
   padding-right: 10px;
 }
-
 .edit-info {
   width: 95px;
   text-decoration: underline;
@@ -183,7 +176,6 @@ export default {
   bottom: -20px;
   right: 0;
 }
-
 .edit-image {
   position: absolute;
   width: 95px;

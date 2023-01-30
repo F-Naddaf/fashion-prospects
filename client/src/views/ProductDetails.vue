@@ -114,9 +114,9 @@
         <p>{{ productDetails }}</p>
       </div>
       <div class="product-extra-details">
-        <h4>Composition:</h4>
+        <h3>Composition:</h3>
         <p>{{ productComposition }}</p>
-        <h4 v-if="maintenanceInstructions">maintenance instructions:</h4>
+        <h3 v-if="maintenanceInstructions">maintenance instructions:</h3>
         <p>{{ maintenanceInstructions }}</p>
       </div>
     </div>
@@ -423,8 +423,8 @@ a {
   display: flex;
   width: 85%;
   margin: 100px auto;
-  align-items: center;
   justify-content: space-around;
+  align-items: flex-start;
 }
 .product-description,
 .product-extra-details {

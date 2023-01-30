@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="main">
     <form @submit.prevent="handelSubmit" class="edit-profile-container">
       <i @click="$emit('close')" class="fa-solid fa-circle-xmark"></i>
       <div class="title">
@@ -111,7 +111,7 @@
         <button type="submit" class="submit">Submit</button>
       </div>
     </form>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -142,10 +142,10 @@ export default {
       this.errors.length = 0;
       const firstName = this.first
         ? this.first
-        : store.state.userInfo.fullName.first;
+        : store.state.userInfo.fullName?.first;
       const lastName = this.last
         ? this.last
-        : store.state.userInfo.fullName.last;
+        : store.state.userInfo.fullName?.last;
       const requestData = {
         userName: this.user.userName,
         fullName: { first: firstName, last: lastName },
@@ -167,11 +167,11 @@ export default {
         });
         const res = await userResponse.json();
         if (res.success) {
+          success.value = 'You have edit your profile successfully';
           setTimeout(() => {
             props.close();
             store.methods.updateUser(res.result);
           }, 2000);
-          success.value = 'You have edit your profile successfully';
         } else {
           errors.value.push(res.msg);
         }
@@ -222,17 +222,16 @@ export default {
 </script>
 
 <style scoped>
-main {
-  display: flex;
+.main {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 10;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
+  height: 100vh;
 }
-
 .edit-profile-container {
   position: relative;
   width: 50%;
@@ -240,13 +239,12 @@ main {
   z-index: 20;
   background-color: white;
   border-radius: 20px;
-  margin: 150px auto;
+  margin: 100px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }
-
 .fa-circle-xmark {
   position: absolute;
   top: 7px;
@@ -255,22 +253,18 @@ main {
   color: #ff0084;
   cursor: pointer;
 }
-
 .fa-circle-xmark:hover {
   color: #911053;
 }
-
 .title h3 {
   font-size: 22px;
   color: #01689c;
 }
-
 .title {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .title span {
   width: 75px;
   height: 3px;
@@ -278,15 +272,13 @@ main {
   margin: -18px 0 0 0;
   background-color: #ff0084;
 }
-
 .error-container {
   position: absolute;
   left: 60px;
-  top: 80px;
+  top: 120px;
   width: 100%;
   padding: 0;
 }
-
 .error-section {
   font-size: 14px;
   text-align: justify;
@@ -294,23 +286,20 @@ main {
   padding-bottom: 10px;
   line-height: 1;
 }
-
 .success-message {
   position: absolute;
-  top: 80px;
+  top: 120px;
   width: 100%;
   padding: 0;
   font-size: 14px;
   color: green;
 }
-
 .input-container {
   display: flex;
   flex-direction: column;
   width: 50%;
   margin-top: 40px;
 }
-
 .input-field {
   display: flex;
   align-items: center;
@@ -318,7 +307,6 @@ main {
   margin: auto;
   width: 100%;
 }
-
 .input-field h3 {
   font-size: 16px;
   padding-right: 10px;
@@ -326,26 +314,24 @@ main {
   color: #01689c;
   margin: 5px 10px;
 }
-
 .input-field p {
+  display: flex;
+  width: 70%;
   font-size: 16px;
   padding-right: 10px;
   font-weight: 600;
 }
-
 .input-field input {
   padding: 2px;
   color: #ff0084;
 }
-
 .btns {
   display: flex;
   width: 75%;
   justify-content: space-between;
   align-self: flex-end;
-  margin: 30px auto 0 auto;
+  margin: 30px auto 20px auto;
 }
-
 .close {
   padding: 5px 30px;
   border: 1px solid #ff0084;
@@ -355,7 +341,6 @@ main {
   color: #ff0084;
   cursor: pointer;
 }
-
 .submit {
   padding: 5px 30px;
   border: none;
@@ -365,11 +350,9 @@ main {
   color: white;
   cursor: pointer;
 }
-
 .submit:hover {
   background-color: #911053;
 }
-
 .close:hover {
   padding: 5px 30px;
   border: 1px solid #ff0084;
@@ -378,5 +361,29 @@ main {
   font-weight: 600;
   color: white;
   cursor: pointer;
+}
+@media screen and (min-width: 1024px) {
+  .edit-profile-container {
+    width: 65%;
+    height: 75%;
+  }
+  .input-container {
+    width: 80%;
+  }
+  .input-field input {
+    width: 70%;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .edit-profile-container {
+    width: 65%;
+    height: 75%;
+  }
+  .input-container {
+    width: 80%;
+  }
+  .input-field input {
+    width: 70%;
+  }
 }
 </style>

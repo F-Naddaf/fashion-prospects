@@ -455,4 +455,30 @@ textarea {
   background-color: #01689c;
   color: white;
 }
+@media screen and (min-width: 1024px) {
+  main {
+    width: 90%;
+  }
+  .input-field h3 {
+    font-size: 14px;
+    margin: 5px 5px;
+  }
+  .left-container,
+  .right-container {
+    width: 49%;
+  }
+}
+@media screen and (min-width: 1440px) {
+  main {
+    width: 80%;
+  }
+  .input-field h3 {
+    font-size: 16px;
+    margin: 5px 10px;
+  }
+  .left-container,
+  .right-container {
+    width: 45%;
+  }
+}
 </style>
