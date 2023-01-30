@@ -79,6 +79,7 @@ client
         └── CategoryPage.vue
         └── Contact.vue
         └── CreateProduct.vue
+        └── CreateSubCategory.vue
         └── EditProduct.vue
         └── Favorite.vue
         └── Home.vue
@@ -88,8 +89,6 @@ client
         └── ShoppingCart.vue
     App.vue
     main.jsx
-public
-└── index.html
 server
 └── src
     └── controllers
@@ -116,6 +115,5 @@ server
         └── validationErrorMessage.js
     app.js
     index.js
-    testRouter.js
 README.md
 ```
