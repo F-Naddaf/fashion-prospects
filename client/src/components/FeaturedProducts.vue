@@ -39,7 +39,7 @@ export default {
     this.isLoading = true;
     try {
       const getProduct = await fetch(
-        'https://amused-pear-deer.cyclic.app/api/products',
+        'https://fashion-prospects-production.up.railway.app//api/products',
       );
       const response = await getProduct.json();
       const products = response.result;

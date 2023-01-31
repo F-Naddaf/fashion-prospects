@@ -128,7 +128,7 @@ export default {
     onMounted(async () => {
       try {
         const result = await fetch(
-          'https://amused-pear-deer.cyclic.app/api/categories',
+          'https://fashion-prospects-production.up.railway.app//api/categories',
         );
         const res = await result.json();
         categoryList.value = res.result;
@@ -140,7 +140,7 @@ export default {
       isLoading.value = true;
       try {
         const result = await fetch(
-          `https://amused-pear-deer.cyclic.app/api/subcategories/${id}`,
+          `https://fashion-prospects-production.up.railway.app//api/subcategories/${id}`,
         );
         const res = await result.json();
         subcategoryList.value = res.result;

@@ -57,7 +57,7 @@ export default {
       this.errors.value = [];
       try {
         const response = await fetch(
-          `https://amused-pear-deer.cyclic.app/api/users/login`,
+          `https://fashion-prospects-production.up.railway.app//api/users/login`,
           {
             method: 'POST',
             headers: {

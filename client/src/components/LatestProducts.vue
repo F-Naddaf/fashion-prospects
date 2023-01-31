@@ -83,7 +83,7 @@ export default {
     this.isLoading = true;
     try {
       const result = await fetch(
-        'https://amused-pear-deer.cyclic.app/api/products',
+        'https://fashion-prospects-production.up.railway.app//api/products',
       );
       const res = await result.json();
       const topEightProducts = res.result.slice(0, 10);

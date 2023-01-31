@@ -69,7 +69,7 @@ export default {
           return;
         }
         const response = await fetch(
-          `https://amused-pear-deer.cyclic.app/api/users/create`,
+          `https://fashion-prospects-production.up.railway.app//api/users/create`,
           {
             method: 'POST',
             headers: {

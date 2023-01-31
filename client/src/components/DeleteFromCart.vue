@@ -16,7 +16,7 @@ export default {
       const token = localStorage.getItem('accessToken');
       try {
         const response = await fetch(
-          `https://amused-pear-deer.cyclic.app/api/users/shopping-cart/delete-item/${props.productId}`,
+          `https://fashion-prospects-production.up.railway.app//api/users/shopping-cart/delete-item/${props.productId}`,
           {
             method: 'PATCH',
             headers: {

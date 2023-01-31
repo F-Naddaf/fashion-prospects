@@ -10,7 +10,7 @@ const methods = {
     if (token) {
       try {
         const userResponse = await fetch(
-          'https://amused-pear-deer.cyclic.app/api/users',
+          'https://fashion-prospects-production.up.railway.app//api/users',
           {
             method: 'GET',
             headers: {

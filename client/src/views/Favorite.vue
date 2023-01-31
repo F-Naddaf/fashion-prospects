@@ -47,7 +47,7 @@ export default {
       const token = localStorage.getItem('accessToken');
       try {
         const result = await fetch(
-          'https://amused-pear-deer.cyclic.app/api/products/favorites',
+          'https://fashion-prospects-production.up.railway.app//api/products/favorites',
           {
             method: 'GET',
             headers: {
