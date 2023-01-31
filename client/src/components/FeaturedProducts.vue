@@ -38,7 +38,9 @@ export default {
   async mounted() {
     this.isLoading = true;
     try {
-      const getProduct = await fetch('http://localhost:5000/api/products');
+      const getProduct = await fetch(
+        'https://amused-pear-deer.cyclic.app/api/products',
+      );
       const response = await getProduct.json();
       const products = response.result;
       const sortProductRate = products.sort((a, b) => {

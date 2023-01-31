@@ -45,7 +45,7 @@ export default {
     async function deleteProduct() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/delete/${props.productId}`,
+          `https://amused-pear-deer.cyclic.app/api/products/delete/${props.productId}`,
           {
             method: 'DELETE',
             body: JSON.stringify(props.productId),

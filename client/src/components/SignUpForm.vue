@@ -68,13 +68,16 @@ export default {
         if (!this.validateForm()) {
           return;
         }
-        const response = await fetch(`http://localhost:5000/api/users/create`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `https://amused-pear-deer.cyclic.app/api/users/create`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.user),
           },
-          body: JSON.stringify(this.user),
-        });
+        );
         const result = await response.json();
         if (result.success) {
           setTimeout(() => {

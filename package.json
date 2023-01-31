@@ -4,11 +4,18 @@
   "description": "This app helps the freelance chefs to post their meals and sale them online.\r Our registered clients can order the meals they want or choosing a specific chef to order from according to his rate or cuisine.\r The guest user can have overview about our app also but with a limited permissions.",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "npm run start:server",
     "start:server": "cd server && npm run start && cd ..",
     "dev:client": "cd client && npm run serve && cd ..",
     "dev:server": "cd server && npm run start && cd ..",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
+=======
+    "start": "node ./server/src/index.js",
+    "server": "nodemon npm start ./server/src/index.js --ignore 'client/'",
+    "client": "npm run serve --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+>>>>>>> main
   },
   "repository": {
     "type": "git",
@@ -25,7 +32,10 @@
     "concurrently": "^7.6.0"
   },
   "dependencies": {
+<<<<<<< HEAD
     "cors": "^2.8.5",
+=======
+>>>>>>> main
     "dotenv": "^16.0.3"
   }
 }
