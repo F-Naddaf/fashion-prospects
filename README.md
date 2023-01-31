@@ -37,7 +37,19 @@ Project link is available at [Fashion Prospects App](https://c38-group2.herokuap
 <img src="./client/public/images/node.png" alt="node" width="150" />
 <img src="./client/public/images/css.png" alt="css" width="150" />
 
-## 5. Code structure
+## 5. Setup
+
+First, to setup all the directories run the following in the main directory:
+
+Run the command `npm install` at the server, client and main root.
+
+In the `main` directory there is `.env` file.
+
+To run the app in dev mode you can run the following command in the main directory:
+
+`npm run dev`
+
+## 6. Code structure
 
 ```
 client
