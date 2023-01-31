@@ -239,7 +239,7 @@ export default {
       };
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/create`,
+          `https://amused-pear-deer.cyclic.app/api/products/create`,
           {
             method: 'POST',
             headers: {

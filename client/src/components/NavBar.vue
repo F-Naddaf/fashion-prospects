@@ -127,7 +127,7 @@ export default {
     });
     onMounted(async () => {
       try {
-        const result = await fetch('http://localhost:5000/api/categories');
+        const result = await fetch('https://amused-pear-deer.cyclic.app/api/categories');
         const res = await result.json();
         categoryList.value = res.result;
       } catch (error) {
@@ -138,7 +138,7 @@ export default {
       isLoading.value = true;
       try {
         const result = await fetch(
-          `http://localhost:5000/api/subcategories/${id}`,
+          `https://amused-pear-deer.cyclic.app/api/subcategories/${id}`,
         );
         const res = await result.json();
         subcategoryList.value = res.result;

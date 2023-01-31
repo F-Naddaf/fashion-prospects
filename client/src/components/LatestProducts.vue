@@ -82,7 +82,9 @@ export default {
   async mounted() {
     this.isLoading = true;
     try {
-      const result = await fetch('http://localhost:5000/api/products');
+      const result = await fetch(
+        'https://amused-pear-deer.cyclic.app/api/products',
+      );
       const res = await result.json();
       const topEightProducts = res.result.slice(0, 10);
       this.latestProducts = topEightProducts;

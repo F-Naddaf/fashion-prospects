@@ -41,7 +41,7 @@ export default {
   async mounted() {
     this.isLoading = true;
     try {
-      const result = await fetch(`http://localhost:5000/api/categories`);
+      const result = await fetch(`https://amused-pear-deer.cyclic.app/api/categories`);
       const res = await result.json();
       this.categories = res.result;
       this.isLoading = false;
