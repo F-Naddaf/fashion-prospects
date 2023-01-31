@@ -157,17 +157,14 @@ export default {
         if (!validateEditForm()) {
           return;
         }
-        const userResponse = await fetch(
-          'https://amused-pear-deer.cyclic.app/api/users',
-          {
-            method: 'PATCH',
-            headers: {
-              'content-type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(requestData),
+        const userResponse = await fetch('http://localhost:5000/api/users', {
+          method: 'PATCH',
+          headers: {
+            'content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
-        );
+          body: JSON.stringify(requestData),
+        });
         const res = await userResponse.json();
         if (res.success) {
           success.value = 'You have edit your profile successfully';

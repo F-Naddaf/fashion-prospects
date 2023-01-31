@@ -20,7 +20,7 @@ export default {
       }
       try {
         const response = await fetch(
-          `https://amused-pear-deer.cyclic.app/api/users/shopping-cart/add-to-cart/${props.productId}`,
+          `http://localhost:5000/api/users/shopping-cart/add-to-cart/${props.productId}`,
           {
             method: 'PATCH',
             headers: {

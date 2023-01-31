@@ -71,7 +71,7 @@ export default {
       };
       try {
         const response = await fetch(
-          `https://amused-pear-deer.cyclic.app/api/subcategories/create`,
+          `http://localhost:5000/api/subcategories/create`,
           {
             method: 'POST',
             headers: {

@@ -9,16 +9,13 @@ const methods = {
     const token = localStorage.getItem('accessToken');
     if (token) {
       try {
-        const userResponse = await fetch(
-          'https://amused-pear-deer.cyclic.app/api/users',
-          {
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
+        const userResponse = await fetch('http://localhost:5000/api/users', {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
-        );
+        });
         const result = await userResponse.json();
         state.userInfo = result.user;
       } catch (error) {

@@ -56,16 +56,13 @@ export default {
     async function handelSubmit() {
       this.errors.value = [];
       try {
-        const response = await fetch(
-          `https://amused-pear-deer.cyclic.app/api/users/login`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.user),
+        const response = await fetch(`http://localhost:5000/api/users/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
+          body: JSON.stringify(this.user),
+        });
         const result = await response.json();
         if (result.success) {
           success.value = 'You have logged in successfully';

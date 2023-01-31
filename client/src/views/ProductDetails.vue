@@ -177,7 +177,7 @@ export default {
     const token = localStorage.getItem('accessToken');
     try {
       await fetch(
-        `https://amused-pear-deer.cyclic.app/api/users/add-to-recent/${this.productId}`,
+        `http://localhost:5000/api/users/add-to-recent/${this.productId}`,
         {
           method: 'PATCH',
           headers: {
@@ -191,7 +191,7 @@ export default {
         },
       );
       const result = await fetch(
-        `https://amused-pear-deer.cyclic.app/api/products/product_detail/${this.productId}`,
+        `http://localhost:5000/api/products/product_detail/${this.productId}`,
       );
       const res = await result.json();
       const getQuantity = res.result.inStock;
