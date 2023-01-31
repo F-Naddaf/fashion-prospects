@@ -4,7 +4,17 @@
       <h3>Shopping Basket</h3>
       <span></span>
     </div>
-    <div class="products-container">
+    <div
+      v-if="store.state.userInfo?.shoppingCart.length === 0"
+      class="products-container"
+    >
+      <img
+        src="../../public/images/no-content-placeholder.svg"
+        alt="No product"
+        height="400"
+      />
+    </div>
+    <div v-else class="products-container">
       <aside v-if="store.state.userInfo" class="shopping-cart-section">
         <ul
           v-for="item in store.state.userInfo?.shoppingCart"
