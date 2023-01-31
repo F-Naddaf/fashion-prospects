@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "This app helps the freelance chefs to post their meals and sale them online.\r Our registered clients can order the meals they want or choosing a specific chef to order from according to his rate or cuisine.\r The guest user can have overview about our app also but with a limited permissions.",
   "scripts": {
-    "start": "node ./server/src/index.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon npm start index.js --ignore 'client/'",
-    "client": "npm run serve --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "client": "npm run serve --prefix client"
   },
   "repository": {
     "type": "git",
