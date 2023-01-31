@@ -127,13 +127,9 @@ export default {
     });
     onMounted(async () => {
       try {
-<<<<<<< HEAD
         const result = await fetch(
           'https://amused-pear-deer.cyclic.app/api/categories',
         );
-=======
-        const result = await fetch('https://amused-pear-deer.cyclic.app/api/categories');
->>>>>>> main
         const res = await result.json();
         categoryList.value = res.result;
       } catch (error) {
