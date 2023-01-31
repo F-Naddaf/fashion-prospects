@@ -2,10 +2,12 @@
   "name": "fashion-prospects",
   "version": "1.0.0",
   "description": "This app helps the freelance chefs to post their meals and sale them online.\r Our registered clients can order the meals they want or choosing a specific chef to order from according to his rate or cuisine.\r The guest user can have overview about our app also but with a limited permissions.",
+  "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "npm run start:server",
     "server": "nodemon npm start index.js --ignore 'client/'",
-    "client": "npm run serve --prefix client"
+    "client": "npm run serve --prefix client",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
   },
   "repository": {
     "type": "git",
