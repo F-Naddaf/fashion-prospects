@@ -105,7 +105,6 @@ a {
   display: flex;
   flex-direction: column;
   width: 30%;
-  height: 90%;
   align-items: center;
 }
 .logo-section {

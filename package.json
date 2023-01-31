@@ -1,0 +1,25 @@
+{
+  "name": "fashion-prospects",
+  "version": "1.0.0",
+  "description": "This app helps the freelance chefs to post their meals and sale them online.\r Our registered clients can order the meals they want or choosing a specific chef to order from according to his rate or cuisine.\r The guest user can have overview about our app also but with a limited permissions.",
+  "main": "./server/src/index.js",
+  "scripts": {
+    "server": "nodemon npm start index.js --ignore 'client/'",
+    "client": "npm run serve --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/F-Naddaf/fashion-prospects.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/F-Naddaf/fashion-prospects/issues"
+  },
+  "homepage": "https://github.com/F-Naddaf/fashion-prospects#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
