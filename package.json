@@ -20,11 +20,9 @@
     "url": "https://github.com/F-Naddaf/fashion-prospects/issues"
   },
   "homepage": "https://github.com/F-Naddaf/fashion-prospects#readme",
-  "devDependencies": {
-    "concurrently": "^7.6.0"
-  },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "concurrently": "^7.6.0"
   }
 }
