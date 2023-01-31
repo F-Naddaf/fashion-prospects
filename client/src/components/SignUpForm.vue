@@ -49,6 +49,7 @@
 <script>
 export default {
   name: 'SignUpForm',
+  
   data() {
     return {
       user: {
