@@ -34,7 +34,7 @@ export default {
       const token = localStorage.getItem('accessToken');
       try {
         const response = await fetch(
-          `http://localhost:5000/api/users/add-favorite/${props.productId}`,
+          `https://amused-pear-deer.cyclic.app/api/users/add-favorite/${props.productId}`,
           {
             method: 'PATCH',
             headers: {

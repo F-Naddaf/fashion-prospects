@@ -64,7 +64,7 @@ export default {
     this.categoryTitle = this.$route.params.category;
     try {
       const result = await fetch(
-        `http://localhost:5000/api/subcategories/${this.categoryId}`,
+        `https://amused-pear-deer.cyclic.app/api/subcategories/${this.categoryId}`,
       );
       const res = await result.json();
       this.SubCategories = res.result;
