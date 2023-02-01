@@ -64,7 +64,7 @@ export default {
     this.categoryTitle = this.$route.params.category;
     try {
       const result = await fetch(
-        `https://fashion-prospects-production.up.railway.app//api/subcategories/${this.categoryId}`,
+        `https://fashion-server.onrender.com//api/subcategories/${this.categoryId}`,
       );
       const res = await result.json();
       this.SubCategories = res.result;

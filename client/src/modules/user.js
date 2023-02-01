@@ -10,7 +10,7 @@ const methods = {
     if (token) {
       try {
         const userResponse = await fetch(
-          'https://fashion-prospects-production.up.railway.app//api/users',
+          'https://fashion-server.onrender.com//api/users',
           {
             method: 'GET',
             headers: {

@@ -45,7 +45,7 @@ export default {
     async function deleteProduct() {
       try {
         const response = await fetch(
-          `https://fashion-prospects-production.up.railway.app//api/products/delete/${props.productId}`,
+          `https://fashion-server.onrender.com//api/products/delete/${props.productId}`,
           {
             method: 'DELETE',
             body: JSON.stringify(props.productId),

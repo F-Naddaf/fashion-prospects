@@ -39,7 +39,7 @@ export default {
     this.isLoading = true;
     try {
       const getProduct = await fetch(
-        'https://fashion-prospects-production.up.railway.app//api/products',
+        'https://fashion-server.onrender.com//api/products',
       );
       const response = await getProduct.json();
       const products = response.result;

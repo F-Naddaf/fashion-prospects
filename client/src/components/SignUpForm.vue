@@ -49,7 +49,7 @@
 <script>
 export default {
   name: 'SignUpForm',
-  
+
   data() {
     return {
       user: {
@@ -70,7 +70,7 @@ export default {
           return;
         }
         const response = await fetch(
-          `https://fashion-prospects-production.up.railway.app//api/users/create`,
+          `https://fashion-server.onrender.com/api/users/create`,
           {
             method: 'POST',
             headers: {

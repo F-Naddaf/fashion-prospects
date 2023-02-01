@@ -34,7 +34,7 @@ export default {
       const token = localStorage.getItem('accessToken');
       try {
         const response = await fetch(
-          `https://fashion-prospects-production.up.railway.app//api/users/add-favorite/${props.productId}`,
+          `https://fashion-server.onrender.com//api/users/add-favorite/${props.productId}`,
           {
             method: 'PATCH',
             headers: {

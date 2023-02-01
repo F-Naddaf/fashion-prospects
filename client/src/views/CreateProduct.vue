@@ -239,7 +239,7 @@ export default {
       };
       try {
         const response = await fetch(
-          `https://fashion-prospects-production.up.railway.app//api/products/create`,
+          `https://fashion-server.onrender.com//api/products/create`,
           {
             method: 'POST',
             headers: {

@@ -83,7 +83,7 @@ export default {
     this.isLoading = true;
     try {
       const result = await fetch(
-        'https://fashion-prospects-production.up.railway.app//api/products',
+        'https://fashion-server.onrender.com//api/products',
       );
       const res = await result.json();
       const topEightProducts = res.result.slice(0, 10);
