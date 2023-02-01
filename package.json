@@ -22,6 +22,7 @@
   "homepage": "https://github.com/F-Naddaf/fashion-prospects#readme",
   "dependencies": {
     "@vue/cli": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "bcrypt": "^5.1.0",
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",
