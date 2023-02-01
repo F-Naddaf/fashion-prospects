@@ -1,6 +1,6 @@
 <template>
       <div class="image-container">
-        <img :src="category.image" />
+        <img :src="category?.image" />
       </div>
       <div class="product-details">
         <h3 class="title">
