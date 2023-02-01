@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
+    "setup": "npm run setup:client && npm run setup:server",
+    "setup:server": "cd server && npm run setup && cd ..",
     "dev:client": "cd client && npm run serve && cd ..",
     "dev:server": "cd server && npm run start && cd ..",
+    "build:server": "cd server && npm run start && cd ..",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
   },
   "repository": {
