@@ -128,7 +128,7 @@ export default {
     onMounted(async () => {
       try {
         const result = await fetch(
-          'https://fashion-server.onrender.com//api/categories',
+          'https://fashion-server.onrender.com/api/categories',
         );
         const res = await result.json();
         categoryList.value = res.result;
@@ -140,7 +140,7 @@ export default {
       isLoading.value = true;
       try {
         const result = await fetch(
-          `https://fashion-server.onrender.com//api/subcategories/${id}`,
+          `https://fashion-server.onrender.com/api/subcategories/${id}`,
         );
         const res = await result.json();
         subcategoryList.value = res.result;
