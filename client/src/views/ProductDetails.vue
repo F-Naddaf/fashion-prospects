@@ -177,7 +177,7 @@ export default {
     const token = localStorage.getItem('accessToken');
     try {
       await fetch(
-        `https://fashion-server.onrender.com//api/users/add-to-recent/${this.productId}`,
+        `https://fashion-server.onrender.com/api/users/add-to-recent/${this.productId}`,
         {
           method: 'PATCH',
           headers: {
@@ -191,7 +191,7 @@ export default {
         },
       );
       const result = await fetch(
-        `https://fashion-server.onrender.com//api/products/product_detail/${this.productId}`,
+        `https://fashion-server.onrender.com/api/products/product_detail/${this.productId}`,
       );
       const res = await result.json();
       const getQuantity = res.result.inStock;

@@ -61,7 +61,7 @@ export default {
     this.subCategoryTitle = this.$route.params.item;
     try {
       const result = await fetch(
-        `https://fashion-server.onrender.com//api/products/filter-by-subcategory/${this.subCategoryId}`,
+        `https://fashion-server.onrender.com/api/products/filter-by-subcategory/${this.subCategoryId}`,
       );
       const res = await result.json();
       this.subCategories = res.result;

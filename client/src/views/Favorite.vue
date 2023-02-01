@@ -47,7 +47,7 @@ export default {
       const token = localStorage.getItem('accessToken');
       try {
         const result = await fetch(
-          'https://fashion-server.onrender.com//api/products/favorites',
+          'https://fashion-server.onrender.com/api/products/favorites',
           {
             method: 'GET',
             headers: {

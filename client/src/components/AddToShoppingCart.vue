@@ -20,7 +20,7 @@ export default {
       }
       try {
         const response = await fetch(
-          `https://fashion-server.onrender.com//api/users/shopping-cart/add-to-cart/${props.productId}`,
+          `https://fashion-server.onrender.com/api/users/shopping-cart/add-to-cart/${props.productId}`,
           {
             method: 'PATCH',
             headers: {

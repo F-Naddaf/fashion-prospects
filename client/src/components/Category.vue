@@ -42,7 +42,7 @@ export default {
     this.isLoading = true;
     try {
       const result = await fetch(
-        `https://fashion-server.onrender.com//api/categories`,
+        `https://fashion-server.onrender.com/api/categories`,
       );
       const res = await result.json();
       this.categories = res.result;

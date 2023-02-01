@@ -71,7 +71,7 @@ export default {
       };
       try {
         const response = await fetch(
-          `https://fashion-server.onrender.com//api/subcategories/create`,
+          `https://fashion-server.onrender.com/api/subcategories/create`,
           {
             method: 'POST',
             headers: {

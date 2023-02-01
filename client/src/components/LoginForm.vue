@@ -57,7 +57,7 @@ export default {
       this.errors.value = [];
       try {
         const response = await fetch(
-          `https://fashion-server.onrender.com//api/users/login`,
+          `https://fashion-server.onrender.com/api/users/login`,
           {
             method: 'POST',
             headers: {

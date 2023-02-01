@@ -207,7 +207,7 @@ export default {
     this.productId = this.$route.params.productId;
     try {
       const response = await fetch(
-        `https://fashion-server.onrender.com//api/products/product_detail/${this.productId}`,
+        `https://fashion-server.onrender.com/api/products/product_detail/${this.productId}`,
       );
       const res = await response.json();
       this.productDetail = res.result;
@@ -270,7 +270,7 @@ export default {
       };
       try {
         const response = await fetch(
-          `https://fashion-server.onrender.com//api/products/update/${this.productId}`,
+          `https://fashion-server.onrender.com/api/products/update/${this.productId}`,
           {
             method: 'PATCH',
             headers: {
