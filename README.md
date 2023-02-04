@@ -24,7 +24,7 @@ Password: asdasdA1!
 ## 3. Link and Preview
 
 ![App view](./client/public/images/Laptop.png)
-Project link is available at [Fashion Prospects App](https://c38-group2.herokuapp.com/)
+Project link is available at [Fashion Prospects App](https://fashion-client.onrender.com/)
 
 ### Color guide
 

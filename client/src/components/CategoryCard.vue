@@ -1,13 +1,15 @@
 <template>
-      <div class="image-container">
-        <img :src="category?.image" />
-      </div>
-      <div class="product-details">
-        <h3 class="title">
-          {{ category.title }}
-        </h3>
-      </div>
-      <ProductRate :rate="category?.rate" />
+  <div>
+    <div class="image-container">
+      <img :src="category?.image" />
+    </div>
+    <div class="product-details">
+      <h3 class="title">
+        {{ category.title }}
+      </h3>
+    </div>
+    <ProductRate :rate="category?.rate" />
+  </div>
 </template>
 
 <script>
