@@ -41,13 +41,11 @@ Project link is available at [Fashion Prospects App](https://fashion-client.onre
 
 First, to setup all the directories run the following in the main directory:
 
-Run the command `npm install` at the server, client and main root.
+First, run the command `npm install` at the main root. Then, run the command `npm run setup` that will install all the dependencies at the `server` and `client` directories.
 
-In the `main` directory there is one `.env` file only.
+There is only one `.env` file and that at the `server` directory.
 
-To run the app in dev mode you can run the following command in the main directory:
-
-`npm run dev`
+To run the app in dev mode you can run the following command in the main directory: `npm run dev`
 
 ## 6. Code structure
 
